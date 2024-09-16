@@ -1,6 +1,6 @@
 {
-  "name": "mistralys/cyberpunk-mods-db-php",
-  "description": "PHP classes to work with the Cyberpunk 2077 DB (separate package).",
+  "name": "mistralys/cyberpunk-mod-db-php",
+  "description": "PHP classes to work with the Cyberpunk 2077 DB.",
   "minimum-stability": "dev",
   "prefer-stable": true,
   "license": "MIT",
