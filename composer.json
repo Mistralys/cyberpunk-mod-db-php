@@ -1,0 +1,35 @@
+{
+  "name": "mistralys/cyberpunk-mods-db-php",
+  "description": "PHP classes to work with the Cyberpunk 2077 DB (separate package).",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Sebastian Mordziol",
+      "email": "s.mordziol@mistralys.eu"
+    }
+  ],
+  "autoload": {
+    "classmap": [
+      "src"
+    ]
+  },
+  "autoload-dev": {
+    "classmap": [
+      "tests/CPMDBTests/TestClasses"
+    ]
+  },
+  "require": {
+    "mistralys/application-utils-core": ">=2.2.4",
+    "mistralys/application-utils-collections": ">=1.1.2",
+    "mistralys/cyberpunk-mod-db": "dev-main",
+    "php": ">=8.2"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-latest",
+    "phpunit/phpunit": ">=11.3.5",
+    "phpstan/phpstan": ">=1.12.3",
+    "phpstan/phpstan-phpunit": ">=1.4.0"
+  }
+}
