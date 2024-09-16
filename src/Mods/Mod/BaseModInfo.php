@@ -38,7 +38,7 @@ abstract class BaseModInfo implements ModInfoInterface
         $this->id = $category->getFolderName().'-'.$dataFile->getBaseName();
 
         $this->screenFile = FileInfo::factory(sprintf(
-            '%s/%s.jpg',
+            '%s/screens/%s.jpg',
             $dataFolder,
             $dataFile->getBaseName()
         ));
