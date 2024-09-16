@@ -4,7 +4,7 @@ PHP Classes to access the [Cyberpunk 2077 Clothing Mod DB](https://github.com/Mi
 
 ## Requirements
 
-- PHP 7.4 or higher
+- PHP 8.2 or higher
 - [Composer](https://getcomposer.org/)
 - Webserver with PHP support
 
