@@ -24,6 +24,8 @@
     "mistralys/application-utils-core": ">=2.2.4",
     "mistralys/application-utils-collections": ">=1.1.2",
     "mistralys/cyberpunk-mod-db": ">=1.0",
+    "brick/event": ">=0.1.1",
+    "loupe/loupe": ">=0.7.0",
     "php": ">=8.2"
   },
   "require-dev": {
