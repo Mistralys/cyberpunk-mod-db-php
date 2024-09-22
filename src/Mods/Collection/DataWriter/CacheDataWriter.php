@@ -51,7 +51,7 @@ class CacheDataWriter
             $this->collectMod($mod);
         }
 
-        self::resolveCacheFile($this->cacheFolder)->putData($this->workData, false);
+        self::resolveCacheFile($this->cacheFolder)->putData($this->workData);
 
         $this->workData = array();
     }
