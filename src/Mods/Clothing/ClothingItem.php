@@ -20,6 +20,10 @@ class ClothingItem implements StringPrimaryRecordInterface
     private ArrayDataCollection $data;
     private ClothingModInfo $mod;
 
+    /**
+     * @param ClothingModInfo $mod
+     * @param array<string,mixed> $itemDef
+     */
     public function __construct(ClothingModInfo $mod, array $itemDef)
     {
         $this->mod = $mod;

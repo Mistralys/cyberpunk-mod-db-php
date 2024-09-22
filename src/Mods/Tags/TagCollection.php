@@ -33,9 +33,11 @@ class TagCollection extends BaseStringPrimaryCollection
         $names = FileHelper::createFileFinder(__DIR__.'/Types')->getPHPClassNames();
 
         foreach($names as $name) {
-            echo $name;
             $class = ClassHelper::resolveClassByReference($name, $refClass);
-            $this->registerItem(new $class());
+            $this->registerItem(ClassHelper::requireObjectInstanceOf(
+                TagInfoInterface::class,
+                new $class()
+            ));
         }
     }
 }

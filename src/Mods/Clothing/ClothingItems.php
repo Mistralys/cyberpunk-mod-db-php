@@ -25,10 +25,14 @@ class ClothingItems extends BaseStringPrimaryCollection
     private ClothingModInfo $modInfo;
 
     /**
-     * @var array<mixed>
+     * @var array<string,array<string,mixed>>
      */
     private array $itemData;
 
+    /**
+     * @param ClothingModInfo $modInfo
+     * @param array<string,array<string,mixed>> $items
+     */
     public function __construct(ClothingModInfo $modInfo, array $items)
     {
         $this->modInfo = $modInfo;

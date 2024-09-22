@@ -36,7 +36,13 @@ class FileDataLoader extends BaseDataLoader
 
         try
         {
-            return JSONFile::factory($path)->parse();
+            $result = array();
+
+            foreach(JSONFile::factory($path)->parse() as $key => $value) {
+                $result[(string)$key] = $value;
+            }
+
+            return $result;
         }
         catch (FileHelper_Exception $e)
         {

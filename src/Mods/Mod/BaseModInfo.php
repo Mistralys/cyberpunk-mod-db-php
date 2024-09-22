@@ -12,8 +12,10 @@ use AppUtils\ArrayDataCollection;
 use AppUtils\ConvertHelper;
 use AppUtils\FileHelper\FileInfo;
 use AppUtils\FileHelper\JSONFile;
+use CPMDB\Mods\Clothing\ClothingModInfo;
 use CPMDB\Mods\Collection\BaseCategory;
 use CPMDB\Mods\Tags\TagCollection;
+use CPMDB\Mods\Tags\Types\VirtualAtelier;
 
 /**
  * Abstract base class for mod information classes.
@@ -30,7 +32,7 @@ abstract class BaseModInfo implements ModInfoInterface
 
     protected JSONFile $dataFile;
     protected string $uuid;
-    protected ?ArrayDataCollection $data = null;
+    protected ArrayDataCollection $data;
     protected FileInfo $screenFile;
     protected string $dataURL;
     private BaseCategory $category;
@@ -109,12 +111,29 @@ abstract class BaseModInfo implements ModInfoInterface
 
     public function getURL() : string
     {
-        return $this->getRawData()->getString(self::KEY_URL);
+        return $this->data->getString(self::KEY_URL);
     }
+
+    /**
+     * @var string[]|null
+     */
+    private ?array $authors = null;
 
     public function getAuthors() : array
     {
-        return $this->getRawData()->getArray(self::KEY_AUTHORS);
+        if(isset($this->authors)) {
+            return $this->authors;
+        }
+
+        $this->authors = array();
+
+        foreach($this->data->getArray(self::KEY_AUTHORS) as $author) {
+            if(is_string($author)) {
+                $this->authors[] = $author;
+            }
+        }
+
+        return $this->authors;
     }
 
     /**
@@ -124,13 +143,23 @@ abstract class BaseModInfo implements ModInfoInterface
 
     public function getTags() : array
     {
-        if(!isset($this->tags)) {
-            $this->tags = $this->getRawData()->getArray(self::KEY_TAGS);
-            if($this->hasAtelier()) {
-                $this->tags[] = TagCollection::TAG_VIRTUAL_ATELIER;
-            }
-            sort($this->tags);
+        if(isset($this->tags)) {
+            return $this->tags;
         }
+
+        $this->tags = array();
+
+        foreach($this->data->getArray(self::KEY_TAGS) as $tag) {
+            if(is_string($tag)) {
+                $this->tags[] = $tag;
+            }
+        }
+
+        if($this instanceof ClothingModInfo && $this->hasAtelier()) {
+            $this->tags[] = VirtualAtelier::TAG_NAME;
+        }
+
+        sort($this->tags);
 
         return $this->tags;
     }

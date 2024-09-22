@@ -30,15 +30,25 @@ use CPMDB\Mods\Collection\ModCollection;
 class CacheDataLoader extends BaseDataLoader
 {
     /**
-     * @var array<string,array<string,mixed>>
+     * @var array<string,array<string,array<string,mixed>>>
      */
-    private array $data;
+    private array $data = array();
 
     public function __construct(ModCollection $collection, callable $registerCallback, FolderInfo $cacheFolder)
     {
         parent::__construct($collection, $registerCallback);
 
-        $this->data = CacheDataWriter::resolveCacheFile($cacheFolder)->parse();
+        $data = CacheDataWriter::resolveCacheFile($cacheFolder)->parse();
+
+        foreach($data as $categoryID => $mods) {
+            $categoryID = (string)$categoryID;
+            $mods = (array)$mods;
+
+            $this->data[$categoryID] = array();
+            foreach($mods as $modID => $modData) {
+                $this->data[$categoryID][(string)$modID] = (array)$modData;
+            }
+        }
     }
 
     public function getIDsByCategory(BaseCategory $category): array

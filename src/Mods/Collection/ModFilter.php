@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace CPMDB\Mods\Collection;
 
 use CPMDB\Mods\Clothing\ClothingModInfo;
+use CPMDB\Mods\Mod\ModInfoInterface;
 
 class ModFilter
 {
@@ -29,6 +30,9 @@ class ModFilter
         return $this;
     }
 
+    /**
+     * @return ModInfoInterface[]
+     */
     public function getAll() : array
     {
         $mods = $this->collection->getAll();
@@ -47,7 +51,7 @@ class ModFilter
         return $filtered;
     }
 
-    private function isMatch(ClothingModInfo $mod) : bool
+    private function isMatch(ModInfoInterface $mod) : bool
     {
         if(!empty($this->tags))
         {

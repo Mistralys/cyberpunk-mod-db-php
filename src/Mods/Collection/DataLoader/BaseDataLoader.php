@@ -56,7 +56,7 @@ abstract class BaseDataLoader implements DataLoaderInterface
         $modClass = $category->getModClass();
 
         $this->registerItem(ClassHelper::requireObjectInstanceOf(
-            $category->getModClass(),
+            ModInfoInterface::class,
             new $modClass(
                 $modID,
                 $category,

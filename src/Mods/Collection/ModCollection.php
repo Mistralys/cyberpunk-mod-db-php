@@ -12,6 +12,7 @@ use AppUtils\ClassHelper;
 use AppUtils\Collections\BaseStringPrimaryCollection;
 use AppUtils\FileHelper\FolderInfo;
 use AppUtils\FileHelper\JSONFile;
+use AppUtils\FileHelper\PathInfoInterface;
 use AppUtils\Interfaces\StringPrimaryRecordInterface;
 use Brick\Event\EventDispatcher;
 use CPMDB\Mods\Clothing\ClothingModInfo;
@@ -111,6 +112,10 @@ class ModCollection extends BaseStringPrimaryCollection
         return $this->categoryClothing;
     }
 
+    /**
+     * @param FolderInfo $dataFolder
+     * @return JSONFile[]
+     */
     public function getDataFiles(FolderInfo $dataFolder) : array
     {
         return $this->filterJSONFiles(
@@ -121,6 +126,10 @@ class ModCollection extends BaseStringPrimaryCollection
         );
     }
 
+    /**
+     * @param PathInfoInterface[] $files
+     * @return JSONFile[]
+     */
     private function filterJSONFiles(array $files) : array
     {
         $result = array();
