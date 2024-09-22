@@ -12,7 +12,6 @@ use AppUtils\FileHelper\JSONFile;
 use AppUtils\FileHelper_Exception;
 use CPMDB\Mods\Collection\BaseCategory;
 use CPMDB\Mods\Collection\DataLoader\BaseDataLoader;
-use CPMDB\Mods\Collection\DataWriter\CacheDataWriter;
 use CPMDB\Mods\Collection\ModCollectionException;
 
 /**

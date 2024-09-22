@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace CPMDB\Mods\Collection\DataLoader\Type;
 
 use AppUtils\FileHelper\FolderInfo;
-use AppUtils\FileHelper\SerializedFile;
 use CPMDB\Mods\Collection\BaseCategory;
 use CPMDB\Mods\Collection\DataLoader\BaseDataLoader;
 use CPMDB\Mods\Collection\DataWriter\CacheDataWriter;
