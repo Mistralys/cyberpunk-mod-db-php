@@ -1,14 +1,13 @@
 #!/usr/bin/env sh
 
 MemoryLimit=900M
-AnalysisLevel=5
 OutputFile=./result.txt
 ConfigFile=./config.neon
 BinFolder=./../../vendor/bin
 
 echo "-------------------------------------------------------"
-echo "RUNNING PHPSTAN @ LEVEL $AnalysisLevel"
+echo "RUNNING PHPSTAN ANALYSIS"
 echo "-------------------------------------------------------"
 echo ""
 
-$BinFolder/phpstan analyse -l $AnalysisLevel -c $ConfigFile --memory-limit=$MemoryLimit > $OutputFile
+$BinFolder/phpstan analyse -c $ConfigFile --memory-limit=$MemoryLimit > $OutputFile

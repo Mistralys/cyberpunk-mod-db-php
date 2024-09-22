@@ -1,6 +1,7 @@
 parameters:
+    level: 9
     bootstrapFiles:
         - ../bootstrap.php
     paths:
         - ../../src
-        - ../tests/CPMDBTests
+        - ../CPMDBTests
