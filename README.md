@@ -46,6 +46,7 @@ if($catsuit->hasImage()) {
 }
 ```
 
+
 ### Caching
 
 By default, the collection will cache the mod data in the specified 
@@ -71,4 +72,44 @@ the performance tests:
 
 ```bash
 php tests/performance/performance-test.php
+```
+
+## Tags
+
+Tags are used to categorize mods, using simple strings defined in the mod files
+(e.g. `CET` for the Cyber Engine Tweaks mod). All known tags used in the mod DB
+are included in the package.
+
+> Tags also have additional meta-data, such as a label and a category.
+
+### Tag name constants
+
+Tags can be referenced in code using the matching tag classes, which all have
+a constant with the tag's name. This makes it easier to avoid typos.
+
+```php
+$cetTag = \CPMDB\Mods\Tags\Types\CyberEngineTweaks::TAG_NAME;
+$clothingTag = \CPMDB\Mods\Tags\Types\Clothing::TAG_NAME;
+```
+
+### Getting all known tags
+
+All known tags are available via the `TagCollection` class, which has methods
+to access them.
+
+```php
+use CPMDB\Mods\Tags\TagCollection;
+use CPMDB\Mods\Tags\Types\CyberEngineTweaks;
+
+$collection = TagCollection::getInstance();
+
+// Get all tags
+$all = $collection->getAll();
+
+// Get a specific tag
+$cet = $collection->getByID(CyberEngineTweaks::TAG_NAME);
+
+// Additional tag meta data
+echo 'Full label: '.$cet->getLabel();
+echo 'Tag category: '.$cet->getCategory();
 ```
