@@ -23,10 +23,17 @@ abstract class BaseCategory implements ModCategoryInterface
     public const ERROR_NO_MODS_IN_COLLECTION = 164702;
 
     private ModCollection $collection;
+    private string $id;
 
     public function __construct(ModCollection $collection)
     {
         $this->collection = $collection;
+        $this->id = $this->getFolderName();
+    }
+
+    public function getID(): string
+    {
+        return $this->id;
     }
 
     public function getDataFolder() : FolderInfo
@@ -37,6 +44,11 @@ abstract class BaseCategory implements ModCategoryInterface
     public function getDataURL() : string
     {
         return $this->collection->getDataURL().'/'.$this->getFolderName();
+    }
+
+    public function getScreensURL() : string
+    {
+        return $this->getDataURL().'/screens';
     }
 
     public function getDataFiles() : array
