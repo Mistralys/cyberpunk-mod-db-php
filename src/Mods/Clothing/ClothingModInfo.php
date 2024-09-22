@@ -25,7 +25,7 @@ class ClothingModInfo extends BaseModInfo
 
     public function getAtelierURL() : string
     {
-        return $this->getData()->getString('atelier');
+        return $this->getRawData()->getString('atelier');
     }
 
     private ?ClothingItems $itemCollection = null;
@@ -33,7 +33,7 @@ class ClothingModInfo extends BaseModInfo
     public function getItemCollection() : ClothingItems
     {
         if(!isset($this->itemCollection)) {
-            $this->itemCollection = new ClothingItems($this, $this->getData()->getArray('items'));
+            $this->itemCollection = new ClothingItems($this, $this->getRawData()->getArray('items'));
         }
 
         return $this->itemCollection;
