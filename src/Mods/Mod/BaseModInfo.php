@@ -11,9 +11,9 @@ namespace CPMDB\Mods\Mod;
 use AppUtils\ArrayDataCollection;
 use AppUtils\ConvertHelper;
 use AppUtils\FileHelper\FileInfo;
-use AppUtils\FileHelper\FolderInfo;
 use AppUtils\FileHelper\JSONFile;
 use CPMDB\Mods\Collection\BaseCategory;
+use CPMDB\Mods\Tags\TagCollection;
 
 /**
  * Abstract base class for mod information classes.
@@ -23,24 +23,31 @@ use CPMDB\Mods\Collection\BaseCategory;
  */
 abstract class BaseModInfo implements ModInfoInterface
 {
+    public const KEY_URL = 'url';
+    public const KEY_AUTHORS = 'authors';
+    public const KEY_TAGS = 'tags';
+    public const KEY_MOD_NAME = 'mod';
+
     protected JSONFile $dataFile;
-    protected string $id;
+    protected string $uuid;
     protected ?ArrayDataCollection $data = null;
     protected FileInfo $screenFile;
     protected string $dataURL;
     private BaseCategory $category;
+    private string $id;
 
-    public function __construct(BaseCategory $category, JSONFile $dataFile, FolderInfo $dataFolder, string $dataURL)
+    public function __construct(string $id, BaseCategory $category, ArrayDataCollection $data)
     {
         $this->category = $category;
-        $this->dataURL = $dataURL;
-        $this->dataFile = $dataFile;
-        $this->id = $category->getFolderName().'-'.$dataFile->getBaseName();
+        $this->dataURL = $category->getDataURL();
+        $this->data = $data;
+        $this->id = $id;
+        $this->uuid = $category->getID().'.'.$id;
 
         $this->screenFile = FileInfo::factory(sprintf(
             '%s/screens/%s.jpg',
-            $dataFolder,
-            $dataFile->getBaseName()
+            $category->getDataFolder(),
+            $id
         ));
     }
 
@@ -51,6 +58,16 @@ abstract class BaseModInfo implements ModInfoInterface
 
     public function getID(): string
     {
+        return $this->uuid;
+    }
+
+    public function getUUID() : string
+    {
+        return $this->uuid;
+    }
+
+    public function getModID() : string
+    {
         return $this->id;
     }
 
@@ -59,18 +76,14 @@ abstract class BaseModInfo implements ModInfoInterface
         return $this->dataFile;
     }
 
-    protected function getData() : ArrayDataCollection
+    public function getRawData() : ArrayDataCollection
     {
-        if(!isset($this->data)) {
-            $this->data = new ArrayDataCollection($this->dataFile->parse());
-        }
-
         return $this->data;
     }
 
     public function getName() : string
     {
-        return $this->getData()->getString('mod');
+        return $this->getRawData()->getString(self::KEY_MOD_NAME);
     }
 
     public function hasImage() : bool
@@ -80,7 +93,7 @@ abstract class BaseModInfo implements ModInfoInterface
 
     public function getImageURL() : string
     {
-        return $this->dataURL.'/screens/'.$this->screenFile->getName();
+        return $this->category->getScreensURL().'/'.$this->screenFile->getName();
     }
 
     private ?string $slug = null;
@@ -96,22 +109,25 @@ abstract class BaseModInfo implements ModInfoInterface
 
     public function getURL() : string
     {
-        return $this->getData()->getString('url');
+        return $this->getRawData()->getString(self::KEY_URL);
     }
 
     public function getAuthors() : array
     {
-        return $this->getData()->getArray('authors');
+        return $this->getRawData()->getArray(self::KEY_AUTHORS);
     }
 
+    /**
+     * @var string[]|null
+     */
     private ?array $tags = null;
 
     public function getTags() : array
     {
         if(!isset($this->tags)) {
-            $this->tags = $this->getData()->getArray('tags');
+            $this->tags = $this->getRawData()->getArray(self::KEY_TAGS);
             if($this->hasAtelier()) {
-                $this->tags[] = 'ATL';
+                $this->tags[] = TagCollection::TAG_VIRTUAL_ATELIER;
             }
             sort($this->tags);
         }
