@@ -57,12 +57,12 @@ abstract class BaseCategory implements ModCategoryInterface
     }
 
     /**
-     * @var array<string,\CPMDB\Mods\Mod\ModInfoInterface>
+     * @var array<string,ModInfoInterface>
      */
     private array $mods;
 
     /**
-     * @return \CPMDB\Mods\Mod\ModInfoInterface[]
+     * @return ModInfoInterface[]
      */
     public function getAll() : array
     {
