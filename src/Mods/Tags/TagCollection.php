@@ -9,6 +9,11 @@ use AppUtils\Collections\BaseStringPrimaryCollection;
 use AppUtils\FileHelper;
 use CPMDB\Mods\Tags\Types\CyberEngineTweaks;
 
+/**
+ * @method TagInfoInterface[] getAll()
+ * @method TagInfoInterface getByID(string $id)
+ * @method TagInfoInterface getDefault()
+ */
 class TagCollection extends BaseStringPrimaryCollection
 {
     private static ?self $instance = null;
