@@ -21,4 +21,13 @@ final class ClothingTests extends CPMDBTestCase
         $this->assertStringContainsString('nexusmods.com', $mod->getAtelierURL());
         $this->assertTrue($mod->hasAtelier());
     }
+
+    public function test_screenImageExists() : void
+    {
+        $mod = $this->createCollection()
+            ->categoryClothing()
+            ->getByID('clothing.catsuit');
+
+        $this->assertFileExists((string)$mod->getImageFile());
+    }
 }
