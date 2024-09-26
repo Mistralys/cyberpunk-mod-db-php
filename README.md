@@ -19,7 +19,11 @@ composer require mistralys/cyberpunk-mod-db-php
 
 ## Usage
 
-### Creating a collection instance
+### Creating the collection
+
+The collection class is the main entry point to the mod database. 
+It provides methods to access all mods, as well as the filtering
+capabilities.
 
 ```php
 use CPMDB\Mods\Collection\ModCollection;
@@ -46,6 +50,27 @@ if($catsuit->hasImage()) {
 }
 ```
 
+### Filtering
+
+Use the filter to search for specific mods by search terms and/or tags.
+
+```php
+use CPMDB\Mods\Collection\ModCollection;
+use \CPMDB\Mods\Tags\Types\Outfit;
+
+// Create a collection instance
+$collection = ModCollection::create(
+    __DIR__.'/vendor', // Absolute path to the composer vendor directory
+    __DIR__.'/cache', // Path to a writable directory to store cache files
+    'http://127.0.0.1/your-app/vendor' // Absolute URL to the composer vendor directory
+);
+
+// Search for "catsuit" and only get mods with the "Outfit" tag
+$mods = $collection->createFilter()
+    ->selectSearchTerm('catsuit')
+    ->selectTag(Outfit::TAG_NAME)
+    ->getMods();
+```
 
 ### Caching
 
