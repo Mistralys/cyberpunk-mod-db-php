@@ -14,7 +14,6 @@ use AppUtils\FileHelper\FileInfo;
 use AppUtils\FileHelper\JSONFile;
 use CPMDB\Mods\Clothing\ClothingModInfo;
 use CPMDB\Mods\Collection\BaseCategory;
-use CPMDB\Mods\Tags\TagCollection;
 use CPMDB\Mods\Tags\Types\VirtualAtelier;
 
 /**
@@ -58,16 +57,28 @@ abstract class BaseModInfo implements ModInfoInterface
         return $this->category;
     }
 
+    /**
+     * Unique ID of the mod (alias method of {@see self::getUUID()}).
+     * @return string
+     */
     public function getID(): string
     {
         return $this->uuid;
     }
 
+    /**
+     * Unique ID of the mod with category, e.g. `clothing.catsuit`.
+     * @return string
+     */
     public function getUUID() : string
     {
         return $this->uuid;
     }
 
+    /**
+     * ID of the mod without the category, e.g. `catsuit`.
+     * @return string
+     */
     public function getModID() : string
     {
         return $this->id;
