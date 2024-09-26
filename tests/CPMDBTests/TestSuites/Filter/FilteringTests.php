@@ -1,0 +1,54 @@
+<?php
+
+declare(strict_types=1);
+
+namespace CPMDBTests\TestSuites\Indexing;
+
+use CPMDB\Mods\Tags\Types\Earrings;
+use CPMDB\Mods\Tags\Types\Jewelry;
+use CPMDB\Mods\Tags\Types\MaleV;
+use CPMDB\Mods\Tags\Types\Torso;
+use CPMDBTEsts\TestClasses\CPMDBTestCase;
+use CPMDBTests\TestClasses\FilterAssertionsTrait;
+
+final class FilteringTests extends CPMDBTestCase
+{
+    use FilterAssertionsTrait;
+
+    public function test_filterBySingleTag() : void
+    {
+        $filters = $this->createCollection()
+            ->createFilter()
+            ->selectTag(Jewelry::TAG_NAME);
+
+        $this->assertResultsContainID('clothing.moon-and-star-earrings', $filters);
+    }
+
+    public function test_filterByMultipleTags() : void
+    {
+        $filters = $this->createCollection()
+            ->createFilter()
+            ->selectTags(array(Earrings::TAG_NAME, MaleV::TAG_NAME));
+
+        $this->assertResultsContainID('clothing.salander-earplugs', $filters);
+    }
+
+    public function test_filterBySearchTerms() : void
+    {
+        $filters = $this->createCollection()->createFilter();
+
+        $filters->selectSearchTerm('fashionware');
+
+        $this->assertResultsContainID('clothing.full-body-fashionware', $filters);
+    }
+
+    public function test_filterByMultipleCriteria() : void
+    {
+        $filters = $this->createCollection()->createFilter();
+
+        $filters->selectSearchTerms(array('xrx', 'jacket'));
+        $filters->selectTag(Torso::TAG_NAME);
+
+        $this->assertResultsContainID('clothing.xrx-leather-jacket', $filters);
+    }
+}

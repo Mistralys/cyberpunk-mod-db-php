@@ -3,3 +3,5 @@ composer.phar
 /.idea
 .phpunit.result.cache
 tests/phpstan/result.txt
+tests/cache/index/loupe.db
+tests/cache/index/state_set.php
