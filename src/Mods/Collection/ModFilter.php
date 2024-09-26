@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace CPMDB\Mods\Collection;
 
+use AppUtils\Collections\CollectionException;
 use CPMDB\Mods\Clothing\ClothingModInfo;
+use CPMDB\Mods\Collection\Indexer\IndexBuilder;
 use CPMDB\Mods\Mod\ModInfoInterface;
+use Loupe\Loupe\SearchParameters;
 
 class ModFilter
 {
@@ -16,58 +19,162 @@ class ModFilter
      */
     private array $tags = array();
 
+    /**
+     * @var string[]
+     */
+    private array $terms = array();
+
     public function __construct(ModCollection $collection)
     {
         $this->collection = $collection;
     }
 
-    public function selectTag(string $tag) : self
+    public function selectSearchTerm(string $term, bool $exactPhrase=false) : self
     {
-        if(!empty($tag) && !in_array($tag, $this->tags)) {
-            $this->tags[] = $tag;
+        $term = trim($term);
+
+        if(empty($term)) {
+            return $this;
+        }
+
+        if($exactPhrase) {
+            $term = sprintf('"%s"', $term);
+        }
+
+        if(!empty($term) && !in_array($term, $this->terms)) {
+
+            $this->terms[] = $term;
+            $this->resetResults();
         }
 
         return $this;
     }
 
     /**
-     * @return ModInfoInterface[]
+     * @param string[] $terms
+     * @return $this
      */
-    public function getAll() : array
+    public function selectSearchTerms(array $terms) : self
     {
-        $mods = $this->collection->getAll();
-        if(!$this->hasFilters()) {
-            return $mods;
+        foreach($terms as $term) {
+            $this->selectSearchTerm($term);
         }
 
-        $filtered = array();
-
-        foreach($mods as $mod) {
-            if($this->isMatch($mod)) {
-                $filtered[] = $mod;
-            }
-        }
-
-        return $filtered;
+        return $this;
     }
 
-    private function isMatch(ModInfoInterface $mod) : bool
+    /**
+     * @param string $tag
+     * @return $this
+     */
+    public function selectTag(string $tag) : self
     {
-        if(!empty($this->tags))
-        {
-            foreach($this->tags as $tag) {
-                if(!$mod->hasTag($tag)) {
-                    return false;
-                }
-            }
+        if(!empty($tag) && !in_array($tag, $this->tags)) {
+            $this->tags[] = $tag;
+            $this->resetResults();
         }
 
-        return true;
+        return $this;
     }
 
-    public function hasFilters() : bool
+    /**
+     * @param string[] $tags
+     * @return $this
+     */
+    public function selectTags(array $tags) : self
     {
-        return !empty($this->tags);
+        foreach ($tags as $tag) {
+            $this->selectTag($tag);
+        }
+
+        return $this;
+    }
+
+    private function resetResults() : void
+    {
+        $this->results = null;
+    }
+
+    /**
+     * @var array<int,array<string,mixed>>|null
+     */
+    private ?array $results = null;
+
+    /**
+     * @return array<int,array<string,mixed>>
+     */
+    public function getRawResults() : array
+    {
+        if(isset($this->results)) {
+            return $this->results;
+        }
+
+        $results = $this->collection
+            ->createIndexManager()
+            ->getIndex()
+            ->search($this->applyFilters())
+            ->toArray();
+
+        $this->results = $results['hits'] ?? array();
+
+        return $this->results;
+    }
+
+    /**
+     * @return ModInfoInterface[]
+     * @throws CollectionException
+     */
+    public function getMods() : array
+    {
+        $mods = array();
+
+        foreach($this->getModIDs() as $id) {
+            $mods[] = $this->collection->getByID($id);
+        }
+
+        return $mods;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getModIDs() : array
+    {
+        $ids = array();
+
+        foreach($this->getRawResults() as $result) {
+            $ids[] = $result[IndexBuilder::KEY_UUID];
+        }
+
+        return $ids;
+    }
+
+    private function applyFilters() : SearchParameters
+    {
+        $criteria = SearchParameters::create()
+            ->withAttributesToRetrieve(array(IndexBuilder::KEY_UUID));
+
+        if(!empty($this->terms)) {
+            $criteria = $criteria->withQuery(implode(' ', $this->terms));
+        }
+
+        $filters = array();
+
+        if(!empty($this->tags)) {
+            $filters[] = sprintf(
+                "%s IN('%s')",
+                IndexBuilder::KEY_TAGS,
+                implode("','", $this->tags)
+            );
+        }
+
+        $query = implode(' AND ', $filters);
+
+        if(!empty($query)) {
+            $criteria = $criteria->withFilter($query);
+        }
+
+        return $criteria;
     }
 
     /**
@@ -77,7 +184,7 @@ class ModFilter
     {
         $result = array();
 
-        foreach($this->getAll() as $mod) {
+        foreach($this->getMods() as $mod) {
             if($mod instanceof ClothingModInfo) {
                 $result[] = $mod;
             }
