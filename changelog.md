@@ -1,5 +1,9 @@
-## v1.1.1 - Fixes
-- Added the missing `Clothing` tag.
+## v1.2.0 - Search capabilities
+- Collection: Added full filtering capabilities.
+- Core: Added dependency to `php/loupe` for the searching capabilities.
+- Tags: Added the `Earrings` tag.
+- Tags: Added the `Torso` tag.
+- Tags: Added the `Outfit` tag.
 
 ## v1.1.0 - Added data caching
 - Added caching of the mod data to improve performance.
