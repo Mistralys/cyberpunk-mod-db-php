@@ -120,6 +120,11 @@ class ModFilter
         return $this->results;
     }
 
+    public function hasFilters() : bool
+    {
+        return !empty($this->tags) || !empty($this->terms);
+    }
+
     /**
      * @return ModInfoInterface[]
      * @throws CollectionException
