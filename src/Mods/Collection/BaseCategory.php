@@ -31,6 +31,8 @@ abstract class BaseCategory implements ModCategoryInterface
         $this->id = $this->getFolderName();
     }
 
+    abstract public function getLabel() : string;
+
     public function getID(): string
     {
         return $this->id;

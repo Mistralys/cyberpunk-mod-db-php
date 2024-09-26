@@ -24,6 +24,11 @@ class ClothingCategory extends BaseCategory
 {
     public const FOLDER_NAME = 'clothing';
 
+    public function getLabel(): string
+    {
+        return 'Clothing';
+    }
+
     public function getFolderName(): string
     {
         return self::FOLDER_NAME;
