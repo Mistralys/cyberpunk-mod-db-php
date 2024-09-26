@@ -1,3 +1,7 @@
+## v1.2.1 - Fixes
+- Mods: Fixed the mod images not being found.
+- Filters: Added `hasFilters()`. 
+
 ## v1.2.0 - Search capabilities
 - Collection: Added full filtering capabilities.
 - Core: Added dependency to `php/loupe` for the searching capabilities.
