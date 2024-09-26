@@ -20,6 +20,7 @@ use CPMDB\Mods\Collection\DataLoader\DataLoaderInterface;
 use CPMDB\Mods\Collection\DataLoader\Type\CacheDataLoader;
 use CPMDB\Mods\Collection\DataLoader\Type\FileDataLoader;
 use CPMDB\Mods\Collection\DataWriter\CacheDataWriter;
+use CPMDB\Mods\Collection\Indexer\IndexManager;
 use CPMDB\Mods\Mod\ModInfoInterface;
 
 /**
@@ -205,5 +206,16 @@ class ModCollection extends BaseStringPrimaryCollection
         }
 
         (new CacheDataWriter($this, $this->cacheFolder))->write();
+    }
+
+    private ?IndexManager $indexManager = null;
+
+    public function createIndexManager() : IndexManager
+    {
+        if(!isset($this->indexManager)) {
+            $this->indexManager = new IndexManager($this);
+        }
+
+        return $this->indexManager;
     }
 }
