@@ -2,6 +2,14 @@
 
 PHP Classes to access the [Cyberpunk 2077 Clothing Mod DB](https://github.com/Mistralys/cyberpunk-mod-db).
 
+## Features
+
+- Classes used to access the mod database
+- Get mod information, including image paths and URLs
+- Filter mods by search terms and tags
+- Constants for all known tags used in the mod DB
+- Minimum configuration required
+
 ## Requirements
 
 - PHP 8.2 or higher
@@ -16,6 +24,9 @@ PHP Classes to access the [Cyberpunk 2077 Clothing Mod DB](https://github.com/Mi
 ```bash
 composer require mistralys/cyberpunk-mod-db-php
 ```
+
+> NOTE: The database is included as a dependency, so there is no need to 
+> require it separately, unless you want a specific version to be installed.
 
 ## Usage
 
@@ -78,7 +89,8 @@ By default, the collection will cache the mod data in the specified
 cache directory. This is done for performance reasons, as the mod data
 is read from my individual files in the filesystem. 
 
-The cache is created automatically the first time a collection instance is created.
+The cache is created and updated automatically following the version
+of the mod database.
 
 #### Turning off caching
 
