@@ -8,11 +8,14 @@ declare(strict_types=1);
 
 namespace CPMDB\Mods\Collection;
 
+use AppUtils\BaseException;
 use AppUtils\ClassHelper;
 use AppUtils\Collections\BaseStringPrimaryCollection;
+use AppUtils\FileHelper\FileInfo;
 use AppUtils\FileHelper\FolderInfo;
 use AppUtils\FileHelper\JSONFile;
 use AppUtils\FileHelper\PathInfoInterface;
+use AppUtils\FileHelper_Exception;
 use AppUtils\Interfaces\StringPrimaryRecordInterface;
 use Brick\Event\EventDispatcher;
 use CPMDB\Mods\Clothing\ClothingModInfo;
@@ -22,6 +25,9 @@ use CPMDB\Mods\Collection\DataLoader\Type\FileDataLoader;
 use CPMDB\Mods\Collection\DataWriter\CacheDataWriter;
 use CPMDB\Mods\Collection\Indexer\IndexManager;
 use CPMDB\Mods\Mod\ModInfoInterface;
+use Mistralys\ChangelogParser\ChangelogParser;
+use Mistralys\ChangelogParser\ChangelogParserException;
+use Throwable;
 
 /**
  * Collection of all known mods.
@@ -38,16 +44,23 @@ class ModCollection extends BaseStringPrimaryCollection
     public const DB_GIT_NAME = 'mistralys/cyberpunk-mod-db';
 
     public const EVENT_MODS_LOADED = 'ModsLoaded';
+    public const ERROR_VERSION_NOT_FOUND = 165301;
 
-    private FolderInfo $dataFolder;
+    private ?FolderInfo $dataFolder = null;
     private string $dataURL;
     private FolderInfo $cacheFolder;
     private DataLoaderInterface $dataLoader;
     private EventDispatcher $events;
+    private FolderInfo $vendorFolder;
 
-    public function __construct(FolderInfo $dataFolder, FolderInfo $cacheFolder, string $dataURL)
+    public function __construct(FolderInfo $vendorFolder, FolderInfo $cacheFolder, string $dataURL)
     {
-        $this->dataFolder = $dataFolder;
+        $this->vendorFolder =  FolderInfo::factory(sprintf(
+            '%s/%s',
+            $vendorFolder,
+            self::DB_GIT_NAME
+        ));;
+
         $this->cacheFolder = $cacheFolder;
         $this->dataURL = $dataURL;
         $this->events = new EventDispatcher();
@@ -58,7 +71,7 @@ class ModCollection extends BaseStringPrimaryCollection
     {
         $registerCallback = $this->registerItem(...);
 
-        if(CacheDataWriter::cacheExists($this->cacheFolder) && CacheDataWriter::isCacheEnabled()) {
+        if(CacheDataWriter::isCacheEnabled() && CacheDataWriter::cacheIsValid($this)) {
             return new CacheDataLoader($this, $registerCallback, $this->cacheFolder);
         }
 
@@ -68,11 +81,7 @@ class ModCollection extends BaseStringPrimaryCollection
     public static function create(FolderInfo $vendorFolder, FolderInfo $cacheFolder, string $vendorURL) : ModCollection
     {
         return new ModCollection(
-            FolderInfo::factory(sprintf(
-                '%s/%s/data',
-                $vendorFolder,
-                self::DB_GIT_NAME
-            )),
+            $vendorFolder,
             $cacheFolder,
             sprintf(
                 '%s/%s/data',
@@ -89,6 +98,15 @@ class ModCollection extends BaseStringPrimaryCollection
 
     public function getDataFolder() : FolderInfo
     {
+        if(isset($this->dataFolder)) {
+            return $this->dataFolder;
+        }
+
+        $this->dataFolder = FolderInfo::factory(sprintf(
+            '%s/data',
+            $this->vendorFolder
+        ));
+
         return $this->dataFolder;
     }
 
@@ -201,11 +219,11 @@ class ModCollection extends BaseStringPrimaryCollection
 
     public function writeCache() : void
     {
-        if(CacheDataWriter::cacheExists($this->cacheFolder)) {
+        if(CacheDataWriter::cacheIsValid($this)) {
             return;
         }
 
-        (new CacheDataWriter($this, $this->cacheFolder))->write();
+        (new CacheDataWriter($this))->write();
     }
 
     private ?IndexManager $indexManager = null;
@@ -217,5 +235,54 @@ class ModCollection extends BaseStringPrimaryCollection
         }
 
         return $this->indexManager;
+    }
+
+    /**
+     * The version of the mod database, as determined by the
+     * latest version tag in the changelog of the package
+     * {@see self::DB_GIT_NAME}.
+     *
+     * @return string
+     *
+     * @throws BaseException
+     * @throws FileHelper_Exception
+     * @throws ModCollectionException
+     */
+    public function getDBVersion() : string
+    {
+        $changelogFile = FileInfo::factory($this->vendorFolder . '/changelog.md');
+
+        if(!$changelogFile->exists()) {
+            throw new ModCollectionException(
+                'Could not find the mod database changelog.',
+                sprintf(
+                    'Changelog file not found at: '.PHP_EOL.
+                    '%s',
+                    $changelogFile
+                ),
+                self::ERROR_VERSION_NOT_FOUND
+            );
+        }
+
+        try
+        {
+            return ChangelogParser::parseMarkdownFile($changelogFile)
+                ->requireLatestVersion()
+                ->getVersionInfo()
+                ->getTagVersion();
+        }
+        catch (Throwable $e)
+        {
+            throw new ModCollectionException(
+                'Could not parse the mod database changelog.',
+                sprintf(
+                    'Tried to load changelog from file:'.PHP_EOL.
+                    '%s',
+                    $changelogFile
+                ),
+                self::ERROR_VERSION_NOT_FOUND,
+                $e
+            );
+        }
     }
 }
