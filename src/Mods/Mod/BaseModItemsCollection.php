@@ -36,6 +36,16 @@ abstract class BaseModItemsCollection extends BaseItemCollection implements ModI
         return $this->modInfo;
     }
 
+    public function getCETCommands(): string
+    {
+        $items = array();
+        foreach($this->getAll() as $item) {
+            $items[] = $item->getCETCommand();
+        }
+
+        return implode("\n", $items);
+    }
+
     protected function registerItems(): void
     {
         foreach($this->itemData as $itemDef) {
