@@ -1,4 +1,8 @@
 <?php
+/**
+ * @package CPMDB
+ * @subpackage Items
+ */
 
 declare(strict_types=1);
 
@@ -7,6 +11,11 @@ namespace CPMDB\Mods\Items;
 use AppUtils\Collections\BaseStringPrimaryCollection;
 
 /**
+ * Abstract base class for item collections.
+ *
+ * @package CPMDB
+ * @subpackage Items
+ *
  * @method ItemInfoInterface[] getAll()
  * @method ItemInfoInterface getDefault()
  * @method ItemInfoInterface getByID(string $id)
