@@ -1,4 +1,8 @@
 <?php
+/**
+ * @package CPMDB
+ * @subpackage Items
+ */
 
 declare(strict_types=1);
 
@@ -6,6 +10,13 @@ namespace CPMDB\Mods\Items;
 
 use CPMDB\Mods\Collection\ModCollection;
 
+/**
+ * The global, mod-independent item collection.
+ * This contains all items from all mods.
+ *
+ * @package CPMDB
+ * @subpackage Items
+ */
 class ItemCollection extends BaseItemCollection
 {
     private ModCollection $modCollection;
