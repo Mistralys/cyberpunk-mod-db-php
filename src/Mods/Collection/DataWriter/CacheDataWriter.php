@@ -18,7 +18,7 @@ class CacheDataWriter
 {
     public const ERROR_WRITING_CACHE_FAILED = 165401;
 
-    public const CACHING_SYSTEM_VERSION = '1';
+    public const CACHING_SYSTEM_VERSION = '2';
     public const MODS_CACHE_FILE = 'mods.ser';
     public const MODS_VERSION_FILE = 'mods.version';
 
@@ -151,6 +151,6 @@ class CacheDataWriter
             $this->workData[$categoryID] = array();
         }
 
-        $this->workData[$categoryID][$mod->getID()] = $mod->getRawData()->getData();
+        $this->workData[$categoryID][$mod->getModID()] = $mod->getRawData()->getData();
     }
 }
