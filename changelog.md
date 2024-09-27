@@ -1,4 +1,4 @@
-## v1.2.2 - Cache fixes
+## v1.2.1 - Cache fixes
 - Collection: Fixed the cache not updating with new database releases.
 - Index: Fixed clearing the index.
 - Index: Now automatically regenerating with new database releases.
