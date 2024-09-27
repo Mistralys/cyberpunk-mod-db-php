@@ -1,4 +1,8 @@
 <?php
+/**
+ * @package CPMDB
+ * @subpackage Filtering
+ */
 
 declare(strict_types=1);
 
@@ -10,6 +14,22 @@ use CPMDB\Mods\Collection\Indexer\IndexBuilder;
 use CPMDB\Mods\Mod\ModInfoInterface;
 use Loupe\Loupe\SearchParameters;
 
+/**
+ * Utility class used to search for mods in the collection
+ * by selecting filter criteria like tags and/or search terms.
+ *
+ * ## Usage
+ *
+ * 1. Use the collection's {@see ModCollection::createFilter()}
+ *    method to get an instance of this class.
+ * 2. Use the {@see self::selectTag()} and {@see self::selectSearchTerm()}
+ *    methods to add filter criteria.
+ * 3. Use the {@see self::getMods()} method to get the mods
+ *    that match the filter criteria.
+ *
+ * @package CPMDB
+ * @subpackage Filtering
+ */
 class ModFilter
 {
     private ModCollection $collection;
