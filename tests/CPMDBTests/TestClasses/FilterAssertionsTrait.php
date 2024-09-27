@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace CPMDBTests\TestClasses;
 
-use CPMDB\Mods\Collection\ModFilter;
+use CPMDB\Mods\Collection\Filter\FilterInterface;
 
 trait FilterAssertionsTrait
 {
-    public function assertResultsContainID(string $id, ModFilter $filter) : void
+    public function assertResultsContainPrimaryID(string $id, FilterInterface $filter) : void
     {
-        $ids = $filter->getModIDs();
+        $ids = $filter->getPrimaryIDs();
 
         $this->assertContains(
             $id,
             $ids,
             sprintf(
-                'No mod with ID [%s] found in results. '.PHP_EOL.
+                'No elements with primary ID [%s] found in results. '.PHP_EOL.
                 'Available IDs: '.PHP_EOL.
                 '- %s',
                 $id,

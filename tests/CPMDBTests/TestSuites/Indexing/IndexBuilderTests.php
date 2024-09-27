@@ -14,10 +14,10 @@ class IndexBuilderTests extends CPMDBTestCase
 
         $this->assertFalse($manager->isIndexValid());
 
-        $manager->getIndex();
+        $modIndex = $manager->getModIndex();
 
-        $this->assertDirectoryExists((string)$manager->getDataDir());
-        $this->assertTrue($manager->isIndexValid());
+        $this->assertDirectoryExists((string)$modIndex->getDataFolder());
+        $this->assertTrue($modIndex->isValid());
     }
 
     public function test_findRecords() : void
@@ -27,7 +27,7 @@ class IndexBuilderTests extends CPMDBTestCase
 
         $this->assertSame(
             $collection->countRecords(),
-            $manager->getIndex()->countDocuments()
+            $manager->getModIndex()->getSearchInstance()->countDocuments()
         );
     }
 
