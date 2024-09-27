@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace CPMDB\Mods\Collection\Indexer;
 
 use CPMDB\Mods\Collection\Filter\ItemFilter;
-use CPMDB\Mods\Mod\ItemInfoInterface;
+use CPMDB\Mods\Items\ItemInfoInterface;
 use Loupe\Loupe\Config\TypoTolerance;
 use Loupe\Loupe\Configuration;
 use Loupe\Loupe\Loupe;
