@@ -30,9 +30,9 @@ composer require mistralys/cyberpunk-mod-db-php
 
 ## Usage
 
-### Creating the collection
+### Accessing mods
 
-The collection class is the main entry point to the mod database. 
+The mod collection class is the main entry point to the mod database. 
 It provides methods to access all mods, as well as the filtering
 capabilities.
 
@@ -61,9 +61,35 @@ if($catsuit->hasImage()) {
 }
 ```
 
-### Filtering
+### Accessing items
 
-Use the filter to search for specific mods by search terms and/or tags.
+Each mod can contain multiple items, such as clothing items. 
+While each mod has a collection of items, there is also a global
+item collection that contains all items from all mods.
+
+```php
+use CPMDB\Mods\Collection\ModCollection;
+
+// Create a collection instance
+$collection = ModCollection::create(
+    __DIR__.'/vendor', // Absolute path to the composer vendor directory
+    __DIR__.'/cache', // Path to a writable directory to store cache files
+    'http://127.0.0.1/your-app/vendor' // Absolute URL to the composer vendor directory
+);
+
+// Get the item collection
+$itemsCollection = $collection->getItemCollection();
+
+// Get an item by its CET code 
+$dress = $itemsCollection->getByID('nd_michiko_dress_black');
+
+// Get the CET command to add the item in-game
+$dress->getCETCommand();
+```
+
+### Filtering mods
+
+Use the mod filter to search for specific mods by search terms and/or tags.
 
 ```php
 use CPMDB\Mods\Collection\ModCollection;
@@ -83,33 +109,30 @@ $mods = $collection->createFilter()
     ->getMods();
 ```
 
-### Caching
+### Filtering items
 
-By default, the collection will cache the mod data in the specified 
-cache directory. This is done for performance reasons, as the mod data
-is read from my individual files in the filesystem. 
-
-The cache is created and updated automatically following the version
-of the mod database.
-
-#### Turning off caching
-
-The caching can be turned off if needed:
+Use the item filter to search for specific items by search terms and/or tags.
 
 ```php
-use CPMDB\Mods\Collection\DataWriter\CacheDataWriter;
+use CPMDB\Mods\Collection\ModCollection;
+use CPMDB\Mods\Tags\Types\Jewelry;
 
-CacheDataWriter::setCacheEnabled(false);
+// Create a collection instance
+$collection = ModCollection::create(
+    __DIR__.'/vendor', // Absolute path to the composer vendor directory
+    __DIR__.'/cache', // Path to a writable directory to store cache files
+    'http://127.0.0.1/your-app/vendor' // Absolute URL to the composer vendor directory
+);
+
+// Search for the Jewelry tag to get all jewelry mod items
+$mods = $collection->createItemFilter()
+    ->selectTag(Jewelry::TAG_NAME)
+    ->getMods();
 ```
 
-#### Performance tests
-
-To check the performance of the caching on your system, you can run 
-the performance tests:
-
-```bash
-php tests/performance/performance-test.php
-```
+> NOTE: Items inherit their tags from the mod they belong to. Since a
+> mod can have items that belong to different tags, searching for
+> a specific tag may return unrelated items.
 
 ## Tags
 
@@ -149,4 +172,32 @@ $cet = $collection->getByID(CyberEngineTweaks::TAG_NAME);
 // Additional tag meta data
 echo 'Full label: '.$cet->getLabel();
 echo 'Tag category: '.$cet->getCategory();
+```
+
+## Caching
+
+By default, the collection will cache the mod data in the specified
+cache directory. This is done for performance reasons, as the mod data
+is read from my individual files in the filesystem.
+
+The cache is created and updated automatically following the version
+of the mod database.
+
+### Turning off caching
+
+The caching can be turned off if needed:
+
+```php
+use CPMDB\Mods\Collection\DataWriter\CacheDataWriter;
+
+CacheDataWriter::setCacheEnabled(false);
+```
+
+### Performance tests
+
+To check the performance of the caching on your system, you can run
+the performance tests:
+
+```bash
+php tests/performance/performance-test.php
 ```
