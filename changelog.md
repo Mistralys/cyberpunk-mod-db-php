@@ -2,8 +2,6 @@
 - Collection: Fixed the cache not updating with new database releases.
 - Index: Fixed clearing the index.
 - Index: Now automatically regenerating with new database releases.
-
-## v1.2.1 - Fixes
 - Mods: Fixed the mod images not being found.
 - Filters: Added `hasFilters()`. 
 
