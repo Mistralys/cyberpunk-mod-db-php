@@ -89,4 +89,12 @@ abstract class BaseItem implements ItemInfoInterface
     {
         return $this->data->getString(ItemInfoInterface::KEY_CODE);
     }
+
+    public function getCETCommand() : string
+    {
+        return sprintf(
+            'Game.AddToInventory("Items.%s")',
+            $this->getItemCode()
+        );
+    }
 }
