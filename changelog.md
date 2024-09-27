@@ -3,6 +3,8 @@
 - Items: Introduced the global item collection.
 - Items: Added `getTags()` and `getAuthors()`, inherited from the mod.
 - Items: Added item filtering capabilities.
+- Items: Added `getCETCommand()`.
+- Items: Added `getCETCommands()` to the mod item collection.
 - Filters: Added filtering by author.
 - Core: Refactored for a cleaner class structure.
 - Core: PHPStan clean @ level 9.
