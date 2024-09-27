@@ -66,10 +66,6 @@ abstract class BaseModInfo implements ModInfoInterface
         return $this->uuid;
     }
 
-    /**
-     * Unique ID of the mod with category, e.g. `clothing.catsuit`.
-     * @return string
-     */
     public function getUUID() : string
     {
         return $this->uuid;
