@@ -12,6 +12,7 @@ use AppUtils\ArrayDataCollection;
 use AppUtils\FileHelper\JSONFile;
 use AppUtils\Interfaces\StringPrimaryRecordInterface;
 use CPMDB\Mods\Collection\BaseCategory;
+use CPMDB\Mods\Items\ItemCollectionInterface;
 
 /**
  * Interface for mod information records.
