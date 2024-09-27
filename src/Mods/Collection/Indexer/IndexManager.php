@@ -1,9 +1,15 @@
 <?php
+/**
+ * @package CPMDB
+ * @subpackage Search Index
+ */
 
 declare(strict_types=1);
 
 namespace CPMDB\Mods\Collection\Indexer;
 
+use AppUtils\FileHelper;
+use AppUtils\FileHelper\FileInfo;
 use AppUtils\FileHelper\FolderInfo;
 use CPMDB\Mods\Collection\ModCollection;
 use Loupe\Loupe\Config\TypoTolerance;
@@ -11,14 +17,32 @@ use Loupe\Loupe\Configuration;
 use Loupe\Loupe\Loupe;
 use Loupe\Loupe\LoupeFactory;
 
+/**
+ * Manages the search index for mods: Checks if the
+ * database exists and is up-to-date, and creates it
+ * as necessary.
+ *
+ * ## Usage
+ *
+ * Everything is automated. Once instantiated, simply
+ * call {@see self::getIndex()} to start working with
+ * the {@see Loupe} search engine instance.
+ *
+ * @package CPMDB
+ * @subpackage Search Index
+ */
 class IndexManager
 {
+    public const INDEX_SYSTEM_VERSION = '1';
+
     private ?Loupe $index = null;
     private ModCollection $collection;
+    private FileInfo $versionFile;
 
     public function __construct(ModCollection $collection)
     {
         $this->collection = $collection;
+        $this->versionFile = FileInfo::factory($this->getDataDir().'/index.version');
     }
 
     public function getCollection(): ModCollection
@@ -26,19 +50,36 @@ class IndexManager
         return $this->collection;
     }
 
-    public function indexExists() : bool
+    public function isIndexValid() : bool
     {
-        return $this->getDataDir()->exists();
+        return
+            $this->versionFile->exists()
+            &&
+            $this->versionFile->getContents() === $this->getIndexVersion();
     }
 
     public function clearIndex() : void
     {
-        $this->getDataDir()->delete();
+        FileHelper::deleteTree($this->getDataDir());
     }
 
-    public function buildIndex() : void
+    public function getIndex() : Loupe
     {
+        if($this->isIndexValid()) {
+            return $this->createIndexInstance();
+        }
+
+        $this->clearIndex();
+
         $this->createIndexBuilder()->buildIndex();
+        $this->versionFile->putContents($this->getIndexVersion());
+
+        return $this->createIndexInstance();
+    }
+
+    public function getIndexVersion() : string
+    {
+        return 'DB:v'.$this->collection->getDBVersion().';Index:v'.self::INDEX_SYSTEM_VERSION;
     }
 
     public function createIndexBuilder() : IndexBuilder
@@ -51,16 +92,14 @@ class IndexManager
         return FolderInfo::factory($this->collection->getCacheFolder().'/index');
     }
 
-    public function getIndex() : Loupe
+    public function createIndexInstance() : Loupe
     {
         if(isset($this->index)) {
             return $this->index;
         }
 
-        $dataDir = $this->getDataDir()->create();
-
         $this->index = (new LoupeFactory())->create(
-            (string)$dataDir,
+            (string)$this->getDataDir()->create(),
             Configuration::create()
                 ->withPrimaryKey(IndexBuilder::KEY_UUID)
                 ->withSearchableAttributes(array(IndexBuilder::KEY_NAME, IndexBuilder::KEY_CATEGORY, IndexBuilder::KEY_AUTHORS))
