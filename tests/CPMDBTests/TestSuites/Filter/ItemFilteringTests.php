@@ -19,4 +19,17 @@ final class ItemFilteringTests extends CPMDBTestCase
 
         $this->assertResultsContainPrimaryID('clothing.catsuit.cat_top', $filters);
     }
+
+    public function test_filterByAuthor() : void
+    {
+        $filters = $this->createCollection()
+            ->createItemFilter()
+            ->selectAuthor('PeachuHime');
+
+        $this->assertResultsContainPrimaryID('clothing.comfy-set.peachu_comfytop_black', $filters);
+
+        foreach($filters->getItems() as $item) {
+            $this->assertContains('PeachuHime', $item->getAuthors());
+        }
+    }
 }

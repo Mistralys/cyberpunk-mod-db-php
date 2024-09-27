@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CPMDBTests\TestClasses;
 
-use CPMDB\Mods\Mod\ItemCollectionInterface;
+use CPMDB\Mods\Items\ItemCollectionInterface;
 
 trait ItemCollectionAssertionsTrait
 {
