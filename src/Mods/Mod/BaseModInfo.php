@@ -106,7 +106,7 @@ abstract class BaseModInfo implements ModInfoInterface
 
     public function getImageURL() : string
     {
-        return $this->category->getScreensURL().'/'.$this->screenFile->getBaseName();
+        return $this->category->getScreensURL().'/'.$this->screenFile->getName();
     }
 
     public function getImageFile() : FileInfo
