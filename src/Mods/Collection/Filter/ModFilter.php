@@ -13,6 +13,7 @@ use CPMDB\Mods\Clothing\ClothingModInfo;
 use CPMDB\Mods\Collection\Indexer\IndexInterface;
 use CPMDB\Mods\Collection\Indexer\ModIndex;
 use CPMDB\Mods\Mod\ModInfoInterface;
+use Loupe\Loupe\SearchParameters;
 
 /**
  * Utility class used to search for mods in the collection
@@ -81,6 +82,12 @@ class ModFilter extends BaseFilter
     public function getModIDs() : array
     {
         return $this->getPrimaryIDs();
+    }
+
+    protected function resolveSearchParams(): SearchParameters
+    {
+        return parent::resolveSearchParams()
+            ->withHitsPerPage(500);
     }
 
     protected function appendFilters(array &$filters) : void
