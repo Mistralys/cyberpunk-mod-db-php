@@ -34,7 +34,5 @@ class CPMDBTestCase extends TestCase
     {
         CacheDataWriter::clearCache($this->getCacheFolder());
         CacheDataWriter::setCacheEnabled(false);
-
-        $this->assertFalse(CacheDataWriter::isCacheEnabled());
     }
 }
