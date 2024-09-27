@@ -28,6 +28,11 @@ abstract class BaseFilter implements FilterInterface
      */
     private array $tags = array();
 
+    /**
+     * @var string[]
+     */
+    private array $authors = array();
+
     public function __construct(ModCollection $collection)
     {
         $this->collection = $collection;
@@ -116,14 +121,8 @@ abstract class BaseFilter implements FilterInterface
 
         $filters = array();
 
-        if(!empty($this->tags)) {
-            $filters[] = sprintf(
-                "%s IN('%s')",
-                ModIndex::KEY_MOD_TAGS,
-                implode("','", $this->tags)
-            );
-        }
-
+        $this->appendTagFilters($filters);
+        $this->appendAuthorFilters($filters);
         $this->appendFilters($filters);
 
         $query = implode(' AND ', $filters);
@@ -133,6 +132,32 @@ abstract class BaseFilter implements FilterInterface
         }
 
         return $criteria;
+    }
+
+    private function appendTagFilters(array &$filters) : void
+    {
+        if(empty($this->tags)) {
+            return;
+        }
+
+        $filters[] = sprintf(
+            "%s IN('%s')",
+            ModIndex::KEY_MOD_TAGS,
+            implode("','", array_map('addslashes', $this->tags))
+        );
+    }
+
+    private function appendAuthorFilters(array &$filters) : void
+    {
+        if(empty($this->authors)) {
+            return;
+        }
+
+        $filters[] = sprintf(
+            "%s IN('%s')",
+            ModIndex::KEY_MOD_AUTHORS,
+            implode("','", array_map('addslashes', $this->authors))
+        );
     }
 
     abstract protected function appendFilters(array &$filters) : void;
@@ -174,6 +199,29 @@ abstract class BaseFilter implements FilterInterface
     {
         foreach ($tags as $tag) {
             $this->selectTag($tag);
+        }
+
+        return $this;
+    }
+
+    public function selectAuthor(string $author) : self
+    {
+        if(!empty($author) && !in_array($author, $this->authors)) {
+            $this->authors[] = $author;
+            $this->resetResults();
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param string[] $authors
+     * @return $this
+     */
+    public function selectAuthors(array $authors) : self
+    {
+        foreach ($authors as $author) {
+            $this->selectAuthor($author);
         }
 
         return $this;
