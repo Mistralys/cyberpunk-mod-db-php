@@ -104,12 +104,17 @@ abstract class BaseFilter implements FilterInterface
         $results = $this
             ->getSearchIndex()
             ->getSearchInstance()
-            ->search($this->applyFilters())
+            ->search($this->resolveSearchParams())
             ->toArray();
 
         $this->results = $results['hits'];
 
         return $this->results;
+    }
+
+    protected function resolveSearchParams() : SearchParameters
+    {
+        return $this->applyFilters();
     }
 
     abstract public function getSearchIndex() : IndexInterface;
