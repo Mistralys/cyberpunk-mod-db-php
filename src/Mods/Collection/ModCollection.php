@@ -23,10 +23,11 @@ use CPMDB\Mods\Collection\DataLoader\DataLoaderInterface;
 use CPMDB\Mods\Collection\DataLoader\Type\CacheDataLoader;
 use CPMDB\Mods\Collection\DataLoader\Type\FileDataLoader;
 use CPMDB\Mods\Collection\DataWriter\CacheDataWriter;
+use CPMDB\Mods\Collection\Filter\ItemFilter;
+use CPMDB\Mods\Collection\Filter\ModFilter;
 use CPMDB\Mods\Collection\Indexer\IndexManager;
 use CPMDB\Mods\Mod\ModInfoInterface;
 use Mistralys\ChangelogParser\ChangelogParser;
-use Mistralys\ChangelogParser\ChangelogParserException;
 use Throwable;
 
 /**
@@ -215,6 +216,11 @@ class ModCollection extends BaseStringPrimaryCollection
     public function createFilter() : ModFilter
     {
         return new ModFilter($this);
+    }
+
+    public function createItemFilter() : ItemFilter
+    {
+        return new ItemFilter($this);
     }
 
     public function writeCache() : void
