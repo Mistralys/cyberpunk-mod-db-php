@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace CPMDB\Mods\Mod;
 
 use CPMDB\Mods\Items\BaseItemCollection;
+use CPMDB\Mods\Items\ItemCategory;
 use CPMDB\Mods\Items\ItemInfoInterface;
 
 /**
@@ -61,4 +62,58 @@ abstract class BaseModItemsCollection extends BaseItemCollection implements ModI
      * @return ItemInfoInterface
      */
     abstract protected function createItem(array $itemDef) : ItemInfoInterface;
+
+    private ?bool $categorized = null;
+
+    public function hasCategories(): bool
+    {
+        if(isset($this->categorized)) {
+            return $this->categorized;
+        }
+
+        $this->categorized = false;
+
+        foreach($this->getAll() as $item) {
+            if($item->getCategory() !== '') {
+                $this->categorized = true;
+                break;
+            }
+        }
+
+        return $this->categorized;
+    }
+
+    /**
+     * @var ItemCategory[]|null
+     */
+    private ?array $categories = null;
+
+    /**
+     * @return ItemCategory[]
+     */
+    public function getCategorized() : array
+    {
+        if(isset($this->categories)) {
+            return array_values($this->categories);
+        }
+
+        $this->categories = array();
+
+        foreach($this->getAll() as $item) {
+            $category = $item->getCategory();
+            if($category === '') {
+                $category = 'Uncategorized';
+            }
+
+            if(!isset($this->categories[$category])) {
+                $this->categories[$category] = new ItemCategory($this->modInfo, $category);
+            }
+
+            $this->categories[$category]->add($item);
+        }
+
+        ksort($this->categories);
+
+        return array_values($this->categories);
+    }
 }
