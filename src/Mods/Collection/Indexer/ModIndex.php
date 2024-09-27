@@ -53,6 +53,10 @@ class ModIndex extends BaseIndex
         return $data;
     }
 
+    /**
+     * @param ModInfoInterface $mod
+     * @return array<string, mixed>
+     */
     private function collectMod(ModInfoInterface $mod) : array
     {
         return [

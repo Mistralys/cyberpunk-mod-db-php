@@ -54,6 +54,10 @@ class ItemIndex extends BaseIndex
         return $data;
     }
 
+    /**
+     * @param ItemInfoInterface $item
+     * @return array<string,mixed>
+     */
     private function collectItem(ItemInfoInterface $item) : array
     {
         $mod = $item->getMod();

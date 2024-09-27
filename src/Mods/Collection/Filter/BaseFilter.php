@@ -49,6 +49,11 @@ abstract class BaseFilter implements FilterInterface
      */
     abstract protected function _hasFilters() : bool;
 
+    /**
+     * @param string $term
+     * @param bool $exactPhrase
+     * @return $this
+     */
     public function selectSearchTerm(string $term, bool $exactPhrase=false) : self
     {
         $term = trim($term);
@@ -61,8 +66,7 @@ abstract class BaseFilter implements FilterInterface
             $term = sprintf('"%s"', $term);
         }
 
-        if(!empty($term) && !in_array($term, $this->terms)) {
-
+        if(!in_array($term, $this->terms)) {
             $this->terms[] = $term;
             $this->resetResults();
         }
@@ -103,7 +107,7 @@ abstract class BaseFilter implements FilterInterface
             ->search($this->applyFilters())
             ->toArray();
 
-        $this->results = $results['hits'] ?? array();
+        $this->results = $results['hits'];
 
         return $this->results;
     }
@@ -134,6 +138,10 @@ abstract class BaseFilter implements FilterInterface
         return $criteria;
     }
 
+    /**
+     * @param string[] $filters
+     * @return void
+     */
     private function appendTagFilters(array &$filters) : void
     {
         if(empty($this->tags)) {
@@ -147,6 +155,10 @@ abstract class BaseFilter implements FilterInterface
         );
     }
 
+    /**
+     * @param string[] $filters
+     * @return void
+     */
     private function appendAuthorFilters(array &$filters) : void
     {
         if(empty($this->authors)) {
@@ -160,6 +172,10 @@ abstract class BaseFilter implements FilterInterface
         );
     }
 
+    /**
+     * @param string[] $filters
+     * @return void
+     */
     abstract protected function appendFilters(array &$filters) : void;
 
     /**
@@ -171,7 +187,9 @@ abstract class BaseFilter implements FilterInterface
         $primaryName = $this->getSearchIndex()->getPrimaryKeyName();
 
         foreach($this->getRawResults() as $result) {
-            $ids[] = $result[$primaryName];
+            if(isset($result[$primaryName]) && is_scalar($result[$primaryName])) {
+                $ids[] = (string)$result[$primaryName];
+            }
         }
 
         return $ids;
@@ -204,6 +222,10 @@ abstract class BaseFilter implements FilterInterface
         return $this;
     }
 
+    /**
+     * @param string $author
+     * @return $this
+     */
     public function selectAuthor(string $author) : self
     {
         if(!empty($author) && !in_array($author, $this->authors)) {

@@ -34,6 +34,6 @@ class ClothingItems extends BaseModItemsCollection
 
     protected function createItem(array $itemDef): ClothingItem
     {
-        return new ClothingItem($this->modInfo, $itemDef);
+        return new ClothingItem($this->getMod(), $itemDef);
     }
 }

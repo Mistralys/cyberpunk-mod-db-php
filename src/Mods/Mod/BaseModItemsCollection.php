@@ -46,5 +46,9 @@ abstract class BaseModItemsCollection extends BaseItemCollection implements ModI
         $this->itemData = array();
     }
 
+    /**
+     * @param array<string,mixed> $itemDef
+     * @return ItemInfoInterface
+     */
     abstract protected function createItem(array $itemDef) : ItemInfoInterface;
 }
