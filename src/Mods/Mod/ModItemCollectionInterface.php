@@ -9,4 +9,10 @@ use CPMDB\Mods\Items\ItemCollectionInterface;
 interface ModItemCollectionInterface extends ItemCollectionInterface
 {
     public function getMod() : ModInfoInterface;
+
+    /**
+     * Gets the CET commands for all items in the mod.
+     * @return string
+     */
+    public function getCETCommands() : string;
 }
