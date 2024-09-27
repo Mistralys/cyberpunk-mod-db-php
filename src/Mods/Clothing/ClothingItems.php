@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace CPMDB\Mods\Clothing;
 
-use CPMDB\Mods\Mod\BaseItemCollection;
+use CPMDB\Mods\Mod\BaseModItemsCollection;
 
 /**
  * Collection class that holds all clothing items for a mod.
@@ -21,7 +21,7 @@ use CPMDB\Mods\Mod\BaseItemCollection;
  * @method ClothingItem getByID(string $id)
  * @method ClothingModInfo getMod()
  */
-class ClothingItems extends BaseItemCollection
+class ClothingItems extends BaseModItemsCollection
 {
     /**
      * @param ClothingModInfo $modInfo
