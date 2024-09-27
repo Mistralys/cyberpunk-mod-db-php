@@ -21,6 +21,18 @@ use CPMDB\Mods\Collection\BaseCategory;
  */
 interface ModInfoInterface extends StringPrimaryRecordInterface
 {
+    /**
+     * Unique ID of the mod with category, e.g. `clothing.catsuit`.
+     * @return string
+     */
+    public function getUUID() : string;
+
+    /**
+     * ID of the mod without the category, e.g. `catsuit`.
+     * @return string
+     */
+    public function getModID() : string;
+
     public function getName() : string;
     public function getCategory() : BaseCategory;
     public function hasImage() : bool;
