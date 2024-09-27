@@ -1,9 +1,18 @@
+## v1.3.0 - Added the item collection and search
+- Collection: Cleaned up interfaces to handle global and mod item collections.
+- Items: Introduced the global item collection.
+- Items: Added `getTags()` and `getAuthors()`, inherited from the mod.
+- Items: Added item filtering capabilities.
+- Filters: Added filtering by author.
+- Core: Refactored for a cleaner class structure.
+- Core: PHPStan clean @ level 9.
+
 ## v1.2.1 - Cache fixes
 - Collection: Fixed the cache not updating with new database releases.
 - Index: Fixed clearing the index.
 - Index: Now automatically regenerating with new database releases.
 - Mods: Fixed the mod images not being found.
-- Filters: Added `hasFilters()`. 
+- Filters: Added `hasFilters()`.
 
 ## v1.2.0 - Search capabilities
 - Collection: Added full filtering capabilities.
