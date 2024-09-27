@@ -54,4 +54,18 @@ final class CacheTests extends CPMDBTestCase
 
         $this->assertSameSize($collectionA->getAll(), $collectionB->getAll());
     }
+
+    public function test_cacheHasSameData() : void
+    {
+        CacheDataWriter::setCacheEnabled(true);
+
+        $collectionA = $this->createCollection();
+        $collectionA->writeCache();
+
+        $collectionB = $this->createCollection();
+
+        $this->assertTrue($collectionB->isLoadedFromCache());
+
+        $this->assertContains('clothing.catsuit', $collectionB->getIDs());
+    }
 }
