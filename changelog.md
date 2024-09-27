@@ -1,3 +1,6 @@
+## v1.3.1 - Added item categories
+- Items: Added `hasCategories()` and `getCategorized()` to the mod item collection.
+
 ## v1.3.0 - Added the item collection and search
 - Collection: Cleaned up interfaces to handle global and mod item collections.
 - Items: Introduced the global item collection.
