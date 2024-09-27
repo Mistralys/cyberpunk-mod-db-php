@@ -54,4 +54,5 @@ interface ModInfoInterface extends StringPrimaryRecordInterface
     public function getTags() : array;
 
     public function hasTag(string $tag) : bool;
+    public function getItemCollection() : ItemCollectionInterface;
 }
