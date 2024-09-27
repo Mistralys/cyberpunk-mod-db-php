@@ -1,4 +1,8 @@
 <?php
+/**
+ * @package CPMDB
+ * @subpackage Search Index
+ */
 
 declare(strict_types=1);
 
@@ -7,6 +11,13 @@ namespace CPMDB\Mods\Collection\Indexer;
 use CPMDB\Mods\Mod\ModInfoInterface;
 use Loupe\Loupe\Loupe;
 
+/**
+ * Collects all searchable mod data to create the
+ * {@see Loupe} database.
+ *
+ * @package CPMDB
+ * @subpackage Search Index
+ */
 class IndexBuilder
 {
     public const KEY_UUID = 'uuid';
@@ -22,7 +33,7 @@ class IndexBuilder
     public function __construct(IndexManager $manager)
     {
         $this->manager = $manager;
-        $this->index = $manager->getIndex();
+        $this->index = $manager->createIndexInstance();
     }
 
     public function buildIndex(): void
