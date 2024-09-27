@@ -10,15 +10,17 @@ namespace CPMDB\Mods\Clothing;
 
 use AppUtils\ArrayDataCollection;
 use AppUtils\Interfaces\StringPrimaryRecordInterface;
+use CPMDB\Mods\Mod\ItemInfoInterface;
 
 /**
  * @package CPMDB
  * @subpackage Clothing Mods
  */
-class ClothingItem implements StringPrimaryRecordInterface
+class ClothingItem implements ItemInfoInterface
 {
     private ArrayDataCollection $data;
     private ClothingModInfo $mod;
+    private string $uuid;
 
     /**
      * @param ClothingModInfo $mod
@@ -28,16 +30,27 @@ class ClothingItem implements StringPrimaryRecordInterface
     {
         $this->mod = $mod;
         $this->data = ArrayDataCollection::create($itemDef);
+        $this->uuid = $this->mod->getUUID().'.'.$this->getItemCode();
     }
 
     public function getID() : string
     {
-        return $this->getItemCode();
+        return $this->uuid;
+    }
+
+    public function getUUID(): string
+    {
+        return $this->uuid;
     }
 
     public function getMod(): ClothingModInfo
     {
         return $this->mod;
+    }
+
+    public function getModID() : string
+    {
+        return $this->mod->getUUID();
     }
 
     public function getName() : string
@@ -47,7 +60,7 @@ class ClothingItem implements StringPrimaryRecordInterface
 
     public function getNameWithCategory() : string
     {
-        $category = $this->getCateogry();
+        $category = $this->getCategory();
 
         if(empty($category)) {
             return $this->getName();
@@ -56,7 +69,7 @@ class ClothingItem implements StringPrimaryRecordInterface
         return $category.' - '.$this->getName();
     }
 
-    public function getCateogry() : string
+    public function getCategory() : string
     {
         return $this->data->getString('category');
     }

@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace CPMDB\Mods\Clothing;
 
-use AppUtils\Collections\BaseStringPrimaryCollection;
+use CPMDB\Mods\Mod\BaseItemCollection;
 
 /**
  * Collection class that holds all clothing items for a mod.
@@ -19,39 +19,21 @@ use AppUtils\Collections\BaseStringPrimaryCollection;
  * @method ClothingItem[] getAll()
  * @method ClothingItem getDefault()
  * @method ClothingItem getByID(string $id)
+ * @method ClothingModInfo getMod()
  */
-class ClothingItems extends BaseStringPrimaryCollection
+class ClothingItems extends BaseItemCollection
 {
-    private ClothingModInfo $modInfo;
-
-    /**
-     * @var array<string,array<string,mixed>>
-     */
-    private array $itemData;
-
     /**
      * @param ClothingModInfo $modInfo
      * @param array<string,array<string,mixed>> $items
      */
     public function __construct(ClothingModInfo $modInfo, array $items)
     {
-        $this->modInfo = $modInfo;
-        $this->itemData = $items;
+        parent::__construct($modInfo, $items);
     }
 
-    public function getDefaultID(): string
+    protected function createItem(array $itemDef): ClothingItem
     {
-        if(!empty($this->items)) {
-            return $this->items[array_key_first($this->items)]->getID();
-        }
-
-        return '';
-    }
-
-    protected function registerItems(): void
-    {
-        foreach($this->itemData as $itemDef) {
-            $this->registerItem(new ClothingItem($this->modInfo, $itemDef));
-        }
+        return new ClothingItem($this->modInfo, $itemDef);
     }
 }
