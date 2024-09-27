@@ -5,7 +5,7 @@ PHP Classes to access the [Cyberpunk 2077 Clothing Mod DB](https://github.com/Mi
 ## Features
 
 - Classes used to access the mod database
-- Get mod information, including image paths and URLs
+- Get mod information, including screenshot paths and URLs
 - Filter mods by search terms and tags
 - Constants for all known tags used in the mod DB
 - Minimum configuration required
