@@ -7,7 +7,7 @@ namespace CPMDBTests\TestSuites\Collection;
 use CPMDBTEsts\TestClasses\CPMDBTestCase;
 use CPMDBTests\TestClasses\ItemCollectionAssertionsTrait;
 
-final class ItemTests extends CPMDBTestCase
+final class ModItemTests extends CPMDBTestCase
 {
     use ItemCollectionAssertionsTrait;
 
