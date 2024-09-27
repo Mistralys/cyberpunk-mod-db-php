@@ -37,4 +37,31 @@ final class ModItemTests extends CPMDBTestCase
 
         $this->assertItemsContainCode('cat_top', $collection);
     }
+
+    public function test_itemsHaveCategories() : void
+    {
+        $collection = $this->createCollection();
+
+        $this->assertFalse($collection
+            ->getByID('clothing.catsuit')
+            ->getItemCollection()
+            ->hasCategories()
+        );
+
+        $this->assertTrue($collection
+            ->getByID('clothing.biker-boots')
+            ->getItemCollection()
+            ->hasCategories()
+        );
+    }
+
+    public function test_getItemsCategorized() : void
+    {
+        $categories = $this->createCollection()
+            ->getByID('clothing.biker-boots')
+            ->getItemCollection()
+            ->getCategorized();
+
+        $this->assertCount(2, $categories);
+    }
 }
