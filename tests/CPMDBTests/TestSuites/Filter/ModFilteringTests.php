@@ -11,7 +11,7 @@ use CPMDB\Mods\Tags\Types\Torso;
 use CPMDBTEsts\TestClasses\CPMDBTestCase;
 use CPMDBTests\TestClasses\FilterAssertionsTrait;
 
-final class FilteringTests extends CPMDBTestCase
+final class ModFilteringTests extends CPMDBTestCase
 {
     use FilterAssertionsTrait;
 
@@ -21,7 +21,7 @@ final class FilteringTests extends CPMDBTestCase
             ->createFilter()
             ->selectTag(Jewelry::TAG_NAME);
 
-        $this->assertResultsContainID('clothing.moon-and-star-earrings', $filters);
+        $this->assertResultsContainPrimaryID('clothing.moon-and-star-earrings', $filters);
     }
 
     public function test_filterByMultipleTags() : void
@@ -30,7 +30,7 @@ final class FilteringTests extends CPMDBTestCase
             ->createFilter()
             ->selectTags(array(Earrings::TAG_NAME, MaleV::TAG_NAME));
 
-        $this->assertResultsContainID('clothing.salander-earplugs', $filters);
+        $this->assertResultsContainPrimaryID('clothing.salander-earplugs', $filters);
     }
 
     public function test_filterBySearchTerms() : void
@@ -39,7 +39,7 @@ final class FilteringTests extends CPMDBTestCase
 
         $filters->selectSearchTerm('fashionware');
 
-        $this->assertResultsContainID('clothing.full-body-fashionware', $filters);
+        $this->assertResultsContainPrimaryID('clothing.full-body-fashionware', $filters);
     }
 
     public function test_filterByMultipleCriteria() : void
@@ -49,6 +49,6 @@ final class FilteringTests extends CPMDBTestCase
         $filters->selectSearchTerms(array('xrx', 'jacket'));
         $filters->selectTag(Torso::TAG_NAME);
 
-        $this->assertResultsContainID('clothing.xrx-leather-jacket', $filters);
+        $this->assertResultsContainPrimaryID('clothing.xrx-leather-jacket', $filters);
     }
 }
