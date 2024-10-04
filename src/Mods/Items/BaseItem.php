@@ -129,4 +129,9 @@ abstract class BaseItem implements ItemInfoInterface
             $this->getItemCode()
         );
     }
+
+    public function getFullName() : string
+    {
+        return $this->getMod()->getName().' - '.$this->getName();
+    }
 }
