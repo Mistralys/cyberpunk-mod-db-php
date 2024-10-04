@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0226100dc701b1e9b35eeb9f9318c939",
+    "content-hash": "88a36dcd36958a5f9e1284dbe7fcf19f",
     "packages": [
         {
             "name": "brick/event",
@@ -799,17 +799,20 @@
         },
         {
             "name": "mistralys/cyberpunk-mod-db",
-            "version": "1.0.0",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Mistralys/cyberpunk-mod-db.git",
-                "reference": "10af5d5180faf264d974ef281e9e6df0d49cd8b6"
+                "reference": "853d6e7141e09d07e1c705f9702d96aa96a4268f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Mistralys/cyberpunk-mod-db/zipball/10af5d5180faf264d974ef281e9e6df0d49cd8b6",
-                "reference": "10af5d5180faf264d974ef281e9e6df0d49cd8b6",
+                "url": "https://api.github.com/repos/Mistralys/cyberpunk-mod-db/zipball/853d6e7141e09d07e1c705f9702d96aa96a4268f",
+                "reference": "853d6e7141e09d07e1c705f9702d96aa96a4268f",
                 "shasum": ""
+            },
+            "require": {
+                "mistralys/application-utils": ">=3.0.5"
             },
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
@@ -825,9 +828,9 @@
             "description": "JSON database of Cyberpunk 2077 Clothing Mods",
             "support": {
                 "issues": "https://github.com/Mistralys/cyberpunk-mod-db/issues",
-                "source": "https://github.com/Mistralys/cyberpunk-mod-db/tree/1.0.0"
+                "source": "https://github.com/Mistralys/cyberpunk-mod-db/tree/2.0.0"
             },
-            "time": "2024-09-16T16:59:18+00:00"
+            "time": "2024-09-29T13:09:06+00:00"
         },
         {
             "name": "mistralys/version-parser",
@@ -2730,12 +2733,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "e575df03927277be35e76086cdf41d54f4340767"
+                "reference": "5bd374d4b964c449fc99b871b6d9f139d0b41502"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/e575df03927277be35e76086cdf41d54f4340767",
-                "reference": "e575df03927277be35e76086cdf41d54f4340767",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/5bd374d4b964c449fc99b871b6d9f139d0b41502",
+                "reference": "5bd374d4b964c449fc99b871b6d9f139d0b41502",
                 "shasum": ""
             },
             "conflict": {
@@ -2918,6 +2921,8 @@
                 "feehi/cms": "<=2.1.1",
                 "feehi/feehicms": "<=2.1.1",
                 "fenom/fenom": "<=2.12.1",
+                "filament/infolists": ">=3,<3.2.115",
+                "filament/tables": ">=3,<3.2.115",
                 "filegator/filegator": "<7.8",
                 "filp/whoops": "<2.1.13",
                 "fineuploader/php-traditional-server": "<=1.2.2",
@@ -3547,7 +3552,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-09-26T18:06:24+00:00"
+            "time": "2024-09-27T21:04:39+00:00"
         },
         {
             "name": "sebastian/cli-parser",
