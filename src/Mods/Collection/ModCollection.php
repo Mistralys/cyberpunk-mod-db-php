@@ -26,7 +26,7 @@ use CPMDB\Mods\Collection\DataWriter\CacheDataWriter;
 use CPMDB\Mods\Collection\Filter\ItemFilter;
 use CPMDB\Mods\Collection\Filter\ModFilter;
 use CPMDB\Mods\Collection\Indexer\IndexManager;
-use CPMDB\Mods\Items\ItemCollection;
+use CPMDB\Mods\Items\GlobalItemCollection;
 use CPMDB\Mods\Mod\ModInfoInterface;
 use Mistralys\ChangelogParser\ChangelogParser;
 use Throwable;
@@ -293,12 +293,12 @@ class ModCollection extends BaseStringPrimaryCollection
         }
     }
 
-    private ?ItemCollection $itemCollection = null;
+    private ?GlobalItemCollection $itemCollection = null;
 
-    public function getItemCollection() : ItemCollection
+    public function getItemCollection() : GlobalItemCollection
     {
         if(!isset($this->itemCollection)) {
-            $this->itemCollection = new ItemCollection($this);
+            $this->itemCollection = new GlobalItemCollection($this);
         }
 
         return $this->itemCollection;

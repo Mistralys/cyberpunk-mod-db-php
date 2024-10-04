@@ -17,7 +17,7 @@ use CPMDB\Mods\Collection\ModCollection;
  * @package CPMDB
  * @subpackage Items
  */
-class ItemCollection extends BaseItemCollection
+class GlobalItemCollection extends BaseItemCollection
 {
     private ModCollection $modCollection;
 
