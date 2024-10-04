@@ -1,5 +1,7 @@
-## v1.3.1 - Added item categories
+## v1.4.0 - Data structure update
 - Items: Added `hasCategories()` and `getCategorized()` to the mod item collection.
+- Collection: Updated to use the new data structure in DB v2.
+- DB: Switched to Mod DB [v2.0.0](https://github.com/Mistralys/cyberpunk-mod-db/releases/tag/2.0.0).
 
 ## v1.3.0 - Added the item collection and search
 - Collection: Cleaned up interfaces to handle global and mod item collections.
