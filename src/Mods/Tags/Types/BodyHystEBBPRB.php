@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace CPMDB\Mods\Tags\Types;
 
-use CPMDB\Mods\Tags\Categories\GeneralTagInfo;
-
-class Hair extends GeneralTagInfo
+class BodyHystEBBPRB extends BodyHyst
 {
-    public const TAG_NAME = 'Hair';
+    public const TAG_NAME = 'Body-Hyst-EBBPRB';
 
     protected function _getName(): string
     {
@@ -17,6 +15,6 @@ class Hair extends GeneralTagInfo
 
     public function getLabel(): string
     {
-        return 'Hair';
+        return 'Hyst EBBPRB';
     }
 }
