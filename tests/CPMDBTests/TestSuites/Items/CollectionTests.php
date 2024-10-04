@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace CPMDBTests\TestSuites\Items;
 
+use CPMDB\Mods\Tags\Types\Jewelry;
+use CPMDB\Mods\Tags\Types\Physics;
 use CPMDBTEsts\TestClasses\CPMDBTestCase;
 
 final class CollectionTests extends CPMDBTestCase
@@ -24,5 +26,19 @@ final class CollectionTests extends CPMDBTestCase
         $dress = $collection->getByItemCode('peachu_evelyn_pink');
 
         $this->assertSame('Pink', $dress->getName());
+    }
+
+    public function test_multi() : void
+    {
+        $collection = $this->createCollection();
+
+        $items = $collection->createItemFilter()
+            ->selectSearchTerm('earrings')
+            ->selectTag(Jewelry::TAG_NAME)
+            ->selectTag(Physics::TAG_NAME)
+            ->getItemsAsCollection();
+
+        $this->assertNotEmpty($items);
+        $this->assertTrue($items->itemCodeExists('earrings_08_basic_04_kwek'));
     }
 }
