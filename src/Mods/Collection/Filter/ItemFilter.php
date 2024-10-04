@@ -36,13 +36,14 @@ class ItemFilter extends BaseFilter
         ItemIndex::KEY_ITEM_NAME,
         ItemIndex::KEY_ITEM_CATEGORY,
         ItemIndex::KEY_ITEM_CODE,
+        ItemIndex::KEY_ITEM_TAGS,
         ModIndex::KEY_MOD_NAME,
         ModIndex::KEY_MOD_AUTHORS
     );
 
     public const FILTERABLE_ATTRIBUTES = array(
         ModIndex::KEY_MOD_AUTHORS,
-        ModIndex::KEY_MOD_TAGS
+        ItemIndex::KEY_ITEM_TAGS
     );
 
     public const SORTABLE_ATTRIBUTES = array(

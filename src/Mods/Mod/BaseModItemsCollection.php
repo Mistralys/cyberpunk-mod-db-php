@@ -18,18 +18,23 @@ abstract class BaseModItemsCollection extends BaseItemCollection implements ModI
     protected ModInfoInterface $modInfo;
 
     /**
-     * @var array<string,array<string,mixed>>
+     * @var array<int,array<string,mixed>>
      */
-    private array $itemData;
+    private array $itemCategoriesData;
+
+    /**
+     * @var ItemCategory[]
+     */
+    private array $categories = array();
 
     /**
      * @param ModInfoInterface $modInfo
-     * @param array<string,array<string,mixed>> $items
+     * @param array<string,array<string,mixed>> $itemCategories
      */
-    public function __construct(ModInfoInterface $modInfo, array $items)
+    public function __construct(ModInfoInterface $modInfo, array $itemCategories)
     {
         $this->modInfo = $modInfo;
-        $this->itemData = $items;
+        $this->itemCategoriesData = $itemCategories;
     }
 
     public function getMod(): ModInfoInterface
@@ -49,71 +54,81 @@ abstract class BaseModItemsCollection extends BaseItemCollection implements ModI
 
     protected function registerItems(): void
     {
-        foreach($this->itemData as $itemDef) {
-            $this->registerItem($this->createItem($itemDef));
+        foreach ($this->itemCategoriesData as $categoryDef) {
+            $this->registerItemCategory($categoryDef);
         }
 
-        // Clear the item data array to free up memory
-        $this->itemData = array();
+        // Clear the data array to free up memory
+        $this->itemCategoriesData = array();
     }
 
     /**
-     * @param array<string,mixed> $itemDef
-     * @return ItemInfoInterface
+     * @param array<string,mixed> $categoryData
+     * @return void
      */
-    abstract protected function createItem(array $itemDef) : ItemInfoInterface;
-
-    private ?bool $categorized = null;
-
-    public function hasCategories(): bool
+    protected function registerItemCategory(array $categoryData) : void
     {
-        if(isset($this->categorized)) {
-            return $this->categorized;
+        $category = new ItemCategory(
+            $this->modInfo,
+            $categoryData['label'] ?? '',
+            $this->filterTags($categoryData['tags'] ?? null),
+            $this->filterItems($categoryData['items'] ?? null)
+        );
+
+        $this->categories[] = $category;
+
+        foreach($category->getAll() as $item) {
+            $this->registerItem($item);
+        }
+    }
+
+    /**
+     * @param mixed $tags
+     * @return string[]
+     */
+    private function filterTags(mixed $tags) : array
+    {
+        if(!is_array($tags)) {
+            return array();
         }
 
-        $this->categorized = false;
-
-        foreach($this->getAll() as $item) {
-            if($item->getCategory() !== '') {
-                $this->categorized = true;
-                break;
+        $result = array();
+        foreach($tags as $tag) {
+            if(is_string($tag) || is_int($tag)) {
+                $result[] = (string)$tag;
             }
         }
 
-        return $this->categorized;
+        return $result;
     }
 
     /**
-     * @var ItemCategory[]|null
+     * @param mixed $items
+     * @return array<int,array<string,mixed>>
      */
-    private ?array $categories = null;
+    private function filterItems(mixed $items) : array
+    {
+        if(!is_array($items)) {
+            return array();
+        }
+
+        $result = array();
+        foreach($items as $item) {
+            if(is_array($item)) {
+                $result[] = $item;
+            }
+        }
+
+        return $result;
+    }
 
     /**
      * @return ItemCategory[]
      */
-    public function getCategorized() : array
+    public function getCategories() : array
     {
-        if(isset($this->categories)) {
-            return array_values($this->categories);
-        }
+        $this->initItems();
 
-        $this->categories = array();
-
-        foreach($this->getAll() as $item) {
-            $category = $item->getCategory();
-            if($category === '') {
-                $category = 'Uncategorized';
-            }
-
-            if(!isset($this->categories[$category])) {
-                $this->categories[$category] = new ItemCategory($this->modInfo, $category);
-            }
-
-            $this->categories[$category]->add($item);
-        }
-
-        ksort($this->categories);
-
-        return array_values($this->categories);
+        return $this->categories;
     }
 }

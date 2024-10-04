@@ -33,7 +33,7 @@ class ClothingModInfo extends BaseModInfo
     public function getItemCollection() : ClothingItems
     {
         if(!isset($this->itemCollection)) {
-            $this->itemCollection = new ClothingItems($this, $this->getItemData());
+            $this->itemCollection = new ClothingItems($this, $this->getCategoriesData());
         }
 
         return $this->itemCollection;
@@ -42,13 +42,18 @@ class ClothingModInfo extends BaseModInfo
     /**
      * @return array<string,array<string,mixed>>
      */
-    private function getItemData() : array
+    private function getCategoriesData() : array
     {
         $result = array();
-        foreach($this->data->getArray('items') as $key => $itemDef) {
-            $result[(string)$key] = (array)$itemDef;
+        foreach($this->data->getArray('itemCategories') as $categoryDef) {
+            $result[] = (array)$categoryDef;
         }
 
         return $result;
+    }
+
+    public function getItemClass(): string
+    {
+        return ClothingItem::class;
     }
 }

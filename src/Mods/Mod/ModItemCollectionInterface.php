@@ -16,21 +16,4 @@ interface ModItemCollectionInterface extends ItemCollectionInterface
      * @return string
      */
     public function getCETCommands() : string;
-
-    /**
-     * Do the items have categories assigned to them?
-     * @return bool
-     */
-    public function hasCategories() : bool;
-
-    /**
-     * Gets the items categorized by category, if any.
-     *
-     * If the items are not categorized in the data,
-     * a category called "Uncategorized" will be used
-     * instead.
-     *
-     * @return ItemCategory[]
-     */
-    public function getCategorized() : array;
 }

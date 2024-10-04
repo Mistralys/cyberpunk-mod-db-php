@@ -25,15 +25,10 @@ class ClothingItems extends BaseModItemsCollection
 {
     /**
      * @param ClothingModInfo $modInfo
-     * @param array<string,array<string,mixed>> $items
+     * @param array<string,array<string,mixed>> $itemCategories
      */
-    public function __construct(ClothingModInfo $modInfo, array $items)
+    public function __construct(ClothingModInfo $modInfo, array $itemCategories)
     {
-        parent::__construct($modInfo, $items);
-    }
-
-    protected function createItem(array $itemDef): ClothingItem
-    {
-        return new ClothingItem($this->getMod(), $itemDef);
+        parent::__construct($modInfo, $itemCategories);
     }
 }

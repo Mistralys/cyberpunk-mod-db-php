@@ -17,6 +17,7 @@ class ItemIndex extends BaseIndex
     public const KEY_ITEM_CODE = 'item_code';
     public const KEY_ITEM_UUID = 'item_uuid';
     public const KEY_ITEM_NAME = 'item_name';
+    public const KEY_ITEM_TAGS = 'item_tags';
 
     public function getID(): string
     {
@@ -65,8 +66,8 @@ class ItemIndex extends BaseIndex
         return [
             self::KEY_ITEM_UUID => $item->getID(),
             self::KEY_ITEM_NAME => $item->getName(),
-            self::KEY_ITEM_CATEGORY => $item->getCategory(),
             self::KEY_ITEM_CODE => $item->getItemCode(),
+            self::KEY_ITEM_TAGS => $item->getTags(),
             ModIndex::KEY_MOD_UUID => $item->getModID(),
             ModIndex::KEY_MOD_NAME => $mod->getName(),
             ModIndex::KEY_MOD_AUTHORS => $mod->getAuthors(),

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace CPMDB\Mods\Items;
 
 use AppUtils\Collections\BaseStringPrimaryCollection;
+use CPMDB\Mods\Tags\TagCollection;
 
 /**
  * Abstract base class for item collections.
@@ -17,7 +18,7 @@ use AppUtils\Collections\BaseStringPrimaryCollection;
  * @subpackage Items
  *
  * @method ItemInfoInterface[] getAll()
- * @method ItemInfoInterface getDefault()
+ * @method ItemInfoInterface getDefault( )
  * @method ItemInfoInterface getByID(string $id)
  */
 abstract class BaseItemCollection extends BaseStringPrimaryCollection implements ItemCollectionInterface
@@ -82,5 +83,16 @@ abstract class BaseItemCollection extends BaseStringPrimaryCollection implements
             ),
             ItemCollectionException::ERROR_ITEM_CODE_NOT_FOUND
         );
+    }
+
+    public function collectTags() : array
+    {
+        $tagLists = array();
+
+        foreach($this->getCategories() as $category) {
+            $tagLists[] = $category->getTags();
+        }
+
+        return TagCollection::mergeTags(...$tagLists);
     }
 }

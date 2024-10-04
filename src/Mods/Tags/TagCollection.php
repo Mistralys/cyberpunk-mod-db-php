@@ -27,6 +27,42 @@ class TagCollection extends BaseStringPrimaryCollection
         return self::$instance;
     }
 
+    public static function filterTags(array $tags) : array
+    {
+        $result = array();
+
+        foreach($tags as $tag) {
+            if(is_string($tag)) {
+                $result[] = $tag;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Merges multiple tag lists into one unique list.
+     *
+     * @param string[] ...$tagLists
+     * @return string[]
+     */
+    public static function mergeTags(...$tagLists) : array
+    {
+        $tags = array();
+
+        foreach($tagLists as $tagList) {
+            if(is_array($tagList)) {
+                array_push($tags, ...self::filterTags($tagList));
+            }
+        }
+
+        $result = array_unique($tags);
+
+        sort($result);
+
+        return $result;
+    }
+
     public function getDefaultID(): string
     {
         return CyberEngineTweaks::TAG_NAME;

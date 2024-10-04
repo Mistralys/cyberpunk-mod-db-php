@@ -9,11 +9,15 @@ declare(strict_types=1);
 namespace CPMDB\Mods\Mod;
 
 use AppUtils\ArrayDataCollection;
+use AppUtils\ClassHelper;
 use AppUtils\ConvertHelper;
 use AppUtils\FileHelper\FileInfo;
 use AppUtils\FileHelper\JSONFile;
 use CPMDB\Mods\Clothing\ClothingModInfo;
 use CPMDB\Mods\Collection\BaseCategory;
+use CPMDB\Mods\Items\ItemCategory;
+use CPMDB\Mods\Items\ItemInfoInterface;
+use CPMDB\Mods\Tags\TagCollection;
 use CPMDB\Mods\Tags\Types\VirtualAtelier;
 
 /**
@@ -151,29 +155,48 @@ abstract class BaseModInfo implements ModInfoInterface
     /**
      * @var string[]|null
      */
-    private ?array $tags = null;
+    private ?array $inheritedTags = null;
 
     public function getTags() : array
     {
-        if(isset($this->tags)) {
-            return $this->tags;
+        if(isset($this->inheritedTags)) {
+            return $this->inheritedTags;
         }
 
-        $this->tags = array();
+        // Change this to avoid an infinite loop. Use the
+        // own tags instead of the inherited ones, for the
+        // categories and all items.
+        $tagLists = array();
+        $tagLists[] = $this->getOwnTags();
 
-        foreach($this->data->getArray(self::KEY_TAGS) as $tag) {
-            if(is_string($tag)) {
-                $this->tags[] = $tag;
+        foreach($this->getItemCollection()->getCategories() as $category) {
+            $tagLists[] = $category->getOwnTags();
+            foreach($category->getAll() as $item) {
+                $tagLists[] = $item->getOwnTags();
             }
         }
 
-        if($this instanceof ClothingModInfo && $this->hasAtelier()) {
-            $this->tags[] = VirtualAtelier::TAG_NAME;
+        $this->inheritedTags = TagCollection::mergeTags(...$tagLists);
+
+        return $this->inheritedTags;
+    }
+
+    /**
+     * @var string[]|null
+     */
+    private ?array $ownTags = null;
+
+    public function getOwnTags() : array
+    {
+        if(isset($this->ownTags)) {
+            return $this->ownTags;
         }
 
-        sort($this->tags);
+        $this->ownTags = TagCollection::filterTags($this->data->getArray(ItemInfoInterface::KEY_TAGS));
 
-        return $this->tags;
+        sort($this->ownTags);
+
+        return $this->ownTags;
     }
 
     public function hasTag(string $tag) : bool
@@ -188,4 +211,16 @@ abstract class BaseModInfo implements ModInfoInterface
 
         return false;
     }
+
+    public function createItem(ItemCategory $category, array $itemData) : ItemInfoInterface
+    {
+        $class = $this->getItemClass();
+
+        return ClassHelper::requireObjectInstanceOf(
+            ItemInfoInterface::class,
+            new $class($this, $category, $itemData)
+        );
+    }
+
+    abstract public function getItemClass() : string;
 }

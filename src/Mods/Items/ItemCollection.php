@@ -34,4 +34,24 @@ class ItemCollection extends BaseItemCollection
             }
         }
     }
+
+    /**
+     * @var ItemCategory[]|null
+     */
+    private ?array $categories = null;
+
+    public function getCategories(): array
+    {
+        if(isset($this->categories)) {
+            return $this->categories;
+        }
+
+        $this->categories = array();
+
+        foreach($this->getAll() as $item) {
+            $this->categories[] = $item->getCategory();
+        }
+
+        return $this->categories;
+    }
 }

@@ -22,6 +22,7 @@ interface ItemInfoInterface extends StringPrimaryRecordInterface
     public const KEY_CODE = 'code';
     public const KEY_CATEGORY = 'category';
     public const KEY_NAME = 'name';
+    public const KEY_TAGS = 'tags';
 
     /**
      * Unique ID of the item. This is made up of the
@@ -48,13 +49,11 @@ interface ItemInfoInterface extends StringPrimaryRecordInterface
     public function getNameWithCategory() : string;
 
     /**
-     * Category of the item, if any. This is defined in the
-     * {@see self::KEY_CATEGORY} property in the JSON data
-     * files.
+     * The category of the item (used to group items thematically).
      *
-     * @return string
+     * @return ItemCategory
      */
-    public function getCategory() : string;
+    public function getCategory() : ItemCategory;
 
     /**
      * The CET item code of the item. This is defined in the
@@ -76,11 +75,19 @@ interface ItemInfoInterface extends StringPrimaryRecordInterface
     public function getAuthors() : array;
 
     /**
-     * All tags associated with the item.
-     *
-     * NOTE: This is inherited from the mod.
+     * All tags associated with the item, including
+     * those inherited from the mod and from the
+     * item category.
      *
      * @return string[]
      */
     public function getTags() : array;
+
+    /**
+     * All tags that are assigned to the item itself,
+     * excluding any inherited ones.
+     *
+     * @return string[]
+     */
+    public function getOwnTags() : array;
 }
