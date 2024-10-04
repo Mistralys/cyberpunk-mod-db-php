@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace CPMDBTests\TestSuites\Indexing;
 
+use CPMDB\Mods\Tags\Types\Earring;
 use CPMDB\Mods\Tags\Types\Earrings;
 use CPMDB\Mods\Tags\Types\Jewelry;
 use CPMDB\Mods\Tags\Types\MaleV;
@@ -28,7 +29,7 @@ final class ModFilteringTests extends CPMDBTestCase
     {
         $filters = $this->createCollection()
             ->createFilter()
-            ->selectTags(array(Earrings::TAG_NAME, MaleV::TAG_NAME));
+            ->selectTags(array(Earring::TAG_NAME, MaleV::TAG_NAME));
 
         $this->assertResultsContainPrimaryID('clothing.salander-earplugs', $filters);
     }
