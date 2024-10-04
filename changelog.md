@@ -2,6 +2,8 @@
 - Items: Added `hasCategories()` and `getCategorized()` to the mod item collection.
 - Collection: Updated to use the new data structure in DB v2.
 - Tags: Added the `Physics` tag.
+- Tags: Added the `Gloves` tag.
+- Tags: Added the `Neck` tag.
 - Tags: Added the helper class `TagNames` for easy name lookup.
 - DB: Switched to Mod DB [v2.0.0](https://github.com/Mistralys/cyberpunk-mod-db/releases/tag/2.0.0).
 
