@@ -95,4 +95,20 @@ abstract class BaseItemCollection extends BaseStringPrimaryCollection implements
 
         return TagCollection::mergeTags(...$tagLists);
     }
+
+    /**
+     * Dumps a list of all items to the console.
+     * @return void
+     */
+    public function dumpItems() : void
+    {
+        foreach($this->getAll() as $item) {
+            echo sprintf(
+                    '- "%s" by %s [%s]',
+                    $item->getFullName(),
+                    implode(', ', $item->getAuthors()),
+                    $item->getItemCode()
+                ).PHP_EOL;
+        }
+    }
 }
