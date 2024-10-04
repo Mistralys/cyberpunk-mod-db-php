@@ -11,6 +11,9 @@ use Loupe\Loupe\SearchParameters;
 
 abstract class BaseFilter implements FilterInterface
 {
+    private const LIST_MODE_AND = 'AND';
+    private const LIST_MODE_OR = 'OR';
+
     protected ModCollection $collection;
 
     /**
@@ -32,6 +35,9 @@ abstract class BaseFilter implements FilterInterface
      * @var string[]
      */
     private array $authors = array();
+
+    private string $tagsMode = self::LIST_MODE_AND;
+    private string $authorsMode = self::LIST_MODE_AND;
 
     public function __construct(ModCollection $collection)
     {
@@ -155,10 +161,61 @@ abstract class BaseFilter implements FilterInterface
             return;
         }
 
-        $filters[] = sprintf(
-            "%s IN('%s')",
+        $filters[] = $this->renderListMode(
             $this->getTagsKeyName(),
-            implode("','", array_map('addslashes', $this->tags))
+            $this->tagsMode,
+            $this->tags
+        );
+    }
+
+    /**
+     * @param string $keyName
+     * @param string $mode
+     * @param string[] $items
+     * @return string
+     */
+    private function renderListMode(string $keyName, string $mode, array $items) : string
+    {
+        if($mode === self::LIST_MODE_OR) {
+            return $this->renderListOR($keyName, $items);
+        } else {
+            return $this->renderListAND($keyName, $items);
+        }
+    }
+
+    /**
+     * @param string $keyName
+     * @param string[] $items
+     * @return string
+     */
+    private function renderListOR(string $keyName, array $items) : string
+    {
+        return sprintf(
+            "%s IN('%s')",
+            $keyName,
+            implode("','", array_map('addslashes', $items))
+        );
+    }
+
+    /**
+     * @param string $keyName
+     * @param string[] $items
+     * @return string
+     */
+    private function renderListAND(string $keyName, array $items) : string
+    {
+        $list = array();
+        foreach($items as $item) {
+            $list[] = sprintf(
+                "%s = '%s'",
+                $keyName,
+                addslashes($item)
+            );
+        }
+
+        return sprintf(
+            "(%s)",
+            implode(' AND ', $list)
         );
     }
 
@@ -172,10 +229,10 @@ abstract class BaseFilter implements FilterInterface
             return;
         }
 
-        $filters[] = sprintf(
-            "%s IN('%s')",
+        $filters[] = $this->renderListMode(
             ModIndex::KEY_MOD_AUTHORS,
-            implode("','", array_map('addslashes', $this->authors))
+            $this->authorsMode,
+            $this->authors
         );
     }
 
