@@ -90,4 +90,11 @@ interface ItemInfoInterface extends StringPrimaryRecordInterface
      * @return string[]
      */
     public function getOwnTags() : array;
+
+    /**
+     * Gets the full name of the item, including the mod name.
+     * Example: "Full Body Fashionware - Green Light"
+     * @return string
+     */
+    public function getFullName() : string;
 }
