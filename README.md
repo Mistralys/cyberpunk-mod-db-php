@@ -87,7 +87,7 @@ $dress = $itemsCollection->getByID('nd_michiko_dress_black');
 $dress->getCETCommand();
 ```
 
-### Filtering mods
+### Searching for mods
 
 Use the mod filter to search for specific mods by search terms and/or tags.
 
@@ -109,7 +109,7 @@ $mods = $collection->createFilter()
     ->getMods();
 ```
 
-### Filtering items
+### Searching for items
 
 Use the item filter to search for specific items by search terms and/or tags.
 
@@ -127,7 +127,21 @@ $collection = ModCollection::create(
 // Search for the Jewelry tag to get all jewelry mod items
 $mods = $collection->createItemFilter()
     ->selectTag(Jewelry::TAG_NAME)
-    ->getMods();
+    ->getItems();
+
+// Use the item collection for helper methods like getting
+// items by their CET code
+$mods = $collection->createItemFilter()
+    ->selectTag(Jewelry::TAG_NAME)
+    ->getItemsAsCollection()
+    ->getByItemCode('earrings_08_basic_04_kwek');
+
+// Combine as many filter criteria as needed
+$mods = $collection->createItemFilter()
+    ->selectSearchTerm('earrings')
+    ->selectTag(Jewelry::TAG_NAME)
+    ->selectTag(Physics::TAG_NAME)
+    ->getItemsAsCollection();
 ```
 
 > NOTE: Items inherit their tags from the mod they belong to. Since a
