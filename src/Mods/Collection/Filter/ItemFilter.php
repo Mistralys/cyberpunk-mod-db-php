@@ -12,7 +12,9 @@ use AppUtils\Collections\CollectionException;
 use CPMDB\Mods\Collection\Indexer\IndexInterface;
 use CPMDB\Mods\Collection\Indexer\ItemIndex;
 use CPMDB\Mods\Collection\Indexer\ModIndex;
+use CPMDB\Mods\Items\ItemCollectionInterface;
 use CPMDB\Mods\Items\ItemInfoInterface;
+use CPMDB\Mods\Items\ManualItemCollection;
 
 /**
  * Utility class used to search for items in the collection
@@ -83,5 +85,22 @@ class ItemFilter extends BaseFilter
         }
 
         return $result;
+    }
+
+    /**
+     * Like {@see self::getItems()} but returns the items as a collection
+     * for easier access to additional methods.
+     *
+     * @return ItemCollectionInterface
+     * @throws CollectionException
+     */
+    public function getItemsAsCollection() : ItemCollectionInterface
+    {
+        return ManualItemCollection::create($this->getItems());
+    }
+
+    protected function getTagsKeyName(): string
+    {
+        return ItemIndex::KEY_ITEM_TAGS;
     }
 }

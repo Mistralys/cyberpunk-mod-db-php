@@ -143,6 +143,8 @@ abstract class BaseFilter implements FilterInterface
         return $criteria;
     }
 
+    abstract protected function getTagsKeyName() : string;
+
     /**
      * @param string[] $filters
      * @return void
@@ -155,7 +157,7 @@ abstract class BaseFilter implements FilterInterface
 
         $filters[] = sprintf(
             "%s IN('%s')",
-            ModIndex::KEY_MOD_TAGS,
+            $this->getTagsKeyName(),
             implode("','", array_map('addslashes', $this->tags))
         );
     }

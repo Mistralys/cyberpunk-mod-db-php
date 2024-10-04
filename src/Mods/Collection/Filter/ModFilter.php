@@ -110,4 +110,9 @@ class ModFilter extends BaseFilter
 
         return $result;
     }
+
+    protected function getTagsKeyName(): string
+    {
+        return ModIndex::KEY_MOD_TAGS;
+    }
 }
