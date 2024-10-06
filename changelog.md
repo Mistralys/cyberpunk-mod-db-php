@@ -1,4 +1,4 @@
-## v1.4.0 - Data structure update
+## v1.4.0 - Data structure update (Breaking-XL)
 - Items: Added `hasCategories()` and `getCategorized()` to the mod item collection.
 - Collection: Updated to use the new data structure in DB v2.
 - Tags: Added the `Physics` tag.
@@ -6,6 +6,12 @@
 - Tags: Added the `Neck` tag.
 - Tags: Added the helper class `TagNames` for easy name lookup.
 - DB: Switched to Mod DB [v2.0.0](https://github.com/Mistralys/cyberpunk-mod-db/releases/tag/2.0.0).
+
+### Breaking changes
+
+Some method return types and parameters have been updated to handle the new 
+data structure. This may require changes in your code, especially regarding
+mod item handling, where all items are now categorized by default.
 
 ## v1.3.0 - Added the item collection and search
 - Collection: Cleaned up interfaces to handle global and mod item collections.
