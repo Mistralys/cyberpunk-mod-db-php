@@ -18,7 +18,7 @@ class CacheDataWriter
 {
     public const ERROR_WRITING_CACHE_FAILED = 165401;
 
-    public const CACHING_SYSTEM_VERSION = '3';
+    public const CACHING_SYSTEM_VERSION = '4';
     public const MODS_CACHE_FILE = 'mods.ser';
     public const MODS_VERSION_FILE = 'mods.version';
 
