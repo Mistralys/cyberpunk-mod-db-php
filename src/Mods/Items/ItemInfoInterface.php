@@ -97,4 +97,12 @@ interface ItemInfoInterface extends StringPrimaryRecordInterface
      * @return string
      */
     public function getFullName() : string;
+
+    /**
+     * Gets the Cyber Engine Tweaks console command to add this
+     * item in the game.
+     *
+     * @return string
+     */
+    public function getCETCommand() : string;
 }
