@@ -12,8 +12,10 @@ use AppUtils\ArrayDataCollection;
 use AppUtils\FileHelper\JSONFile;
 use AppUtils\Interfaces\StringPrimaryRecordInterface;
 use CPMDB\Mods\Collection\BaseCategory;
+use CPMDB\Mods\Collection\ModCollection;
 use CPMDB\Mods\Items\ItemCategory;
 use CPMDB\Mods\Items\ItemInfoInterface;
+use CPMDB\Mods\Mod\SeeAlso\SeeAlsoReferenceInterface;
 
 /**
  * Interface for mod information records.
@@ -37,6 +39,7 @@ interface ModInfoInterface extends StringPrimaryRecordInterface
 
     public function getName() : string;
     public function getCategory() : BaseCategory;
+    public function getModCollection() : ModCollection;
     public function hasImage() : bool;
     public function getDataFile() : JSONFile;
     public function getRawData() : ArrayDataCollection;
@@ -71,10 +74,51 @@ interface ModInfoInterface extends StringPrimaryRecordInterface
 
     public function hasTag(string $tag) : bool;
     public function getItemCollection() : ModItemCollectionInterface;
+
+    /**
+     * @param ItemCategory $category
+     * @param array<mixed> $itemData
+     * @return ItemInfoInterface
+     */
     public function createItem(ItemCategory $category, array $itemData) : ItemInfoInterface;
 
     /**
      * @return class-string
      */
     public function getItemClass() : string;
+
+    /**
+     * Whether the mod has a "See Also" section.
+     * Use {@see self::getSeeAlso()} to get the references.
+     *
+     * @return bool
+     */
+    public function hasSeeAlso() : bool;
+
+    /**
+     * If the mod has any "see also" references, this will
+     * return them as an array of {@see SeeAlsoReferenceInterface}.
+     *
+     * Use `instanceof` to check the type of each reference.
+     *
+     * Possible types are:
+     *
+     * - {@see LinkReference}
+     * - {@see ModReference}
+     *
+     * @return SeeAlsoReferenceInterface[]
+     */
+    public function getSeeAlso() : array;
+
+    /**
+     * List of mod IDs that are linked with this mod.
+     * @return string[]
+     */
+    public function getLinkedModIDs() : array;
+
+    /**
+     * Gets all mods that are related to this mod.
+     * @return ModInfoInterface[]
+     */
+    public function getLinkedMods() : array;
 }

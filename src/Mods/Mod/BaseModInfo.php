@@ -10,15 +10,17 @@ namespace CPMDB\Mods\Mod;
 
 use AppUtils\ArrayDataCollection;
 use AppUtils\ClassHelper;
+use AppUtils\ClassHelper\BaseClassHelperException;
+use AppUtils\Collections\CollectionException;
 use AppUtils\ConvertHelper;
 use AppUtils\FileHelper\FileInfo;
 use AppUtils\FileHelper\JSONFile;
-use CPMDB\Mods\Clothing\ClothingModInfo;
 use CPMDB\Mods\Collection\BaseCategory;
+use CPMDB\Mods\Collection\ModCollection;
 use CPMDB\Mods\Items\ItemCategory;
 use CPMDB\Mods\Items\ItemInfoInterface;
+use CPMDB\Mods\Mod\SeeAlso\LinkReference;
 use CPMDB\Mods\Tags\TagCollection;
-use CPMDB\Mods\Tags\Types\VirtualAtelier;
 
 /**
  * Abstract base class for mod information classes.
@@ -30,8 +32,11 @@ abstract class BaseModInfo implements ModInfoInterface
 {
     public const KEY_URL = 'url';
     public const KEY_AUTHORS = 'authors';
-    public const KEY_TAGS = 'tags';
     public const KEY_MOD_NAME = 'mod';
+    public const KEY_SEE_ALSO = 'seeAlso';
+    public const KEY_SEE_ALSO_URL = 'url';
+    public const KEY_SEE_ALSO_LABEL = 'label';
+    public const KEY_LINKED_MODS = 'linkedMods';
 
     protected JSONFile $dataFile;
     protected string $uuid;
@@ -59,6 +64,11 @@ abstract class BaseModInfo implements ModInfoInterface
     public function getCategory() : BaseCategory
     {
         return $this->category;
+    }
+
+    public function getModCollection() : ModCollection
+    {
+        return $this->category->getModCollection();
     }
 
     /**
@@ -212,6 +222,13 @@ abstract class BaseModInfo implements ModInfoInterface
         return false;
     }
 
+    /**
+     * @param ItemCategory $category
+     * @param array<mixed> $itemData
+     * @return ItemInfoInterface
+     *
+     * @throws BaseClassHelperException
+     */
     public function createItem(ItemCategory $category, array $itemData) : ItemInfoInterface
     {
         $class = $this->getItemClass();
@@ -223,4 +240,122 @@ abstract class BaseModInfo implements ModInfoInterface
     }
 
     abstract public function getItemClass() : string;
+
+    /**
+     * @var ModInfoInterface[]|null
+     */
+    private ?array $linkedMods = null;
+
+    /**
+     * @return ModInfoInterface[]
+     * @throws CollectionException
+     */
+    public function getLinkedMods() : array
+    {
+        if(isset($this->linkedMods)) {
+            return $this->linkedMods;
+        }
+
+        $this->linkedMods = array();
+
+        $collection = $this->getModCollection();
+
+        foreach($this->getLinkedModIDs() as $modID) {
+            $this->linkedMods[] = $collection->getByID($modID);
+        }
+
+        return $this->linkedMods;
+    }
+
+    public function getLinkedModIDs() : array
+    {
+        $result = array();
+        $collection = $this->getModCollection();
+
+        foreach($this->data->getArray(self::KEY_LINKED_MODS) as $modID) {
+            if(!is_scalar($modID)) {
+                continue;
+            }
+
+            $modID = (string)$modID;
+
+            // If no path is specified, assume the mod is in the same category.
+            if(!strpos($modID, '.')) {
+                $modID = $this->category->getID().'.'.$modID;
+            }
+
+            if($collection->idExists($modID)) {
+                $result[] = $modID;
+            }
+        }
+
+        return $result;
+    }
+
+    public function hasSeeAlso() : bool
+    {
+        return $this->data->keyHasValue(self::KEY_SEE_ALSO);
+    }
+
+    /**
+     * @var LinkReference[]|null
+     */
+    private ?array $seeAlso = null;
+
+    /**
+     * @return LinkReference[]
+     */
+    public function getSeeAlso() : array
+    {
+        if(isset($this->seeAlso)) {
+            return $this->seeAlso;
+        }
+
+        $list = $this->data->getArray(self::KEY_SEE_ALSO);
+
+        $this->seeAlso = array();
+
+        foreach($list as $def)
+        {
+            if(!is_array($def)) {
+                continue;
+            }
+
+            $entry = $this->createSeeAlsoEntry($def);
+
+            if($entry !== null) {
+                $this->seeAlso[] = $entry;
+            }
+        }
+
+        return $this->seeAlso;
+    }
+
+    /**
+     * @param array<mixed> $def
+     * @return LinkReference|null
+     */
+    private function createSeeAlsoEntry(array $def) : ?LinkReference
+    {
+        if(isset($def[self::KEY_SEE_ALSO_URL]) && is_scalar($def[self::KEY_SEE_ALSO_URL])) {
+            return $this->createLinkReference((string)$def[self::KEY_SEE_ALSO_URL], $def);
+        }
+
+        return null;
+    }
+
+    /**
+     * @param string $url
+     * @param array<mixed> $def
+     * @return LinkReference
+     */
+    private function createLinkReference(string $url, array $def) : LinkReference
+    {
+        $label = null;
+        if(isset($def[self::KEY_SEE_ALSO_LABEL]) && is_scalar($def[self::KEY_SEE_ALSO_LABEL])) {
+            $label = (string)$def[self::KEY_SEE_ALSO_LABEL];
+        }
+
+        return new LinkReference($this, $url, $label);
+    }
 }
