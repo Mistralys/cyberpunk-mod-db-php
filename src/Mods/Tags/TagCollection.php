@@ -27,6 +27,10 @@ class TagCollection extends BaseStringPrimaryCollection
         return self::$instance;
     }
 
+    /**
+     * @param array<mixed> $tags
+     * @return string[]
+     */
     public static function filterTags(array $tags) : array
     {
         $result = array();
@@ -43,7 +47,7 @@ class TagCollection extends BaseStringPrimaryCollection
     /**
      * Merges multiple tag lists into one unique list.
      *
-     * @param string[] ...$tagLists
+     * @param array<string[]> ...$tagLists
      * @return string[]
      */
     public static function mergeTags(...$tagLists) : array

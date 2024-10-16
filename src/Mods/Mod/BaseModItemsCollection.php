@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace CPMDB\Mods\Mod;
 
+use AppUtils\ArrayDataCollection;
 use CPMDB\Mods\Items\BaseItemCollection;
 use CPMDB\Mods\Items\ItemCategory;
 use CPMDB\Mods\Items\ItemInfoInterface;
@@ -18,7 +19,7 @@ abstract class BaseModItemsCollection extends BaseItemCollection implements ModI
     protected ModInfoInterface $modInfo;
 
     /**
-     * @var array<int,array<string,mixed>>
+     * @var array<int,array<mixed>>
      */
     private array $itemCategoriesData;
 
@@ -29,7 +30,7 @@ abstract class BaseModItemsCollection extends BaseItemCollection implements ModI
 
     /**
      * @param ModInfoInterface $modInfo
-     * @param array<string,array<string,mixed>> $itemCategories
+     * @param array<int,array<mixed>> $itemCategories
      */
     public function __construct(ModInfoInterface $modInfo, array $itemCategories)
     {
@@ -63,16 +64,18 @@ abstract class BaseModItemsCollection extends BaseItemCollection implements ModI
     }
 
     /**
-     * @param array<string,mixed> $categoryData
+     * @param array<mixed> $categoryData
      * @return void
      */
     protected function registerItemCategory(array $categoryData) : void
     {
+        $data = ArrayDataCollection::create($categoryData);
+
         $category = new ItemCategory(
             $this->modInfo,
-            $categoryData['label'] ?? '',
-            $this->filterTags($categoryData['tags'] ?? null),
-            $this->filterItems($categoryData['items'] ?? null)
+            $data->getString('label'),
+            $this->filterTags($data->getArray('tags')),
+            $this->filterItems($data->getArray('items'))
         );
 
         $this->categories[] = $category;

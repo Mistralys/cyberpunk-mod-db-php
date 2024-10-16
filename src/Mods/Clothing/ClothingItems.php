@@ -25,7 +25,7 @@ class ClothingItems extends BaseModItemsCollection
 {
     /**
      * @param ClothingModInfo $modInfo
-     * @param array<string,array<string,mixed>> $itemCategories
+     * @param array<int,array<mixed>> $itemCategories
      */
     public function __construct(ClothingModInfo $modInfo, array $itemCategories)
     {

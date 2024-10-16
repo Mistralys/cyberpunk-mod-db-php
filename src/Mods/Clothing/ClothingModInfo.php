@@ -40,13 +40,15 @@ class ClothingModInfo extends BaseModInfo
     }
 
     /**
-     * @return array<string,array<string,mixed>>
+     * @return array<int,array<mixed>>
      */
     private function getCategoriesData() : array
     {
         $result = array();
         foreach($this->data->getArray('itemCategories') as $categoryDef) {
-            $result[] = (array)$categoryDef;
+            if(is_array($categoryDef)) {
+                $result[] = $categoryDef;
+            }
         }
 
         return $result;
