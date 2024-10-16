@@ -1,3 +1,11 @@
+## v1.5.0 - Added See Also support
+- Mods: Added `hasSeeAlso()` and `getSeeAlso()` to access the See Also section, if any.
+- Mods: Added `getLinkedMods()` to get related mods, if any. 
+- Mods: Added `getModCollection()` to access the mod collection.
+- Mods: Added `getModCollection()` to mod categories.
+- DB: Updated to use the data structure additions in Mod DB v2.0.5.
+- DB: Upgraded Mod DB to [v2.0.5](https://github.com/Mistralys/cyberpunk-mod-db/releases/tag/2.0.5).
+
 ## v1.4.0 - Data structure update (Breaking-XL)
 - Items: Added `hasCategories()` and `getCategorized()` to the mod item collection.
 - Collection: Updated to use the new data structure in DB v2.
