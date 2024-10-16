@@ -105,7 +105,7 @@ class ItemCategory extends BaseItemCollection implements StringableInterface
         $this->inheritedTags = TagCollection::mergeTags(
             $this->mod->getOwnTags(),
             $this->getOwnTags(),
-            ...$itemTags
+            $itemTags
         );
 
         return $this->inheritedTags;
