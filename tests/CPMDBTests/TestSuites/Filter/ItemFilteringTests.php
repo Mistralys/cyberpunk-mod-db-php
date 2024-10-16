@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace CPMDBTests\TestSuites\Indexing;
 
 use CPMDBTEsts\TestClasses\CPMDBTestCase;
+use CPMDBTests\TestClasses\FilterAssertionsInterface;
 use CPMDBTests\TestClasses\FilterAssertionsTrait;
 
-final class ItemFilteringTests extends CPMDBTestCase
+final class ItemFilteringTests extends CPMDBTestCase implements FilterAssertionsInterface
 {
     use FilterAssertionsTrait;
 

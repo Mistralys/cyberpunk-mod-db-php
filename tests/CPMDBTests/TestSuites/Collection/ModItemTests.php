@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace CPMDBTests\TestSuites\Collection;
 
 use CPMDBTEsts\TestClasses\CPMDBTestCase;
+use CPMDBTests\TestClasses\ItemCollectionAssertionsInterface;
 use CPMDBTests\TestClasses\ItemCollectionAssertionsTrait;
 
-final class ModItemTests extends CPMDBTestCase
+final class ModItemTests extends CPMDBTestCase implements ItemCollectionAssertionsInterface
 {
     use ItemCollectionAssertionsTrait;
 

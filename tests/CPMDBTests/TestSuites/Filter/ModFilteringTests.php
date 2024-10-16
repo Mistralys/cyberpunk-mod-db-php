@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace CPMDBTests\TestSuites\Indexing;
 
 use CPMDB\Mods\Tags\Types\Earring;
-use CPMDB\Mods\Tags\Types\Earrings;
 use CPMDB\Mods\Tags\Types\Jewelry;
 use CPMDB\Mods\Tags\Types\MaleV;
 use CPMDB\Mods\Tags\Types\Torso;
 use CPMDBTEsts\TestClasses\CPMDBTestCase;
+use CPMDBTests\TestClasses\FilterAssertionsInterface;
 use CPMDBTests\TestClasses\FilterAssertionsTrait;
 
-final class ModFilteringTests extends CPMDBTestCase
+final class ModFilteringTests extends CPMDBTestCase implements FilterAssertionsInterface
 {
     use FilterAssertionsTrait;
 
@@ -41,6 +41,24 @@ final class ModFilteringTests extends CPMDBTestCase
         $filters->selectSearchTerm('fashionware');
 
         $this->assertResultsContainPrimaryID('clothing.full-body-fashionware', $filters);
+    }
+
+    /**
+     * Loupe does not support partial searches: It only searches
+     * from the beginning of terms. Something at the end of a term
+     * will not be found.
+     *
+     * @link https://github.com/loupe-php/loupe/discussions/88
+     */
+    public function test_filterByPartialTerm() : void
+    {
+        $filters = $this->createCollection()->createFilter();
+
+        $filters->selectSearchTerm('rayne');
+
+        $this->markTestSkipped('Loupe does not support partial searches (see test PHPDoc)');
+
+        //$this->assertResultsContainPrimaryID('clothing.blood-rayne', $filters);
     }
 
     public function test_filterByMultipleCriteria() : void

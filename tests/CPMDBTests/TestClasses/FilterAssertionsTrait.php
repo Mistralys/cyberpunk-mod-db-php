@@ -6,6 +6,9 @@ namespace CPMDBTests\TestClasses;
 
 use CPMDB\Mods\Collection\Filter\FilterInterface;
 
+/**
+ * @see FilterAssertionsInterface
+ */
 trait FilterAssertionsTrait
 {
     public function assertResultsContainPrimaryID(string $id, FilterInterface $filter) : void

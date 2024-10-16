@@ -6,6 +6,9 @@ namespace CPMDBTests\TestClasses;
 
 use CPMDB\Mods\Items\ItemCollectionInterface;
 
+/**
+ * @see ItemCollectionAssertionsInterface
+ */
 trait ItemCollectionAssertionsTrait
 {
     public function assertItemsContainCode(string $itemCode, ItemCollectionInterface $collection) : void
