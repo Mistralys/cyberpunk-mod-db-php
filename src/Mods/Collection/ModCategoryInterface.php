@@ -27,7 +27,7 @@ interface ModCategoryInterface extends StringPrimaryCollectionInterface
      * @return class-string
      */
     public function getModClass() : string;
-
+    public function getModCollection() : ModCollection;
     public function getDataFolder() : FolderInfo;
     public function getDataURL() : string;
 

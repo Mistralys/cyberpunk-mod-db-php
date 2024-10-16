@@ -38,6 +38,11 @@ abstract class BaseCategory implements ModCategoryInterface
         return $this->id;
     }
 
+    public function getModCollection() : ModCollection
+    {
+        return $this->collection;
+    }
+
     public function getDataFolder() : FolderInfo
     {
         return FolderInfo::factory($this->collection->getDataFolder().'/'.$this->getFolderName());
