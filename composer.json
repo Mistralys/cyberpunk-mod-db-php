@@ -23,7 +23,7 @@
   "require": {
     "mistralys/application-utils-core": ">=2.2.4",
     "mistralys/application-utils-collections": ">=1.1.2",
-    "mistralys/cyberpunk-mod-db": ">=2.0.5",
+    "mistralys/cyberpunk-mod-db": ">=2.0.6",
     "mistralys/changelog-parser": ">=1.0.2",
     "brick/event": ">=0.1.1",
     "loupe/loupe": ">=0.7.0",
