@@ -1,3 +1,10 @@
+## v1.5.1 - DB Update
+- Tags: Added the `AutoScale` tag.
+- Tags: Added the `Body-Solo-Ultimate` tag.
+- Tags: Added the `Body-Solo-Small` tag.
+- Tags: Added the `Body-Valentine` tag.
+- DB: Updated to Mod DB [v2.0.6](https://github.com/Mistralys/cyberpunk-mod-db/releases/tag/2.0.6).
+
 ## v1.5.0 - Added See Also support
 - Mods: Added `hasSeeAlso()` and `getSeeAlso()` to access the See Also section, if any.
 - Mods: Added `getLinkedMods()` to get related mods, if any. 
