@@ -69,3 +69,6 @@ foreach($missing as $tagID) {
 
     file_put_contents(__DIR__.'/../src/Mods/Tags/Types/'.$className.'.php', $content);
 }
+
+echo PHP_EOL;
+echo 'NOTE: Run "composer dump-autoload" to update the autoloader.'.PHP_EOL;
