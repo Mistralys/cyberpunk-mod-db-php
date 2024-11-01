@@ -16,6 +16,8 @@ use CPMDB\Mods\Tags\TagCollection;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+echo 'Generating tag names.'.PHP_EOL;
+
 $imports = array();
 $constants = array();
 
