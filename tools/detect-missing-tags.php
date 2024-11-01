@@ -4,9 +4,18 @@ declare(strict_types=1);
 
 namespace CPMDB\Tools;
 
+use AppUtils\FileHelper;
+use AppUtils\FileHelper\FileInfo;
+use AppUtils\FileHelper\FolderInfo;
 use function CPMDB\Assets\getTags;
 
 require_once __DIR__.'/../vendor/autoload.php';
+
+echo 'Generating missing tag classes.'.PHP_EOL;
+
+// Remove all existing tag classes
+$tagFolder = FolderInfo::factory(__DIR__.'/../src/Mods/Tags/Types');
+FileHelper::deleteTree($tagFolder);
 
 $template = <<<'PHP'
 <?php
@@ -62,8 +71,6 @@ foreach(getTags() as $tagName => $tagDef)
         addslashes($tagDef['category'] ?? 'General')
     );
 
-    file_put_contents(__DIR__ . '/../src/Mods/Tags/Types/' . $className . '.php', $content);
+    FileInfo::factory($tagFolder.'/' . $className . '.php')
+        ->putContents($content);
 }
-
-echo PHP_EOL;
-echo 'NOTE: Run "composer dump-autoload" to update the autoloader.'.PHP_EOL;
