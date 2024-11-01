@@ -58,8 +58,8 @@ foreach(getTags() as $tagName => $tagDef)
         $template,
         $tagName,
         $className,
-        $description,
-        $tagDef['category'] ?? 'General'
+        addslashes($description),
+        addslashes($tagDef['category'] ?? 'General')
     );
 
     file_put_contents(__DIR__ . '/../src/Mods/Tags/Types/' . $className . '.php', $content);
