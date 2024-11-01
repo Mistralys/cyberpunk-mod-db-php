@@ -17,7 +17,7 @@ class AutoScale extends BaseTagInfo
 
     public function getLabel(): string
     {
-        return 'Clothing that automatically scales to the player's level';
+        return 'Clothing that automatically scales to the player\'s level';
     }
     
     public function getCategory(): string
