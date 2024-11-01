@@ -1,3 +1,18 @@
+## v1.5.2 - Update
+- Tags: Added the `Necklace` tag.
+- Tags: Added the `Body-Atlas` tag.
+- Tags: Added the `Body-VTK-Big` tag.
+- Tags: Added the `Body-VTK-Small` tag.
+- Tags: Added the `Body-Lush-Large` tag.
+- Tags: Added the `Body-SoLush` tag.
+- Tags: Added the `Body-Atlas` tag.
+- Tags: Added the `Body-Solo-Lush` tag.
+- Tags: Now using the categories from the Mod DB.
+- Tags: Now using descriptions from the Mod DB as labels.
+- Tags: Now using the `fullName` property for abbreviation tags, when available.
+- Tools: Added a simple build script batch file.
+- DB: Updated to Mod DB [v2.0.9](https://github.com/Mistralys/cyberpunk-mod-db/releases/tag/2.0.9). 
+
 ## v1.5.1 - DB Update
 - Tags: Added the `AutoScale` tag.
 - Tags: Added the `Body-Solo-Ultimate` tag.
