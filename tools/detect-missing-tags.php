@@ -4,33 +4,9 @@ declare(strict_types=1);
 
 namespace CPMDB\Tools;
 
-use AppUtils\FileHelper\FolderInfo;
-use CPMDB\Mods\Collection\ModCollection;
-use CPMDB\Mods\Tags\TagCollection;
+use function CPMDB\Assets\getTags;
 
 require_once __DIR__.'/../vendor/autoload.php';
-
-$collection = ModCollection::create(
-    FolderInfo::factory(__DIR__.'/../vendor'),
-    FolderInfo::factory(__DIR__.'/../tests/cache'),
-    ''
-);
-
-$allTagNames = array();
-foreach($collection->getAll() as $mod) {
-    array_push($allTagNames, ...$mod->getTags());
-}
-
-$allTagNames = array_unique($allTagNames);
-$collection = TagCollection::getInstance();
-$missing = array();
-
-foreach($allTagNames as $tagName) {
-    if(!$collection->idExists($tagName)) {
-        $missing[] = $tagName;
-        echo 'Missing tag: '.$tagName.PHP_EOL;
-    }
-}
 
 $template = <<<'PHP'
 <?php
@@ -39,9 +15,9 @@ declare(strict_types=1);
 
 namespace CPMDB\Mods\Tags\Types;
 
-use CPMDB\Mods\Tags\Categories\GeneralTagInfo;
+use CPMDB\Mods\Tags\BaseTagInfo;
 
-class %2$s extends GeneralTagInfo
+class %2$s extends BaseTagInfo
 {
     public const TAG_NAME = '%1$s';
 
@@ -52,22 +28,41 @@ class %2$s extends GeneralTagInfo
 
     public function getLabel(): string
     {
-        return '%1$s';
+        return '%3$s';
+    }
+    
+    public function getCategory(): string
+    {
+        return '%4$s';
     }
 }
 
 PHP;
 
-foreach($missing as $tagID) {
-    $className = str_replace('-', '', $tagID);
+foreach(getTags() as $tagName => $tagDef)
+{
+    $name = str_replace(array(' ', '-'), '', $tagDef['fullName'] ?? $tagName);
+
+    $description = $tagDef['description'] ?? '';
+    if($description === $tagName) {
+        $description = '';
+    }
+
+    if(isset($tagDef['fullName'])) {
+        $description = $tagDef['fullName'].' - '.$description;
+    }
+
+    $className = str_replace('-', '', $name);
 
     $content = sprintf(
         $template,
-        $tagID,
-        $className
+        $tagName,
+        $className,
+        $description,
+        $tagDef['category'] ?? 'General'
     );
 
-    file_put_contents(__DIR__.'/../src/Mods/Tags/Types/'.$className.'.php', $content);
+    file_put_contents(__DIR__ . '/../src/Mods/Tags/Types/' . $className . '.php', $content);
 }
 
 echo PHP_EOL;
