@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace CPMDB\Mods\Tags\Types;
 
-use CPMDB\Mods\Tags\Categories\GeneralTagInfo;
+use CPMDB\Mods\Tags\BaseTagInfo;
 
-class Earring extends GeneralTagInfo
+class Earring extends BaseTagInfo
 {
     public const TAG_NAME = 'Earring';
 
@@ -17,6 +17,11 @@ class Earring extends GeneralTagInfo
 
     public function getLabel(): string
     {
-        return 'Earring';
+        return '';
+    }
+    
+    public function getCategory(): string
+    {
+        return 'Clothing items';
     }
 }

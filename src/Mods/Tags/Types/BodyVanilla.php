@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace CPMDB\Mods\Tags\Types;
 
-use CPMDB\Mods\Tags\Categories\BodyModTagInfo;
+use CPMDB\Mods\Tags\BaseTagInfo;
 
-class BodyVanilla extends BodyModTagInfo
+class BodyVanilla extends BaseTagInfo
 {
     public const TAG_NAME = 'Body-Vanilla';
 
@@ -17,11 +17,11 @@ class BodyVanilla extends BodyModTagInfo
 
     public function getLabel(): string
     {
-        return 'Standard game body';
+        return 'The vanilla body for FemV and MaleV';
     }
-
-    public function getSourceURL(): string
+    
+    public function getCategory(): string
     {
-        return 'https://cybperpunk.net';
+        return 'Item properties';
     }
 }

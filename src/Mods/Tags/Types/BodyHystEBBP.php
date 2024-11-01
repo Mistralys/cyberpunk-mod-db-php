@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace CPMDB\Mods\Tags\Types;
 
-use CPMDB\Mods\Tags\Categories\GeneralTagInfo;
+use CPMDB\Mods\Tags\BaseTagInfo;
 
-class BodyHystEBBP extends BodyHyst
+class BodyHystEBBP extends BaseTagInfo
 {
     public const TAG_NAME = 'Body-Hyst-EBBP';
 
@@ -17,6 +17,11 @@ class BodyHystEBBP extends BodyHyst
 
     public function getLabel(): string
     {
-        return 'Hyst EBBP';
+        return 'EBBP - Enhanced Big Breasts and Push-Up';
+    }
+    
+    public function getCategory(): string
+    {
+        return 'Mods - Body Mods - FemV';
     }
 }

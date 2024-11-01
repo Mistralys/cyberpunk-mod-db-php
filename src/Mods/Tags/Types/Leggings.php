@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace CPMDB\Mods\Tags\Types;
 
-use CPMDB\Mods\Tags\Categories\GeneralTagInfo;
+use CPMDB\Mods\Tags\BaseTagInfo;
 
-class Leggings extends GeneralTagInfo
+class Leggings extends BaseTagInfo
 {
     public const TAG_NAME = 'Leggings';
 
@@ -17,6 +17,11 @@ class Leggings extends GeneralTagInfo
 
     public function getLabel(): string
     {
-        return 'Leggings';
+        return 'Leggings, stretch pants';
+    }
+    
+    public function getCategory(): string
+    {
+        return 'Clothing items';
     }
 }

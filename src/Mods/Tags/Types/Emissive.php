@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace CPMDB\Mods\Tags\Types;
 
-use CPMDB\Mods\Tags\Categories\GeneralTagInfo;
+use CPMDB\Mods\Tags\BaseTagInfo;
 
-class Emissive extends GeneralTagInfo
+class Emissive extends BaseTagInfo
 {
     public const TAG_NAME = 'Emissive';
 
@@ -17,6 +17,11 @@ class Emissive extends GeneralTagInfo
 
     public function getLabel(): string
     {
-        return 'Items that emit light';
+        return 'Clothing items that glow or emit light in some way';
+    }
+    
+    public function getCategory(): string
+    {
+        return 'Item properties';
     }
 }

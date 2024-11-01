@@ -4,25 +4,24 @@ declare(strict_types=1);
 
 namespace CPMDB\Mods\Tags\Types;
 
-use CPMDB\Mods\Tags\Categories\ModTagInfo;
+use CPMDB\Mods\Tags\BaseTagInfo;
 
-class CyberEngineTweaks extends ModTagInfo
+class CyberEngineTweaks extends BaseTagInfo
 {
     public const TAG_NAME = 'CET';
-    public const SOURCE_URL = 'https://www.nexusmods.com/cyberpunk2077/mods/107';
 
     protected function _getName(): string
     {
         return self::TAG_NAME;
     }
 
-    public function getLabel() : string
+    public function getLabel(): string
     {
-        return 'Cyber Engine Tweaks';
+        return 'Cyber Engine Tweaks - Modder resource';
     }
-
-    public function getSourceURL() : string
+    
+    public function getCategory(): string
     {
-        return self::SOURCE_URL;
+        return 'Mods';
     }
 }

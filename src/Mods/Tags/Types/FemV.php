@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace CPMDB\Mods\Tags\Types;
 
-use CPMDB\Mods\Tags\Categories\BodyTypeTagInfo;
+use CPMDB\Mods\Tags\BaseTagInfo;
 
-class FemaleV extends BodyTypeTagInfo
+class FemV extends BaseTagInfo
 {
     public const TAG_NAME = 'FemV';
 
@@ -17,6 +17,11 @@ class FemaleV extends BodyTypeTagInfo
 
     public function getLabel(): string
     {
-        return 'Female V';
+        return 'Items restricted to female V characters';
+    }
+    
+    public function getCategory(): string
+    {
+        return 'Item properties';
     }
 }

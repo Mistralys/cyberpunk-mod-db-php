@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace CPMDB\Mods\Tags\Types;
 
-use CPMDB\Mods\Tags\Categories\GeneralTagInfo;
+use CPMDB\Mods\Tags\BaseTagInfo;
 
-class AutoScale extends GeneralTagInfo
+class AutoScale extends BaseTagInfo
 {
     public const TAG_NAME = 'AutoScale';
 
@@ -17,6 +17,11 @@ class AutoScale extends GeneralTagInfo
 
     public function getLabel(): string
     {
-        return 'AutoScale';
+        return 'Clothing that automatically scales to the player's level';
+    }
+    
+    public function getCategory(): string
+    {
+        return 'Item properties';
     }
 }

@@ -6,9 +6,9 @@ namespace CPMDB\Mods\Tags\Types;
 
 use CPMDB\Mods\Tags\BaseTagInfo;
 
-class Navel extends BaseTagInfo
+class Necklace extends BaseTagInfo
 {
-    public const TAG_NAME = 'Navel';
+    public const TAG_NAME = 'Necklace';
 
     protected function _getName(): string
     {
@@ -17,11 +17,11 @@ class Navel extends BaseTagInfo
 
     public function getLabel(): string
     {
-        return 'Navel slot';
+        return '';
     }
     
     public function getCategory(): string
     {
-        return 'Clothing slots';
+        return 'Clothing items';
     }
 }

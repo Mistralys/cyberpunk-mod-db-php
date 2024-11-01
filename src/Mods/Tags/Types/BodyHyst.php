@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace CPMDB\Mods\Tags\Types;
 
-use CPMDB\Mods\Tags\Categories\BodyModTagInfo;
+use CPMDB\Mods\Tags\BaseTagInfo;
 
-class BodyHyst extends BodyModTagInfo
+class BodyHyst extends BaseTagInfo
 {
     public const TAG_NAME = 'Body-Hyst';
-    public const SOURCE_URL = 'https://www.nexusmods.com/cyberpunk2077/mods/4654';
 
     protected function _getName(): string
     {
@@ -18,11 +17,11 @@ class BodyHyst extends BodyModTagInfo
 
     public function getLabel(): string
     {
-        return 'Hyst\'s Enhanced Big Breasts body';
+        return 'Enhanced Big Breasts, Realistic Butt, and more';
     }
-
-    public function getSourceURL(): string
+    
+    public function getCategory(): string
     {
-        return self::SOURCE_URL;
+        return 'Mods - Body Mods - FemV';
     }
 }

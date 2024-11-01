@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace CPMDB\Mods\Tags\Types;
 
-use CPMDB\Mods\Tags\Categories\GeneralTagInfo;
+use CPMDB\Mods\Tags\BaseTagInfo;
 
-class Holo extends GeneralTagInfo
+class Holo extends BaseTagInfo
 {
     public const TAG_NAME = 'Holo';
 
@@ -18,5 +18,10 @@ class Holo extends GeneralTagInfo
     public function getLabel(): string
     {
         return 'Holographic items';
+    }
+    
+    public function getCategory(): string
+    {
+        return 'Item properties';
     }
 }

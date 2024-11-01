@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace CPMDB\Mods\Tags\Types;
 
-use CPMDB\Mods\Tags\Categories\GeneralTagInfo;
+use CPMDB\Mods\Tags\BaseTagInfo;
 
-class Animated extends GeneralTagInfo
+class Animated extends BaseTagInfo
 {
     public const TAG_NAME = 'Animated';
 
@@ -17,6 +17,11 @@ class Animated extends GeneralTagInfo
 
     public function getLabel(): string
     {
-        return 'Animated textures';
+        return 'Animated clothing parts';
+    }
+    
+    public function getCategory(): string
+    {
+        return 'Item properties';
     }
 }

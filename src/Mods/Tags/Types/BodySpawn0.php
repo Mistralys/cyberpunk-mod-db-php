@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace CPMDB\Mods\Tags\Types;
 
-use CPMDB\Mods\Tags\Categories\BodyModTagInfo;
+use CPMDB\Mods\Tags\BaseTagInfo;
 
-class BodySpawn0 extends BodyModTagInfo
+class BodySpawn0 extends BaseTagInfo
 {
     public const TAG_NAME = 'Body-Spawn0';
-    public const SOURCE_URL = 'https://www.nexusmods.com/cyberpunk2077/mods/1424';
 
     protected function _getName(): string
     {
@@ -18,11 +17,11 @@ class BodySpawn0 extends BodyModTagInfo
 
     public function getLabel(): string
     {
-        return 'Spawn0 body';
+        return 'Body with a large choice of sizes and CET in-game body swap';
     }
-
-    public function getSourceURL(): string
+    
+    public function getCategory(): string
     {
-        return self::SOURCE_URL;
+        return 'Mods - Body Mods - FemV';
     }
 }

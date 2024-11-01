@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace CPMDB\Mods\Tags\Types;
 
-use CPMDB\Mods\Tags\Categories\ItemSlotTag;
+use CPMDB\Mods\Tags\BaseTagInfo;
 
-class Arms extends ItemSlotTag
+class Arms extends BaseTagInfo
 {
     public const TAG_NAME = 'Arms';
 
@@ -17,6 +17,11 @@ class Arms extends ItemSlotTag
 
     public function getLabel(): string
     {
-        return 'Arm slots';
+        return 'Arms slot';
+    }
+    
+    public function getCategory(): string
+    {
+        return 'Clothing slots';
     }
 }

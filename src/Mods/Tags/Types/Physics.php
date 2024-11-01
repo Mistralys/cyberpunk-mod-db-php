@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace CPMDB\Mods\Tags\Types;
 
-use CPMDB\Mods\Tags\Categories\GeneralTagInfo;
+use CPMDB\Mods\Tags\BaseTagInfo;
 
-class Physics extends GeneralTagInfo
+class Physics extends BaseTagInfo
 {
     public const TAG_NAME = 'Physics';
 
@@ -17,6 +17,11 @@ class Physics extends GeneralTagInfo
 
     public function getLabel(): string
     {
-        return 'Physics';
+        return 'Items with working physics';
+    }
+    
+    public function getCategory(): string
+    {
+        return 'Item properties';
     }
 }

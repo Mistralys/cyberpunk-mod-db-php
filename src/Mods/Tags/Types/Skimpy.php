@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace CPMDB\Mods\Tags\Types;
 
-use CPMDB\Mods\Tags\Categories\GeneralTagInfo;
+use CPMDB\Mods\Tags\BaseTagInfo;
 
-class Skimpy extends GeneralTagInfo
+class Skimpy extends BaseTagInfo
 {
     public const TAG_NAME = 'Skimpy';
 
@@ -17,6 +17,11 @@ class Skimpy extends GeneralTagInfo
 
     public function getLabel(): string
     {
-        return 'Skimpy';
+        return 'Clothing items that are revealing';
+    }
+    
+    public function getCategory(): string
+    {
+        return 'Item properties';
     }
 }

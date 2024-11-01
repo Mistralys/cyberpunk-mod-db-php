@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace CPMDB\Mods\Tags\Types;
 
-use CPMDB\Mods\Tags\Categories\BodyTypeTagInfo;
+use CPMDB\Mods\Tags\BaseTagInfo;
 
-class MaleV extends BodyTypeTagInfo
+class MaleV extends BaseTagInfo
 {
     public const TAG_NAME = 'MaleV';
 
@@ -17,6 +17,11 @@ class MaleV extends BodyTypeTagInfo
 
     public function getLabel(): string
     {
-        return 'Male V';
+        return 'Items restricted to male V characters';
+    }
+    
+    public function getCategory(): string
+    {
+        return 'Item properties';
     }
 }

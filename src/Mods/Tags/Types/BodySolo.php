@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace CPMDB\Mods\Tags\Types;
 
-use CPMDB\Mods\Tags\Categories\BodyModTagInfo;
+use CPMDB\Mods\Tags\BaseTagInfo;
 
-class BodySolo extends BodyModTagInfo
+class BodySolo extends BaseTagInfo
 {
     public const TAG_NAME = 'Body-Solo';
-    public const SOURCE_URL = 'https://www.nexusmods.com/cyberpunk2077/mods/4813';
 
     protected function _getName(): string
     {
@@ -18,11 +17,11 @@ class BodySolo extends BodyModTagInfo
 
     public function getLabel(): string
     {
-        return 'KS Solo body';
+        return 'Rock-hard abs and toned body';
     }
-
-    public function getSourceURL(): string
+    
+    public function getCategory(): string
     {
-        return self::SOURCE_URL;
+        return 'Mods - Body Mods - FemV';
     }
 }

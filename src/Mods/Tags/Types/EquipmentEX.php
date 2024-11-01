@@ -4,25 +4,24 @@ declare(strict_types=1);
 
 namespace CPMDB\Mods\Tags\Types;
 
-use CPMDB\Mods\Tags\Categories\ModTagInfo;
+use CPMDB\Mods\Tags\BaseTagInfo;
 
-class EquipmentEX extends ModTagInfo
+class EquipmentEX extends BaseTagInfo
 {
     public const TAG_NAME = 'EQEX';
-    public const SOURCE_URL = 'https://www.nexusmods.com/cyberpunk2077/mods/6945';
 
     protected function _getName(): string
     {
         return self::TAG_NAME;
     }
 
-    public function getLabel() : string
+    public function getLabel(): string
     {
-        return 'Equipment-EX Outfit Manager';
+        return 'Equipment-EX - Layering of clothing items';
     }
-
-    public function getSourceURL() : string
+    
+    public function getCategory(): string
     {
-        return self::SOURCE_URL;
+        return 'Mods';
     }
 }

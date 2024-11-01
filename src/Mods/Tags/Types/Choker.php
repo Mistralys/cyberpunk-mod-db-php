@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace CPMDB\Mods\Tags\Types;
 
-use CPMDB\Mods\Tags\Categories\GeneralTagInfo;
+use CPMDB\Mods\Tags\BaseTagInfo;
 
-class Choker extends GeneralTagInfo
+class Choker extends BaseTagInfo
 {
     public const TAG_NAME = 'Choker';
 
@@ -17,6 +17,11 @@ class Choker extends GeneralTagInfo
 
     public function getLabel(): string
     {
-        return 'Choker';
+        return 'Neck choker';
+    }
+    
+    public function getCategory(): string
+    {
+        return 'Clothing items';
     }
 }

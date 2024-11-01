@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace CPMDB\Mods\Tags\Types;
 
-use CPMDB\Mods\Tags\Categories\GeneralTagInfo;
+use CPMDB\Mods\Tags\BaseTagInfo;
 
-class BodySoloSmall extends GeneralTagInfo
+class BodySoloSmall extends BaseTagInfo
 {
     public const TAG_NAME = 'Body-Solo-Small';
 
@@ -17,6 +17,11 @@ class BodySoloSmall extends GeneralTagInfo
 
     public function getLabel(): string
     {
-        return 'Body-Solo-Small';
+        return 'Solo with small breasts';
+    }
+    
+    public function getCategory(): string
+    {
+        return 'Mods - Body Mods - FemV';
     }
 }

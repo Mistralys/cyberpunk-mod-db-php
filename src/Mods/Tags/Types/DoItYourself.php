@@ -6,9 +6,9 @@ namespace CPMDB\Mods\Tags\Types;
 
 use CPMDB\Mods\Tags\BaseTagInfo;
 
-class Navel extends BaseTagInfo
+class DoItYourself extends BaseTagInfo
 {
-    public const TAG_NAME = 'Navel';
+    public const TAG_NAME = 'DIY';
 
     protected function _getName(): string
     {
@@ -17,11 +17,11 @@ class Navel extends BaseTagInfo
 
     public function getLabel(): string
     {
-        return 'Navel slot';
+        return 'Do-It-Yourself - Clothing items that can be customized with Wolvenkit';
     }
     
     public function getCategory(): string
     {
-        return 'Clothing slots';
+        return 'Item properties';
     }
 }

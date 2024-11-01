@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace CPMDB\Mods\Tags\Types;
 
-use CPMDB\Mods\Tags\Categories\GeneralTagInfo;
+use CPMDB\Mods\Tags\BaseTagInfo;
 
-class FullBody extends GeneralTagInfo
+class FullBody extends BaseTagInfo
 {
     public const TAG_NAME = 'FullBody';
 
@@ -17,6 +17,11 @@ class FullBody extends GeneralTagInfo
 
     public function getLabel(): string
     {
-        return 'Full body';
+        return 'Full body clothing items';
+    }
+    
+    public function getCategory(): string
+    {
+        return 'Clothing slots';
     }
 }

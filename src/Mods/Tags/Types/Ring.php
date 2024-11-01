@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace CPMDB\Mods\Tags\Types;
 
-use CPMDB\Mods\Tags\Categories\GeneralTagInfo;
+use CPMDB\Mods\Tags\BaseTagInfo;
 
-class Ring extends GeneralTagInfo
+class Ring extends BaseTagInfo
 {
     public const TAG_NAME = 'Ring';
 
@@ -17,6 +17,11 @@ class Ring extends GeneralTagInfo
 
     public function getLabel(): string
     {
-        return 'Ring';
+        return '';
+    }
+    
+    public function getCategory(): string
+    {
+        return 'Clothing items';
     }
 }

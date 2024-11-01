@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace CPMDB\Mods\Tags\Types;
 
-use CPMDB\Mods\Tags\Categories\BodyModTagInfo;
+use CPMDB\Mods\Tags\BaseTagInfo;
 
-class BodyLush extends BodyModTagInfo
+class BodyLush extends BaseTagInfo
 {
     public const TAG_NAME = 'Body-Lush';
-    public const SOURCE_URL = 'https://www.nexusmods.com/cyberpunk2077/mods/4901';
 
     protected function _getName(): string
     {
@@ -18,11 +17,11 @@ class BodyLush extends BodyModTagInfo
 
     public function getLabel(): string
     {
-        return 'Lush body';
+        return 'Voluptuous body and large breasts';
     }
-
-    public function getSourceURL(): string
+    
+    public function getCategory(): string
     {
-        return self::SOURCE_URL;
+        return 'Mods - Body Mods - FemV';
     }
 }

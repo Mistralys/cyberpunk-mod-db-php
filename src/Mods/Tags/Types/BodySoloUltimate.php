@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace CPMDB\Mods\Tags\Types;
 
-use CPMDB\Mods\Tags\Categories\GeneralTagInfo;
+use CPMDB\Mods\Tags\BaseTagInfo;
 
-class BodySoloUltimate extends GeneralTagInfo
+class BodySoloUltimate extends BaseTagInfo
 {
     public const TAG_NAME = 'Body-Solo-Ultimate';
 
@@ -17,6 +17,11 @@ class BodySoloUltimate extends GeneralTagInfo
 
     public function getLabel(): string
     {
-        return 'Body-Solo-Ultimate';
+        return 'Solo with bigger breasts and butt';
+    }
+    
+    public function getCategory(): string
+    {
+        return 'Mods - Body Mods - FemV';
     }
 }

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace CPMDB\Mods\Tags\Types;
 
-use CPMDB\Mods\Tags\Categories\GeneralTagInfo;
+use CPMDB\Mods\Tags\BaseTagInfo;
 
-class BodyValentine extends GeneralTagInfo
+class BodyValentine extends BaseTagInfo
 {
     public const TAG_NAME = 'Body-Valentine';
 
@@ -17,6 +17,11 @@ class BodyValentine extends GeneralTagInfo
 
     public function getLabel(): string
     {
-        return 'Body-Valentine';
+        return 'Body with improved proportions';
+    }
+    
+    public function getCategory(): string
+    {
+        return 'Mods - Body Mods - FemV';
     }
 }

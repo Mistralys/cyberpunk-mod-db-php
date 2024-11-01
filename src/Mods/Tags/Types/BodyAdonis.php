@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace CPMDB\Mods\Tags\Types;
 
-use CPMDB\Mods\Tags\Categories\BodyModTagInfo;
+use CPMDB\Mods\Tags\BaseTagInfo;
 
-class BodyAdonis extends BodyModTagInfo
+class BodyAdonis extends BaseTagInfo
 {
     public const TAG_NAME = 'Body-Adonis';
 
@@ -17,11 +17,11 @@ class BodyAdonis extends BodyModTagInfo
 
     public function getLabel(): string
     {
-        return 'Adonis';
+        return 'Adonis: High-poly body with detailed musculature and definition';
     }
-
-    public function getSourceURL(): string
+    
+    public function getCategory(): string
     {
-        return 'https://www.nexusmods.com/cyberpunk2077/mods/4968';
+        return 'Mods - Body Mods - MaleV';
     }
 }
