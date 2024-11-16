@@ -21,7 +21,7 @@
     ]
   },
   "require": {
-    "mistralys/application-utils-core": ">=2.2.4",
+    "mistralys/application-utils-core": ">=2.3.1",
     "mistralys/application-utils-collections": ">=1.1.2",
     "mistralys/cyberpunk-mod-db": ">=2.0.10",
     "mistralys/changelog-parser": ">=1.0.2",

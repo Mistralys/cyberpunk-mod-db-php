@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "af28284822ca0db858b87a750980bb66",
+    "content-hash": "8e3a42749fffbdc833ade0f78f83c67d",
     "packages": [
         {
             "name": "brick/event",
