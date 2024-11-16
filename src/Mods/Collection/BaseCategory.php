@@ -22,6 +22,8 @@ abstract class BaseCategory implements ModCategoryInterface
     public const ERROR_MOD_ID_NOT_FOUND = 164701;
     public const ERROR_NO_MODS_IN_COLLECTION = 164702;
 
+    public const SCREENSHOTS_FOLDER_NAME = 'screens';
+
     private ModCollection $collection;
     private string $id;
 
@@ -55,7 +57,12 @@ abstract class BaseCategory implements ModCategoryInterface
 
     public function getScreensURL() : string
     {
-        return $this->getDataURL().'/screens';
+        return $this->getDataURL().'/'.self::SCREENSHOTS_FOLDER_NAME;
+    }
+
+    public function getScreensFolder() : FolderInfo
+    {
+        return FolderInfo::factory($this->getDataFolder().'/'.self::SCREENSHOTS_FOLDER_NAME);
     }
 
     public function getDataFiles() : array
