@@ -48,6 +48,15 @@ class ModScreenshot implements ModScreenshotInterface
 
     public function getTitle() : string
     {
-        return $this->metaData->getString(self::META_KEY_TITLE);
+        $title = $this->metaData->getString(self::META_KEY_TITLE);
+        if(!empty($title)) {
+            return $title;
+        }
+
+        if($this->isDefault()) {
+            return 'Default mod screenshot';
+        }
+
+        return '';
     }
 }
