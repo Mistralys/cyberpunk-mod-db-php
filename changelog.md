@@ -1,6 +1,7 @@
 ## v1.6.0 - Screenshot update (Breaking-M)
 - Mods: Added the `getScreenshotCollection()` method to access the screenshots.
 - Mods: Multiple mod screenshots are now supported.
+- Tags: Fixed the tag collection's tag loading mechanism.
 - DB: Updated to Mod DB [v2.0.10](https://github.com/Mistralys/cyberpunk-mod-db/releases/tag/2.0.10).
 
 ### Breaking changes
