@@ -15,6 +15,7 @@ use CPMDB\Mods\Collection\BaseCategory;
 use CPMDB\Mods\Collection\ModCollection;
 use CPMDB\Mods\Items\ItemCategory;
 use CPMDB\Mods\Items\ItemInfoInterface;
+use CPMDB\Mods\Mod\Screenshots\ModScreenshotCollection;
 use CPMDB\Mods\Mod\SeeAlso\SeeAlsoReferenceInterface;
 
 /**
@@ -40,10 +41,9 @@ interface ModInfoInterface extends StringPrimaryRecordInterface
     public function getName() : string;
     public function getCategory() : BaseCategory;
     public function getModCollection() : ModCollection;
-    public function hasImage() : bool;
     public function getDataFile() : JSONFile;
     public function getRawData() : ArrayDataCollection;
-    public function getImageURL() : string;
+    public function getScreenshotCollection() : ModScreenshotCollection;
     public function getSlug() : string;
     public function getURL() : string;
     /**

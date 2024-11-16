@@ -19,6 +19,7 @@ use CPMDB\Mods\Collection\BaseCategory;
 use CPMDB\Mods\Collection\ModCollection;
 use CPMDB\Mods\Items\ItemCategory;
 use CPMDB\Mods\Items\ItemInfoInterface;
+use CPMDB\Mods\Mod\Screenshots\ModScreenshotCollection;
 use CPMDB\Mods\Mod\SeeAlso\LinkReference;
 use CPMDB\Mods\Tags\TagCollection;
 
@@ -41,7 +42,6 @@ abstract class BaseModInfo implements ModInfoInterface
     protected JSONFile $dataFile;
     protected string $uuid;
     protected ArrayDataCollection $data;
-    protected FileInfo $screenFile;
     protected string $dataURL;
     private BaseCategory $category;
     private string $id;
@@ -53,12 +53,6 @@ abstract class BaseModInfo implements ModInfoInterface
         $this->data = $data;
         $this->id = $id;
         $this->uuid = $category->getID().'.'.$id;
-
-        $this->screenFile = FileInfo::factory(sprintf(
-            '%s/screens/%s.jpg',
-            $category->getDataFolder(),
-            $id
-        ));
     }
 
     public function getCategory() : BaseCategory
@@ -109,19 +103,15 @@ abstract class BaseModInfo implements ModInfoInterface
         return $this->getRawData()->getString(self::KEY_MOD_NAME);
     }
 
-    public function hasImage() : bool
-    {
-        return $this->screenFile->exists();
-    }
+    private ?ModScreenshotCollection $screenCollection = null;
 
-    public function getImageURL() : string
+    public function getScreenshotCollection() : ModScreenshotCollection
     {
-        return $this->category->getScreensURL().'/'.$this->screenFile->getName();
-    }
+        if(!isset($this->screenCollection)) {
+            $this->screenCollection = new ModScreenshotCollection($this);
+        }
 
-    public function getImageFile() : FileInfo
-    {
-        return $this->screenFile;
+        return $this->screenCollection;
     }
 
     private ?string $slug = null;
