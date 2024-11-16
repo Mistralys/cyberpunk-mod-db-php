@@ -1,3 +1,12 @@
+## v1.6.0 - Screenshot update (Breaking-M)
+- Mods: Added the `getScreenshotCollection()` method to access the screenshots.
+- Mods: Multiple mod screenshots are now supported.
+- DB: Updated to Mod DB [v2.0.10](https://github.com/Mistralys/cyberpunk-mod-db/releases/tag/2.0.10).
+
+### Breaking changes
+
+- The mod methods `hasImage()`, `getImageURL()` and `getImageFile()` have been removed.
+
 ## v1.5.2 - Update
 - Tags: Added the `Necklace` tag.
 - Tags: Added the `Body-Atlas` tag.
