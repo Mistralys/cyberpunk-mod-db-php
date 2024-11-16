@@ -56,8 +56,12 @@ $clothing = $collection->categoryClothing()->getAll();
 $catsuit = $collection->getByID('clothing.catsuit');
 
 // Get the screenshot URL for a mod
-if($catsuit->hasImage()) {
-    echo '<img src"'.$catsuit->getImageURL().'">';
+$images = $catsuit->getScreenshotCollection();
+if($images->hasScreenshots()) {
+    $default = $images->getDefault();
+    ?>
+    <img src"<?php php echo $default->getURL() ?>" alt="<?php echo $default->getTitle() ?>">
+    <?php
 }
 ```
 
