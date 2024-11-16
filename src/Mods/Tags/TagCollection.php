@@ -7,6 +7,7 @@ namespace CPMDB\Mods\Tags;
 use AppUtils\ClassHelper;
 use AppUtils\Collections\BaseStringPrimaryCollection;
 use AppUtils\FileHelper;
+use AppUtils\FileHelper\FolderInfo;
 use CPMDB\Mods\Tags\Types\CyberEngineTweaks;
 
 /**
@@ -74,14 +75,17 @@ class TagCollection extends BaseStringPrimaryCollection
 
     protected function registerItems(): void
     {
-        $refClass = CyberEngineTweaks::class;
-        $names = FileHelper::createFileFinder(__DIR__.'/Types')->getPHPClassNames();
+        $classes = ClassHelper::findClassesInFolder(
+            FolderInfo::factory(__DIR__.'/Types'),
+            true,
+            TagInfoInterface::class
+        );
 
-        foreach($names as $name) {
-            $class = ClassHelper::resolveClassByReference($name, $refClass);
+        foreach($classes as $class) {
+            $className = $class->getNameNS();
             $this->registerItem(ClassHelper::requireObjectInstanceOf(
                 TagInfoInterface::class,
-                new $class()
+                new $className()
             ));
         }
     }
