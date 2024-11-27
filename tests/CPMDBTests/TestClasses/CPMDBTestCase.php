@@ -26,7 +26,7 @@ class CPMDBTestCase extends TestCase
 
     protected function createCollection() : ModCollection
     {
-        return createTestCollection();
+        return createTestCollection(false);
     }
 
     protected function createAteliers() : AtelierCollection
