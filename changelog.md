@@ -1,4 +1,4 @@
-## v1.6.1 - DB update
+## v1.6.1 - Atelier mods support
 - Mods: Added `getAtelier()` to clothing mods.
 - Mods: Added the `ModCollectionInterface`.
 - Mods: Added the collection factory method `createAteliers()`.
