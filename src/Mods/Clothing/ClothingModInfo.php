@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace CPMDB\Mods\Clothing;
 
+use CPMDB\Mods\Ateliers\AtelierInterface;
 use CPMDB\Mods\Mod\BaseModInfo;
 
 /**
@@ -18,14 +19,39 @@ use CPMDB\Mods\Mod\BaseModInfo;
  */
 class ClothingModInfo extends BaseModInfo
 {
+    private ?bool $hasAtelier = null;
+
     public function hasAtelier() : bool
     {
-        return !empty($this->getAtelierURL());
+        if(!isset($this->hasAtelier)) {
+            $this->hasAtelier = !empty($this->getAtelierURL());
+        }
+
+        return $this->hasAtelier;
     }
 
     public function getAtelierURL() : string
     {
         return $this->data->getString('atelier');
+    }
+
+    private bool $atelierLoaded = false;
+    private ?AtelierInterface $atelier = null;
+
+    public function getAtelier() : ?AtelierInterface
+    {
+        if($this->atelierLoaded) {
+            return $this->atelier;
+        }
+
+        if($this->hasAtelier()) {
+            $this->atelier = $this
+                ->getModCollection()
+                ->createAteliers()
+                ->getByURL($this->getAtelierURL());
+        }
+
+        return $this->atelier;
     }
 
     private ?ClothingItems $itemCollection = null;
