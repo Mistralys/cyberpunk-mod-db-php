@@ -18,6 +18,7 @@ use AppUtils\FileHelper\PathInfoInterface;
 use AppUtils\FileHelper_Exception;
 use AppUtils\Interfaces\StringPrimaryRecordInterface;
 use Brick\Event\EventDispatcher;
+use CPMD\Mods\Ateliers\AtelierCollection;
 use CPMDB\Mods\Clothing\ClothingModInfo;
 use CPMDB\Mods\Collection\DataLoader\DataLoaderInterface;
 use CPMDB\Mods\Collection\DataLoader\Type\CacheDataLoader;
@@ -27,7 +28,6 @@ use CPMDB\Mods\Collection\Filter\ItemFilter;
 use CPMDB\Mods\Collection\Filter\ModFilter;
 use CPMDB\Mods\Collection\Indexer\IndexManager;
 use CPMDB\Mods\Items\GlobalItemCollection;
-use CPMDB\Mods\Mod\ModInfoInterface;
 use Mistralys\ChangelogParser\ChangelogParser;
 use Throwable;
 
@@ -36,12 +36,8 @@ use Throwable;
  *
  * @package CPMDB
  * @subpackage Mod Collection
- *
- * @method ModInfoInterface[] getAll()
- * @method ModInfoInterface getDefault()
- * @method ModInfoInterface getByID(string $id)
  */
-class ModCollection extends BaseStringPrimaryCollection
+class ModCollection extends BaseStringPrimaryCollection implements ModCollectionInterface
 {
     public const DB_GIT_NAME = 'mistralys/cyberpunk-mod-db';
 
@@ -61,7 +57,7 @@ class ModCollection extends BaseStringPrimaryCollection
             '%s/%s',
             $vendorFolder,
             self::DB_GIT_NAME
-        ));;
+        ));
 
         $this->cacheFolder = $cacheFolder;
         $this->dataURL = $dataURL;
@@ -122,6 +118,23 @@ class ModCollection extends BaseStringPrimaryCollection
         return $this->dataURL;
     }
 
+    private ?AtelierCollection $ateliers = null;
+
+    /**
+     * Creates/gets the atelier collection instance that is
+     * used to browse available atelier mods.
+     *
+     * @return AtelierCollection
+     */
+    public function createAteliers() : AtelierCollection
+    {
+        if(!isset($this->ateliers)) {
+            $this->ateliers = new AtelierCollection($this);
+        }
+
+        return $this->ateliers;
+    }
+
     private ?ClothingCategory $categoryClothing = null;
 
     public function categoryClothing() : ClothingCategory
@@ -143,7 +156,8 @@ class ModCollection extends BaseStringPrimaryCollection
             $dataFolder
                 ->createFileFinder()
                 ->includeExtension('json')
-                ->getFileInfos()
+                ->getFiles()
+                ->typeJSON()
         );
     }
 
@@ -194,7 +208,7 @@ class ModCollection extends BaseStringPrimaryCollection
     }
 
     /**
-     * Adds a listener for the mods loaded event, which is called
+     * Adds a listener for the {@see self::EVENT_MODS_LOADED} event, which is called
      * once all mods have been loaded into memory.
      *
      * The callback gets a single parameter:
