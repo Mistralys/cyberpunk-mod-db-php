@@ -22,11 +22,11 @@ use function CPMDB\Assets\getCLICommands;
  * @subpackage Tools
  * @return ModCollection
  */
-function createTestCollection() : ModCollection
+function createTestCollection(bool $newInstance=false) : ModCollection
 {
     $key = '__test_cpmdb_mod_collection';
 
-    if(isset($GLOBALS[$key])) {
+    if($newInstance && isset($GLOBALS[$key])) {
         return $GLOBALS[$key];
     }
 
@@ -36,7 +36,9 @@ function createTestCollection() : ModCollection
         'http://127.0.0.1/cpmdb'
     );
 
-    $GLOBALS[$key] = $collection;
+    if(!$newInstance) {
+        $GLOBALS[$key] = $collection;
+    }
 
     return $collection;
 }
