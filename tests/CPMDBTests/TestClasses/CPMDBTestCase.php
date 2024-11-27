@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace CPMDBTEsts\TestClasses;
 
 use AppUtils\FileHelper\FolderInfo;
+use CPMD\Mods\Ateliers\AtelierCollection;
 use CPMDB\Mods\Collection\DataWriter\CacheDataWriter;
 use CPMDB\Mods\Collection\ModCollection;
 use CPMDB\Mods\Mod\ModInfoInterface;
 use PHPUnit\Framework\TestCase;
+use function CPMDB\Mods\Tools\createTestCollection;
 
 class CPMDBTestCase extends TestCase
 {
@@ -24,11 +26,12 @@ class CPMDBTestCase extends TestCase
 
     protected function createCollection() : ModCollection
     {
-        return ModCollection::create(
-            $this->getVendorFolder(),
-            $this->getCacheFolder(),
-            'http://127.0.0.1/cpmdb'
-        );
+        return createTestCollection();
+    }
+
+    protected function createAteliers() : AtelierCollection
+    {
+        return $this->createCollection()->createAteliers();
     }
 
     protected function getTestMod(string $modID) : ModInfoInterface
