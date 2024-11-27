@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace CPMDB\Mods\Mod;
 
-use CPMDB\Mods\Items\ItemCategory;
 use CPMDB\Mods\Items\ItemCollectionInterface;
 
 interface ModItemCollectionInterface extends ItemCollectionInterface
