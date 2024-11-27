@@ -1,3 +1,20 @@
+## v1.6.1 - DB update
+- Mods: Added `getAtelier()` to clothing mods.
+- Mods: Added the `ModCollectionInterface`.
+- Mods: Added the collection factory method `createAteliers()`.
+- Ateliers: Added the atelier collection for all atelier mods used by the clothing mods.
+- Tags: Added the `AppearanceCreatorMod` tag.
+- Tags: Added the `BodyHystEBBN` tag.
+- Tags: Added the `BodyHystEBBNRB` tag.
+- Tags: Added the `BodySongbird` tag.
+- Tags: Added the `Bracelet` tag.
+- Tags: Added the `Corset` tag.
+- Tags: Added the `Lingerie` tag.
+- Tools: Streamlined to use `tools.php` as the main entry point.
+- Tools: Added a `build.bat` to execute all required tools.
+- Dependencies: Added the `sqlite3` extension as requirement for Loupe.  
+- Dependencies: Updated to Mod DB [v2.1.1](https://github.com/Mistralys/cyberpunk-mod-db/releases/tag/2.1.1).
+
 ## v1.6.0 - Screenshot update (Breaking-M)
 - Mods: Added the `getScreenshotCollection()` method to access the screenshots.
 - Mods: Multiple mod screenshots are now supported.
