@@ -13,33 +13,33 @@ namespace CPMDB\Tools;
 
 use AppUtils\ClassHelper;
 use CPMDB\Mods\Tags\TagCollection;
+use function CPMDB\Assets\logInfo;
 
-require_once __DIR__ . '/../vendor/autoload.php';
-
-echo 'Generating tag names.'.PHP_EOL;
-
-$imports = array();
-$constants = array();
-
-foreach(TagCollection::getInstance()->getAll() as $tag)
+function generateTagsEnumClass() : void
 {
-    $name = ClassHelper::getClassTypeName($tag);
+    logInfo('- Generating the tag name enum class.');
 
-    $imports[] = sprintf(
-        "use %s;",
-        get_class($tag)
-    );
-    $constants[] = sprintf(
-        '    public const %s = %s::TAG_NAME;',
-        strtoupper(strtolower(preg_replace("/([a-z])([A-Z])/", "$1_$2", $name))),
-        $name
-    );
-}
+    $imports = array();
+    $constants = array();
 
-sort($imports);
-sort($constants);
+    foreach (TagCollection::getInstance()->getAll() as $tag) {
+        $name = ClassHelper::getClassTypeName($tag);
 
-$template = <<<'PHP'
+        $imports[] = sprintf(
+            "use %s;",
+            get_class($tag)
+        );
+        $constants[] = sprintf(
+            '    public const %s = %s::TAG_NAME;',
+            strtoupper(strtolower(preg_replace("/([a-z])([A-Z])/", "$1_$2", $name))),
+            $name
+        );
+    }
+
+    sort($imports);
+    sort($constants);
+
+    $template = <<<'PHP'
 <?php
 /**
  * @package CPMDB
@@ -73,11 +73,12 @@ class TagNames
 
 PHP;
 
-file_put_contents(
-    __DIR__.'/../src/Mods/Tags/TagNames.php',
-    sprintf(
-        $template,
-        implode(PHP_EOL, $imports),
-        implode(PHP_EOL, $constants)
-    )
-);
+    file_put_contents(
+        __DIR__ . '/../src/Mods/Tags/TagNames.php',
+        sprintf(
+            $template,
+            implode(PHP_EOL, $imports),
+            implode(PHP_EOL, $constants)
+        )
+    );
+}
