@@ -67,6 +67,7 @@ use CPMDB\Mods\Ateliers\Atelier\ZenitexAtelier;
  * @method AtelierInterface getByID(string $id)
  * @method AtelierInterface[] getAll()
  * @method AtelierInterface getDefault() 
+ * @property array<string,AtelierInterface> $items
  */
 class AtelierCollection extends BaseStringPrimaryCollection
 {
