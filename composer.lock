@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "421635f971f2a3c62458892252c6ccd7",
+    "content-hash": "ca92c42e92a1090673a2b692de2ef2d6",
     "packages": [
         {
             "name": "brick/event",
@@ -501,22 +501,24 @@
         },
         {
             "name": "mistralys/application-utils-core",
-            "version": "2.3.1",
+            "version": "2.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Mistralys/application-utils-core.git",
-                "reference": "6c9b8490979ce727c45aae26b0e6d9b2d7fa9307"
+                "reference": "445bfa26cdf623ef92de9f870d52f4ad9c6f675f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Mistralys/application-utils-core/zipball/6c9b8490979ce727c45aae26b0e6d9b2d7fa9307",
-                "reference": "6c9b8490979ce727c45aae26b0e6d9b2d7fa9307",
+                "url": "https://api.github.com/repos/Mistralys/application-utils-core/zipball/445bfa26cdf623ef92de9f870d52f4ad9c6f675f",
+                "reference": "445bfa26cdf623ef92de9f870d52f4ad9c6f675f",
                 "shasum": ""
             },
             "require": {
                 "ext-ctype": "*",
                 "ext-curl": "*",
+                "ext-dom": "*",
                 "ext-json": "*",
+                "ext-libxml": "*",
                 "ext-mbstring": "*",
                 "geshi/geshi": ">=1.0",
                 "neitanod/forceutf8": ">=2.0.4",
@@ -526,7 +528,8 @@
             "require-dev": {
                 "ext-gd": "*",
                 "phpstan/phpstan": ">=1.10",
-                "phpunit/phpunit": ">=9.6"
+                "phpstan/phpstan-phpunit": ">=2.0.1",
+                "phpunit/phpunit": "^10.5"
             },
             "suggest": {
                 "mistralys/application-localization": "Required to translate available texts, from date related methods or file size labels for example."
@@ -554,9 +557,9 @@
             "description": "Drop-in utilities for PHP applications.",
             "support": {
                 "issues": "https://github.com/Mistralys/application-utils-core/issues",
-                "source": "https://github.com/Mistralys/application-utils-core/tree/2.3.1"
+                "source": "https://github.com/Mistralys/application-utils-core/tree/2.3.3"
             },
-            "time": "2024-10-17T12:47:31+00:00"
+            "time": "2024-11-28T15:50:57+00:00"
         },
         {
             "name": "mistralys/application-utils-image",
@@ -661,16 +664,16 @@
         },
         {
             "name": "mistralys/cyberpunk-mod-db",
-            "version": "2.1.1",
+            "version": "2.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Mistralys/cyberpunk-mod-db.git",
-                "reference": "5d0bd1506f0aa30f4192ed6e6cfe814585a73a0c"
+                "reference": "de352e2527e03a51cda9a2b92b756704b49be10e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Mistralys/cyberpunk-mod-db/zipball/5d0bd1506f0aa30f4192ed6e6cfe814585a73a0c",
-                "reference": "5d0bd1506f0aa30f4192ed6e6cfe814585a73a0c",
+                "url": "https://api.github.com/repos/Mistralys/cyberpunk-mod-db/zipball/de352e2527e03a51cda9a2b92b756704b49be10e",
+                "reference": "de352e2527e03a51cda9a2b92b756704b49be10e",
                 "shasum": ""
             },
             "require": {
@@ -708,9 +711,9 @@
             "description": "JSON database of Cyberpunk 2077 Clothing Mods",
             "support": {
                 "issues": "https://github.com/Mistralys/cyberpunk-mod-db/issues",
-                "source": "https://github.com/Mistralys/cyberpunk-mod-db/tree/2.1.1"
+                "source": "https://github.com/Mistralys/cyberpunk-mod-db/tree/2.1.2"
             },
-            "time": "2024-11-27T17:28:42+00:00"
+            "time": "2024-11-28T15:26:05+00:00"
         },
         {
             "name": "mistralys/version-parser",
@@ -2612,12 +2615,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "4b0583eef37941e72c51ea847d0e03ef52a302d9"
+                "reference": "fff26f7a91a7458bf6eea5afdd71b4aba1f1d3ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/4b0583eef37941e72c51ea847d0e03ef52a302d9",
-                "reference": "4b0583eef37941e72c51ea847d0e03ef52a302d9",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/fff26f7a91a7458bf6eea5afdd71b4aba1f1d3ea",
+                "reference": "fff26f7a91a7458bf6eea5afdd71b4aba1f1d3ea",
                 "shasum": ""
             },
             "conflict": {
@@ -3198,6 +3201,7 @@
                 "socialiteproviders/steam": "<1.1",
                 "spatie/browsershot": "<3.57.4",
                 "spatie/image-optimizer": "<1.7.3",
+                "spencer14420/sp-php-email-handler": "<1",
                 "spipu/html2pdf": "<5.2.8",
                 "spoon/library": "<1.4.1",
                 "spoonity/tcpdf": "<6.2.22",
@@ -3446,7 +3450,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-11-26T22:05:25+00:00"
+            "time": "2024-11-27T22:05:07+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -4430,6 +4434,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
+        "ext-sqlite3": "*",
         "php": ">=8.2"
     },
     "platform-dev": [],
