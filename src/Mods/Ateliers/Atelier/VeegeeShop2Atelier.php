@@ -30,6 +30,7 @@ class VeegeeShop2Atelier extends BaseAtelier
         'clothing.casual-style-outfit-part-4',
         'clothing.casual-style-outfit-part-8',
         'clothing.casual-style-outfit-part-10',
+        'clothing.oversized-blazer',
     );
     
     public function getID(): string
