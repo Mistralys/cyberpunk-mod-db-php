@@ -1,3 +1,9 @@
+## v1.6.2 - Minor tweaks
+- Collections: Fixed the return type docs for the mod collection classes.
+- Code: PHPStan checks clean up to level 9.
+- Dependencies: Updated to Mod DB [v2.1.2](https://github.com/Mistralys/cyberpunk-mod-db/releases/tag/2.1.2).
+- Dependencies: Updated AppUtils Core to [v2.3.3](https://github.com/Mistralys/application-utils-core/releases/tag/2.3.3).
+
 ## v1.6.1 - Atelier mods support
 - Mods: Added `getAtelier()` to clothing mods.
 - Mods: Added the `ModCollectionInterface`.
