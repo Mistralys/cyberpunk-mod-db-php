@@ -1,20 +1,27 @@
 <?php
+/**
+ * @package Mods
+ * @subpackage Screenshots
+ */
 
 declare(strict_types=1);
 
 namespace CPMDB\Mods\Mod\Screenshots;
 
+use AppUtils\ArrayDataCollection;
 use AppUtils\Collections\BaseStringPrimaryCollection;
 use AppUtils\FileHelper\FileInfo;
 use AppUtils\FileHelper\FolderInfo;
 use AppUtils\FileHelper\JSONFile;
 use CPMDB\Mods\Mod\ModInfoInterface;
+use function AppUtils\t;
+use const CPMDB\Assets\KEY_SCREENSHOT_TITLE;
 
 /**
  * Collection of screenshot files available for a mod.
  *
- * @package CPMDB
- * @subpackage Mod Collection
+ * @package Mods
+ * @subpackage Screenshots
  *
  * @method ModScreenshotInterface getByID(string $id)
  * @method ModScreenshotInterface getDefault()
@@ -23,7 +30,7 @@ use CPMDB\Mods\Mod\ModInfoInterface;
 class ModScreenshotCollection extends BaseStringPrimaryCollection
 {
     public const DEFAULT_ID = '000default';
-    private const KEY_SCREENSHOT_ID = 'screenshotID';
+    public const KEY_SCREENSHOT_ID = 'screenshotID';
 
     private ModInfoInterface $mod;
 
@@ -64,18 +71,18 @@ class ModScreenshotCollection extends BaseStringPrimaryCollection
 
     protected function registerItems(): void
     {
-        foreach($this->getDescriptions() as $def) {
+        foreach($this->getMetaData() as $def) {
             $this->registerScreenshot($def);
         }
     }
 
     /**
-     * @param array<string,scalar> $def
+     * @param ScreenshotMetaData $def
      * @return void
      */
-    private function registerScreenshot(array $def) : void
+    private function registerScreenshot(ScreenshotMetaData $def) : void
     {
-        $fileName = $this->resolveFileName($def[self::KEY_SCREENSHOT_ID]);
+        $fileName = $this->resolveFileName($def->getScreenshotID());
         $file = FileInfo::factory($this->getScreensFolder().'/'.$fileName);
 
         if(!$file->exists()) {
@@ -84,7 +91,7 @@ class ModScreenshotCollection extends BaseStringPrimaryCollection
 
         $this->registerItem(new ModScreenshot(
             $this,
-            $def[self::KEY_SCREENSHOT_ID],
+            $def->getScreenshotID(),
             $file,
             $this->getScreensURL().'/'.$fileName,
             $def
@@ -113,26 +120,40 @@ class ModScreenshotCollection extends BaseStringPrimaryCollection
      * screenshot. If no sidecar file is present, only the default
      * screenshot is returned.
      *
-     * @return array<int,array{string,scalar}>
+     * @return ScreenshotMetaData[]
      */
-    public function getDescriptions() : array
+    public function getMetaData() : array
     {
         $sidecarFile = $this->getSidecarFile();
 
         $descriptions = array();
 
-        $descriptions[] = array(
-            self::KEY_SCREENSHOT_ID => self::DEFAULT_ID
-        );
+        $descriptions[] = new ScreenshotMetaData(self::DEFAULT_ID, t('Default mod screenshot'));
 
         if($sidecarFile->exists()) {
             foreach($sidecarFile->getData() as $suffix => $def) {
-                $def[self::KEY_SCREENSHOT_ID] = $suffix;
-                $descriptions[] = $def;
+                $descriptions[] = $this->resolveMetaData((string)$suffix, $def);
             }
         }
 
         return $descriptions;
+    }
+
+    /**
+     * @param string $suffix
+     * @param mixed $def
+     * @return ScreenshotMetaData
+     */
+    private function resolveMetaData(string $suffix, mixed $def) : ScreenshotMetaData
+    {
+        $title = '';
+
+        if(is_array($def)) {
+            $data = ArrayDataCollection::create($def);
+            $title = $data->getString(KEY_SCREENSHOT_TITLE);
+        }
+
+        return new ScreenshotMetaData($suffix, $title);
     }
 
     private function resolveFileName(?string $suffix=null) : string

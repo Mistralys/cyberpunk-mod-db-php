@@ -1,29 +1,43 @@
 <?php
+/**
+ * @package Mods
+ * @subpackage Screenshots
+ */
 
 declare(strict_types=1);
 
 namespace CPMDB\Mods\Mod\Screenshots;
 
-use AppUtils\ArrayDataCollection;
 use AppUtils\FileHelper\FileInfo;
 
+/**
+ * Information on a single screenshot for a mod.
+ *
+ * @package Mods
+ * @subpackage Screenshots
+ */
 class ModScreenshot implements ModScreenshotInterface
 {
-    public const META_KEY_TITLE = 'title';
-
     private FileInfo $imageFile;
     private string $id;
     private ModScreenshotCollection $collection;
     private string $imageURL;
-    private ArrayDataCollection $metaData;
+    private ScreenshotMetaData $metaData;
 
-    public function __construct(ModScreenshotCollection $collection, string $screenshotID, FileInfo $imageFile, string $imageURL, array $metaData)
+    /**
+     * @param ModScreenshotCollection $collection
+     * @param string $screenshotID
+     * @param FileInfo $imageFile
+     * @param string $imageURL
+     * @param ScreenshotMetaData $metaData
+     */
+    public function __construct(ModScreenshotCollection $collection, string $screenshotID, FileInfo $imageFile, string $imageURL, ScreenshotMetaData $metaData)
     {
         $this->collection = $collection;
         $this->imageFile = $imageFile;
         $this->id = $screenshotID;
         $this->imageURL = $imageURL;
-        $this->metaData = ArrayDataCollection::create($metaData);
+        $this->metaData = $metaData;
     }
 
     public function getID() : string
@@ -48,15 +62,6 @@ class ModScreenshot implements ModScreenshotInterface
 
     public function getTitle() : string
     {
-        $title = $this->metaData->getString(self::META_KEY_TITLE);
-        if(!empty($title)) {
-            return $title;
-        }
-
-        if($this->isDefault()) {
-            return 'Default mod screenshot';
-        }
-
-        return '';
+        return $this->metaData->getTitle();
     }
 }

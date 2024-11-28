@@ -67,9 +67,7 @@ class FileDataLoader extends BaseDataLoader
         $ids = array();
 
         foreach($category->getDataFiles() as $jsonFile) {
-            if($jsonFile instanceof JSONFile) {
-                $ids[] = $jsonFile->getBaseName();
-            }
+            $ids[] = $jsonFile->getBaseName();
         }
 
         return $ids;

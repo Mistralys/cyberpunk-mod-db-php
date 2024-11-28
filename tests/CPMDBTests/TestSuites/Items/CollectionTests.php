@@ -38,7 +38,7 @@ final class CollectionTests extends CPMDBTestCase
             ->selectTag(Physics::TAG_NAME)
             ->getItemsAsCollection();
 
-        $this->assertNotEmpty($items);
+        $this->assertTrue($items->countRecords() > 0);
         $this->assertTrue($items->itemCodeExists('earrings_08_basic_04_kwek'));
     }
 }

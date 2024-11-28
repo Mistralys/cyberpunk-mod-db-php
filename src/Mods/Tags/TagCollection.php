@@ -56,9 +56,7 @@ class TagCollection extends BaseStringPrimaryCollection
         $tags = array();
 
         foreach($tagLists as $tagList) {
-            if(is_array($tagList)) {
-                array_push($tags, ...self::filterTags($tagList));
-            }
+            array_push($tags, ...self::filterTags($tagList));
         }
 
         $result = array_unique($tags);

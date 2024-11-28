@@ -7,6 +7,7 @@ namespace CPMDBTests\TestSuites\Ateliers;
 use CPMDB\Mods\Ateliers\Atelier\CubAtelierStore;
 use CPMDB\Mods\Ateliers\Atelier\NcFashionAtelier;
 use CPMDB\Mods\Ateliers\AtelierNames;
+use CPMDB\Mods\Clothing\ClothingModInfo;
 use CPMDBTEsts\TestClasses\CPMDBTestCase;
 
 final class AtelierTests extends CPMDBTestCase
@@ -47,6 +48,10 @@ final class AtelierTests extends CPMDBTestCase
     {
         $mod = $this->createCollection()->getByID('clothing.cute-zipper-top');
 
-        $this->assertSame(CubAtelierStore::ATELIER_ID, $mod->getAtelier()->getID());
+        $this->assertInstanceOf(ClothingModInfo::class, $mod);
+
+        $atelier = $mod->getAtelier();
+        $this->assertNotNull($atelier);
+        $this->assertSame(CubAtelierStore::ATELIER_ID, $atelier->getID());
     }
 }
