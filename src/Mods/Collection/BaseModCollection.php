@@ -19,6 +19,10 @@ use CPMDB\Mods\Mod\ModInfoInterface;
  * @package CPMDB
  * @subpackage Collection
  * @see ModCollectionInterface
+ *
+ * @method ModInfoInterface[] getAll()
+ * @method ModInfoInterface getDefault()
+ * @method ModInfoInterface getByID(string $id)
  */
 abstract class BaseModCollection extends BaseStringPrimaryCollection implements ModCollectionInterface
 {
