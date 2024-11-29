@@ -1,4 +1,8 @@
 <?php
+/**
+ * @package CPMDB
+ * @subpackage Filtering
+ */
 
 declare(strict_types=1);
 
@@ -9,6 +13,13 @@ use CPMDB\Mods\Collection\Indexer\ModIndex;
 use CPMDB\Mods\Collection\ModCollection;
 use Loupe\Loupe\SearchParameters;
 
+/**
+ * Abstract base class for filter classes that
+ * implement the {@see FilterInterface} interface.
+ *
+ * @package CPMDB
+ * @subpackage Filtering
+ */
 abstract class BaseFilter implements FilterInterface
 {
     private const LIST_MODE_AND = 'AND';

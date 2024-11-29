@@ -1,4 +1,8 @@
 <?php
+/**
+ * @package CPMDB
+ * @subpackage Search Index
+ */
 
 declare(strict_types=1);
 
@@ -11,8 +15,16 @@ use Loupe\Loupe\Configuration;
 use Loupe\Loupe\Loupe;
 use Loupe\Loupe\LoupeFactory;
 
+/**
+ * Builds the search index database for mod items.
+ *
+ * @package CPMDB
+ * @subpackage Search Index
+ */
 class ItemIndex extends BaseIndex
 {
+    public const INDEX_TYPE = 'item';
+
     public const KEY_ITEM_CATEGORY = 'item_category';
     public const KEY_ITEM_CODE = 'item_code';
     public const KEY_ITEM_UUID = 'item_uuid';
@@ -21,7 +33,7 @@ class ItemIndex extends BaseIndex
 
     public function getID(): string
     {
-        return 'item';
+        return self::INDEX_TYPE;
     }
 
     public function getPrimaryKeyName(): string
