@@ -1,13 +1,16 @@
-# Cyberpunk 2077 Clothing Mods DB: PHP Classes
+# Cyberpunk 2077 Clothing Mods DB for PHP
 
-PHP Classes to access the [Cyberpunk 2077 Clothing Mod DB](https://github.com/Mistralys/cyberpunk-mod-db).
+PHP library used to access the data provided by the 
+[Cyberpunk 2077 Clothing Mod DB](https://github.com/Mistralys/cyberpunk-mod-db).
 
 ## Features
 
-- Classes used to access the mod database
-- Get mod information, including screenshot paths and URLs
+- Classes used to access all data in the mod DB
+- Get mod information, including screenshots
 - Filter mods by search terms and tags
-- Constants for all known tags used in the mod DB
+- Filter mod items by search terms and tags
+- Access all known tags used in the mod DB
+- Access all atelier mods used by the clothing mods
 - Minimum configuration required
 
 ## Requirements
@@ -28,13 +31,13 @@ composer require mistralys/cyberpunk-mod-db-php
 > NOTE: The database is included as a dependency, so there is no need to 
 > require it separately, unless you want a specific version to be installed.
 
-## Usage
+## Accessing mods
 
-### Accessing mods
+### The mod collection class
 
-The mod collection class is the main entry point to the mod database. 
-It provides methods to access all mods, as well as the filtering
-capabilities.
+The mod collection class `ModCollection` is the main entry point to the 
+mod database. It provides methods to access all mods, as well as the 
+filtering capabilities.
 
 ```php
 use CPMDB\Mods\Collection\ModCollection;
@@ -65,32 +68,6 @@ if($images->hasScreenshots()) {
 }
 ```
 
-### Accessing items
-
-Each mod can contain multiple items, such as clothing items. 
-While each mod has a collection of items, there is also a global
-item collection that contains all items from all mods.
-
-```php
-use CPMDB\Mods\Collection\ModCollection;
-
-// Create a collection instance
-$collection = ModCollection::create(
-    __DIR__.'/vendor', // Absolute path to the composer vendor directory
-    __DIR__.'/cache', // Path to a writable directory to store cache files
-    'http://127.0.0.1/your-app/vendor' // Absolute URL to the composer vendor directory
-);
-
-// Get the item collection
-$itemsCollection = $collection->getItemCollection();
-
-// Get an item by its CET code 
-$dress = $itemsCollection->getByID('nd_michiko_dress_black');
-
-// Get the CET command to add the item in-game
-$dress->getCETCommand();
-```
-
 ### Searching for mods
 
 Use the mod filter to search for specific mods by search terms and/or tags.
@@ -111,6 +88,34 @@ $mods = $collection->createFilter()
     ->selectSearchTerm('catsuit')
     ->selectTag(Outfit::TAG_NAME)
     ->getMods();
+```
+
+## Accessing mod items
+
+Each mod can contain multiple items, such as clothing items. 
+While each mod has a collection of items, there is also a global
+item collection that contains all items from all mods.
+
+### The item collection class
+
+```php
+use CPMDB\Mods\Collection\ModCollection;
+
+// Create a collection instance
+$collection = ModCollection::create(
+    __DIR__.'/vendor', // Absolute path to the composer vendor directory
+    __DIR__.'/cache', // Path to a writable directory to store cache files
+    'http://127.0.0.1/your-app/vendor' // Absolute URL to the composer vendor directory
+);
+
+// Get the item collection
+$itemsCollection = $collection->getItemCollection();
+
+// Get an item by its CET code 
+$dress = $itemsCollection->getByID('nd_michiko_dress_black');
+
+// Get the CET command to add the item in-game
+$dress->getCETCommand();
 ```
 
 ### Searching for items
@@ -152,13 +157,22 @@ $mods = $collection->createItemFilter()
 > mod can have items that belong to different tags, searching for
 > a specific tag may return unrelated items.
 
-## Tags
+## Accessing tags
 
 Tags are used to categorize mods, using simple strings defined in the mod files
 (e.g. `CET` for the Cyber Engine Tweaks mod). All known tags used in the mod DB
 are included in the package.
 
-> Tags also have additional meta-data, such as a label and a category.
+### Available meta data
+
+Each tag has the following meta-data:
+
+- Name: The tag's name, e.g. `CET`.
+- Full name: The tag's full name, e.g. `Cyber Engine Tweaks`.
+- Description: A short description of the tag.
+- Category: The tag's category, e.g. `Modder Resource`.
+- Related tags: Tags that are related to the current tag, if any.
+- Links: Links to external resources related to the tag, if any.
 
 ### Tag name constants
 
@@ -170,7 +184,17 @@ $cetTag = \CPMDB\Mods\Tags\Types\CyberEngineTweaks::TAG_NAME;
 $clothingTag = \CPMDB\Mods\Tags\Types\Clothing::TAG_NAME;
 ```
 
-### Getting all known tags
+An alternative way is to use the `TagNames` class, which has constants for all
+known tags. This can be easier to use in some cases.
+
+```php
+use CPMDB\Mods\Tags\TagNames;
+
+$cetTag = TagNames::TAG_CET;
+$clothingTag = TagNames::TAG_CLOTHING;
+```
+
+### The tag collection
 
 All known tags are available via the `TagCollection` class, which has methods
 to access them.
@@ -188,8 +212,59 @@ $all = $collection->getAll();
 $cet = $collection->getByID(CyberEngineTweaks::TAG_NAME);
 
 // Additional tag meta data
-echo 'Full label: '.$cet->getLabel();
+echo 'Description: '.$cet->getDescription();
 echo 'Tag category: '.$cet->getCategory();
+```
+
+## Accessíng atelier mods
+
+> Background: To make clothing items added by mods available to purchase in-game, the
+> [Virtual Atelier](https://www.nexusmods.com/cyberpunk2077/mods/2987) mod is used. 
+> Modders can create atelier mods that contain the clothing items they have created.
+
+For the clothing mods, all related atelier mods are included in the `AtelierCollection` 
+class to access their metadata. Individual mods provide their own atelier instance 
+via the `getAtelier()` method, but the atelier collection offers top-level access 
+to all of them.
+
+### Available metadata
+
+Each atelier has the following meta-data:
+
+- ID: The atelier's unique identifier, e.g. `nc-fashion`.
+- Name: The atelier's name, e.g. `NC Fashion`.
+- URL: A link to the atelier mod's home page.
+- Authors: A list of the mod's author names.
+- Mods: All database-known mods that belong to the atelier.
+
+### The atelier collection
+
+Getting the atelier collection is done via the mod collection:
+
+```php
+use CPMDB\Mods\Ateliers\AtelierCollection;
+use CPMDB\Mods\Collection\ModCollection;
+use \CPMDB\Mods\Ateliers\Atelier\NcFashionAtelier;
+
+// Create a collection instance
+$collection = ModCollection::create(
+    __DIR__.'/vendor', // Absolute path to the composer vendor directory
+    __DIR__.'/cache', // Path to a writable directory to store cache files
+    'http://127.0.0.1/your-app/vendor' // Absolute URL to the composer vendor directory
+);
+
+$ateliers = $collection->createAteliers();
+
+// Get all ateliers
+$all = $ateliers->getAll();
+
+// Get a specific atelier
+$ncFashion = $ateliers->getByID(NcFashionAtelier::ATELIER_ID);
+```
+
+### Getting a mod's atelier
+
+```php
 ```
 
 ## Caching
