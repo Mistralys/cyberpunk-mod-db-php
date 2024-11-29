@@ -1,8 +1,6 @@
 @echo off
 
-php tools.php generate-atelier-classes
-php tools.php detect-missing-tags
-cd ..
-call composer dumpautoload
-cd tools
-php tools.php generate-tag-names
+set folder=%~dp0
+php %folder%/tools.php generate-atelier-classes
+php %folder%/tools.php detect-missing-tags
+php %folder%/tools.php generate-tag-names
