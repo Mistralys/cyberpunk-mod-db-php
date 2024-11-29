@@ -13,7 +13,6 @@ use AppUtils\ClassHelper;
 use AppUtils\ClassHelper\BaseClassHelperException;
 use AppUtils\Collections\CollectionException;
 use AppUtils\ConvertHelper;
-use AppUtils\FileHelper\FileInfo;
 use AppUtils\FileHelper\JSONFile;
 use CPMDB\Mods\Collection\BaseCategory;
 use CPMDB\Mods\Collection\ModCollection;
@@ -22,6 +21,14 @@ use CPMDB\Mods\Items\ItemInfoInterface;
 use CPMDB\Mods\Mod\Screenshots\ModScreenshotCollection;
 use CPMDB\Mods\Mod\SeeAlso\LinkReference;
 use CPMDB\Mods\Tags\TagCollection;
+use const CPMDB\Assets\KEY_AUTHORS;
+use const CPMDB\Assets\KEY_LINKED_MODS;
+use const CPMDB\Assets\KEY_MOD;
+use const CPMDB\Assets\KEY_SEARCH_TERMS;
+use const CPMDB\Assets\KEY_SEE_ALSO;
+use const CPMDB\Assets\KEY_SEE_ALSO_LABEL;
+use const CPMDB\Assets\KEY_SEE_ALSO_URL;
+use const CPMDB\Assets\KEY_URL;
 
 /**
  * Abstract base class for mod information classes.
@@ -31,13 +38,14 @@ use CPMDB\Mods\Tags\TagCollection;
  */
 abstract class BaseModInfo implements ModInfoInterface
 {
-    public const KEY_URL = 'url';
-    public const KEY_AUTHORS = 'authors';
-    public const KEY_MOD_NAME = 'mod';
-    public const KEY_SEE_ALSO = 'seeAlso';
-    public const KEY_SEE_ALSO_URL = 'url';
-    public const KEY_SEE_ALSO_LABEL = 'label';
-    public const KEY_LINKED_MODS = 'linkedMods';
+    public const KEY_URL = KEY_URL;
+    public const KEY_AUTHORS = KEY_AUTHORS;
+    public const KEY_MOD_NAME = KEY_MOD;
+    public const KEY_SEE_ALSO = KEY_SEE_ALSO;
+    public const KEY_SEE_ALSO_URL = KEY_SEE_ALSO_URL;
+    public const KEY_SEE_ALSO_LABEL = KEY_SEE_ALSO_LABEL;
+    public const KEY_LINKED_MODS = KEY_LINKED_MODS;
+    public const KEY_SEARCH_TERMS = KEY_SEARCH_TERMS;
 
     protected JSONFile $dataFile;
     protected string $uuid;
@@ -150,6 +158,17 @@ abstract class BaseModInfo implements ModInfoInterface
         }
 
         return $this->authors;
+    }
+
+    /**
+     * Used by the search index: Additional search terms for the mod
+     * to help with more complex terms.
+     *
+     * @return string Space-separated search terms.
+     */
+    public function getSearchTerms() : string
+    {
+        return $this->data->getString(self::KEY_SEARCH_TERMS);
     }
 
     /**
