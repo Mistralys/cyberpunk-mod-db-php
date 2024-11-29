@@ -59,3 +59,17 @@ function getToolArg() : ?string
 
     return null;
 }
+
+/**
+ * Renders a list of use statements.
+ * @param string[] $uses Namespaced class names without the `use` keyword.
+ * @return string
+ */
+function renderUses(array $uses) : string
+{
+    if(empty($uses)) {
+        return '';
+    }
+
+    return PHP_EOL.'use '.implode(';'.PHP_EOL.'use ', $uses).';'.PHP_EOL;
+}
