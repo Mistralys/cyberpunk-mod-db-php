@@ -48,6 +48,10 @@ final class ModFilteringTests extends CPMDBTestCase implements FilterAssertionsI
      * from the beginning of terms. Something at the end of a term
      * will not be found.
      *
+     * To solve this issue, mods can define the "searchTweaks" key
+     * that contains the split part of words that Loupe cannot find.
+     * An example is the "rayne" term in the "blood-rayne" mod.
+     *
      * @link https://github.com/loupe-php/loupe/discussions/88
      */
     public function test_filterByPartialTerm() : void
@@ -56,9 +60,7 @@ final class ModFilteringTests extends CPMDBTestCase implements FilterAssertionsI
 
         $filters->selectSearchTerm('rayne');
 
-        $this->markTestSkipped('Loupe does not support partial searches (see test PHPDoc)');
-
-        //$this->assertResultsContainPrimaryID('clothing.blood-rayne', $filters);
+        $this->assertResultsContainPrimaryID('clothing.blood-rayne', $filters);
     }
 
     public function test_filterByMultipleCriteria() : void

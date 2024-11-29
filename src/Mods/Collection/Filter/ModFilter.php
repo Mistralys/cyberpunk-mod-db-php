@@ -36,7 +36,8 @@ class ModFilter extends BaseFilter
     public const SEARCHABLE_ATTRIBUTES = array(
         ModIndex::KEY_MOD_NAME,
         ModIndex::KEY_MOD_CATEGORY,
-        ModIndex::KEY_MOD_AUTHORS
+        ModIndex::KEY_MOD_AUTHORS,
+        ModIndex::KEY_MOD_SEARCH_TERMS
     );
 
     public const FILTERABLE_ATTRIBUTES = array(

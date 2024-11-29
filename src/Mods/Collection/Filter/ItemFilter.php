@@ -40,7 +40,8 @@ class ItemFilter extends BaseFilter
         ItemIndex::KEY_ITEM_CODE,
         ItemIndex::KEY_ITEM_TAGS,
         ModIndex::KEY_MOD_NAME,
-        ModIndex::KEY_MOD_AUTHORS
+        ModIndex::KEY_MOD_AUTHORS,
+        ModIndex::KEY_MOD_SEARCH_TERMS
     );
 
     public const FILTERABLE_ATTRIBUTES = array(
