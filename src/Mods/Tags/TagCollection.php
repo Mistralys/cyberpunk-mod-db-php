@@ -1,4 +1,8 @@
 <?php
+/**
+ * @package CPMDB
+ * @subpackage Tags
+ */
 
 declare(strict_types=1);
 
@@ -6,11 +10,21 @@ namespace CPMDB\Mods\Tags;
 
 use AppUtils\ClassHelper;
 use AppUtils\Collections\BaseStringPrimaryCollection;
-use AppUtils\FileHelper;
 use AppUtils\FileHelper\FolderInfo;
 use CPMDB\Mods\Tags\Types\CyberEngineTweaks;
 
 /**
+ * Collection class used to access all available tags.
+ *
+ * ## Usage
+ *
+ * 1. Get the instance of the collection: {@see self::getInstance()}.
+ * 2. Get all tags: {@see self::getAll()}.
+ * 3. Get a tag by its ID: {@see self::getByID()}.
+ *
+ * @package CPMDB
+ * @subpackage Tags
+ *
  * @method TagInfoInterface[] getAll()
  * @method TagInfoInterface getByID(string $id)
  * @method TagInfoInterface getDefault()

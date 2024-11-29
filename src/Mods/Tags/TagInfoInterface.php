@@ -1,4 +1,8 @@
 <?php
+/**
+ * @package CPMDB
+ * @subpackage Tags
+ */
 
 declare(strict_types=1);
 
@@ -6,6 +10,13 @@ namespace CPMDB\Mods\Tags;
 
 use AppUtils\Interfaces\StringPrimaryRecordInterface;
 
+/**
+ * Interface for tag information classes. A basic implementation
+ * is provided by the {@see BaseTagInfo} class.
+ *
+ * @package CPMDB
+ * @subpackage Tags
+ */
 interface TagInfoInterface extends StringPrimaryRecordInterface
 {
     public const RELATED_TAGS = array();

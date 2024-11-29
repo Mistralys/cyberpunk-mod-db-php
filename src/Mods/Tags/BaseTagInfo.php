@@ -1,9 +1,19 @@
 <?php
+/**
+ * @package CPMDB
+ * @subpackage Tags
+ */
 
 declare(strict_types=1);
 
 namespace CPMDB\Mods\Tags;
 
+/**
+ * Abstract base class used to implement the {@see TagInfoInterface}.
+ *
+ * @package CPMDB
+ * @subpackage Tags
+ */
 abstract class BaseTagInfo implements TagInfoInterface
 {
     private string $name;
