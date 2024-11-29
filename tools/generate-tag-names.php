@@ -22,17 +22,17 @@ function generateTagsEnumClass() : void
     $imports = array();
     $constants = array();
 
-    foreach (TagCollection::getInstance()->getAll() as $tag) {
-        $name = ClassHelper::getClassTypeName($tag);
-
+    foreach (getCollatedTagInfos() as $tagDef)
+    {
         $imports[] = sprintf(
-            "use %s;",
-            get_class($tag)
+            "use CPMDB\Mods\Tags\Types\%s;",
+            $tagDef['className']
         );
+
         $constants[] = sprintf(
             '    public const %s = %s::TAG_NAME;',
-            strtoupper(strtolower(preg_replace("/([a-z])([A-Z])/", "$1_$2", $name))),
-            $name
+            $tagDef['constantName'],
+            $tagDef['className']
         );
     }
 
