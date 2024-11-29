@@ -152,9 +152,9 @@ class TagNames
     public const BODY_SPAWN0 = BodySpawn0::TAG_NAME;
     public const BODY_VALENTINE = BodyValentine::TAG_NAME;
     public const BODY_VANILLA = BodyVanilla::TAG_NAME;
-    public const BODY_VTKBIG = BodyVTKBig::TAG_NAME;
-    public const BODY_VTKSMALL = BodyVTKSmall::TAG_NAME;
-    public const BODY_VTKVANILLA_HD = BodyVTKVanillaHD::TAG_NAME;
+    public const BODY_VTK_BIG = BodyVTKBig::TAG_NAME;
+    public const BODY_VTK_SMALL = BodyVTKSmall::TAG_NAME;
+    public const BODY_VTK_VANILLA_HD = BodyVTKVanillaHD::TAG_NAME;
     public const BOOTS = Boots::TAG_NAME;
     public const BRA = Bra::TAG_NAME;
     public const BRACELET = Bracelet::TAG_NAME;
