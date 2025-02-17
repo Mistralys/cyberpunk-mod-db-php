@@ -50,7 +50,7 @@ class VirtualAtelier extends BaseTagInfo
     
     public function getCategory(): string
     {
-        return 'Mods';
+        return 'Mods - Tools';
     }
     
     protected function _getLinks() : array

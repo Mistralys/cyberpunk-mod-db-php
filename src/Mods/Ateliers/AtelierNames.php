@@ -32,6 +32,7 @@ class AtelierNames
     public const ADSHIELD_ATELIER_STORE = 'adshield-atelier-store';
     public const ALVARIX_CUSTOM_STORE = 'alvarix-custom-store';
     public const ATELIER_FOR_FLASH_POSERS = 'atelier-for-flash-posers';
+    public const BREEZYS_ACCESSORY_ALCOVE = 'breezys-accessory-alcove';
     public const BREEZYS_CLOTHING_EMPORIUM = 'breezys-clothing-emporium';
     public const COMPLECTEDD_NECKLACE_ATELIER = 'complectedd-necklace-atelier';
     public const CUBS_CLOSET = 'cubs-closet';

@@ -25,7 +25,9 @@ class MayoVirtualAtelier extends BaseAtelier
     
     public const MOD_IDS = array(
         'clothing.bootcut-pants',
+        'clothing.goth-skirt-outfit',
         'clothing.high-waist-leggings',
+        'clothing.low-waist-leggings',
     );
     
     public function getID(): string

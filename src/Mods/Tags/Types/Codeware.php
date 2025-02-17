@@ -45,12 +45,12 @@ class Codeware extends BaseTagInfo
 
     public function getDescription(): string
     {
-        return 'Modder resource';
+        return 'Library and framework for creating RedScript and Cyber Engine Tweaks mods.';
     }
     
     public function getCategory(): string
     {
-        return 'Mods';
+        return 'Mods - Modder Resource';
     }
     
     protected function _getLinks() : array

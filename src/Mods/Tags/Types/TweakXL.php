@@ -45,12 +45,12 @@ class TweakXL extends BaseTagInfo
 
     public function getDescription(): string
     {
-        return 'Tweak XL: Modder resource';
+        return 'TweakDB modifications loader and script extensions';
     }
     
     public function getCategory(): string
     {
-        return 'Mods';
+        return 'Mods - Modder Resource';
     }
     
     protected function _getLinks() : array

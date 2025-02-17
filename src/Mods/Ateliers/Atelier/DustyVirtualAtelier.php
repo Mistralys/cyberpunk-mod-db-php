@@ -25,6 +25,7 @@ class DustyVirtualAtelier extends BaseAtelier
     
     public const MOD_IDS = array(
         'clothing.aria-tloak-suit',
+        'clothing.mileena-hungry-hipster-outfit',
         'clothing.starlight-dress',
     );
     

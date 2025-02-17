@@ -9,6 +9,8 @@ declare(strict_types=1);
 namespace CPMDB\Mods\Tags\Types;
 
 use CPMDB\Mods\Tags\BaseTagInfo;
+use CPMDB\Mods\Tags\TagNames;
+
 
 /**
  * Information about the Head tag.
@@ -23,7 +25,13 @@ class Head extends BaseTagInfo
 {
     public const TAG_NAME = 'Head';
     
-    public const RELATED_TAGS = array();
+    public const RELATED_TAGS = array(
+        TagNames::EARRING,
+        TagNames::GLASSES,
+        TagNames::HAIR,
+        TagNames::HAT,
+        TagNames::MASK
+    );
    
     protected function _getName(): string
     {

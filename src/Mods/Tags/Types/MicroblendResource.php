@@ -9,12 +9,11 @@ declare(strict_types=1);
 namespace CPMDB\Mods\Tags\Types;
 
 use CPMDB\Mods\Tags\BaseTagInfo;
-use CPMDB\Mods\Tags\TagNames;
 use CPMDB\Mods\Tags\TagLink;
 
 
 /**
- * Information about the Body-Hyst-EBB tag.
+ * Information about the MIBL tag.
  * 
  * NOTE: This class is auto-generated. 
  * 
@@ -22,16 +21,11 @@ use CPMDB\Mods\Tags\TagLink;
  * @subpackage Tags
  * @auto-generated {@see \CPMDB\Tools\generateTagClasses()}
  */
-class BodyHystEBB extends BaseTagInfo
+class MicroblendResource extends BaseTagInfo
 {
-    public const TAG_NAME = 'Body-Hyst-EBB';
+    public const TAG_NAME = 'MIBL';
     
-    public const RELATED_TAGS = array(
-        TagNames::BODY_HYST_EBBN,
-        TagNames::BODY_HYST_EBBP,
-        TagNames::BODY_HYST_EBBPRB,
-        TagNames::BODY_HYST_EBBRB
-    );
+    public const RELATED_TAGS = array();
    
     protected function _getName(): string
     {
@@ -46,23 +40,23 @@ class BodyHystEBB extends BaseTagInfo
      */
     public function getFullName(): string
     {
-        return 'Body-Hyst-EBB';
+        return 'Microblend Resource';
     }
 
     public function getDescription(): string
     {
-        return 'EBB - Enhanced Big Breasts';
+        return 'Collection of custom microblends that can be used when recoloring objects.';
     }
     
     public function getCategory(): string
     {
-        return 'Mods - Body Mods - FemV';
+        return 'Mods - Modder Resource';
     }
     
     protected function _getLinks() : array
     {
         return array(
-            new TagLink($this, 'https://www.nexusmods.com/cyberpunk2077/mods/4654', 'Nexus')
+            new TagLink($this, 'https://www.nexusmods.com/cyberpunk2077/mods/4571', 'Nexus')
         );
     }
 }

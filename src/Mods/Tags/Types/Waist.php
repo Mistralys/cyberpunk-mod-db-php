@@ -9,6 +9,8 @@ declare(strict_types=1);
 namespace CPMDB\Mods\Tags\Types;
 
 use CPMDB\Mods\Tags\BaseTagInfo;
+use CPMDB\Mods\Tags\TagNames;
+
 
 /**
  * Information about the Waist tag.
@@ -23,7 +25,9 @@ class Waist extends BaseTagInfo
 {
     public const TAG_NAME = 'Waist';
     
-    public const RELATED_TAGS = array();
+    public const RELATED_TAGS = array(
+        TagNames::BELT
+    );
    
     protected function _getName(): string
     {

@@ -27,12 +27,12 @@ class BodyHyst extends BaseTagInfo
     public const TAG_NAME = 'Body-Hyst';
     
     public const RELATED_TAGS = array(
+        TagNames::BODY_HYST_ANGEL,
         TagNames::BODY_HYST_EBB,
-        TagNames::BODY_HYST_RB,
         TagNames::BODY_HYST_EBBP,
         TagNames::BODY_HYST_EBBPRB,
         TagNames::BODY_HYST_EBBRB,
-        TagNames::BODY_HYST_ANGEL
+        TagNames::BODY_HYST_RB
     );
    
     protected function _getName(): string

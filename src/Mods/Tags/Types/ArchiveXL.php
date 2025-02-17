@@ -45,12 +45,12 @@ class ArchiveXL extends BaseTagInfo
 
     public function getDescription(): string
     {
-        return 'Modder resource';
+        return 'Archive extender used to load custom resources without touching original game files.';
     }
     
     public function getCategory(): string
     {
-        return 'Mods';
+        return 'Mods - Modder Resource';
     }
     
     protected function _getLinks() : array

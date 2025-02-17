@@ -26,6 +26,8 @@ class Underwear extends BaseTagInfo
     public const TAG_NAME = 'Underwear';
     
     public const RELATED_TAGS = array(
+        TagNames::BRA,
+        TagNames::PANTIES,
         TagNames::SKIMPY
     );
    

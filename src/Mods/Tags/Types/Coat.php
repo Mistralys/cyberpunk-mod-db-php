@@ -26,7 +26,8 @@ class Coat extends BaseTagInfo
     public const TAG_NAME = 'Coat';
     
     public const RELATED_TAGS = array(
-        TagNames::FULL_BODY
+        TagNames::FULL_BODY,
+        TagNames::TORSO
     );
    
     protected function _getName(): string

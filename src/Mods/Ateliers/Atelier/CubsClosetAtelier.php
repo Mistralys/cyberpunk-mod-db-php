@@ -25,6 +25,7 @@ class CubsClosetAtelier extends BaseAtelier
     
     public const MOD_IDS = array(
         'clothing.camisole-top',
+        'clothing.long-sleeve-bodysuit',
     );
     
     public function getID(): string

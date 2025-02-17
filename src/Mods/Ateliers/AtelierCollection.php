@@ -14,6 +14,7 @@ use CPMDB\Mods\Collection\ModCollection;
 use CPMDB\Mods\Ateliers\Atelier\AdshieldAtelierStore;
 use CPMDB\Mods\Ateliers\Atelier\AlvarixCustomStore;
 use CPMDB\Mods\Ateliers\Atelier\AtelierForFlashPosers;
+use CPMDB\Mods\Ateliers\Atelier\BreezysAccessoryAlcoveAtelier;
 use CPMDB\Mods\Ateliers\Atelier\BreezysClothingEmporiumAtelier;
 use CPMDB\Mods\Ateliers\Atelier\ComplecteddNecklaceAtelier;
 use CPMDB\Mods\Ateliers\Atelier\CubAtelierStore;
@@ -96,6 +97,7 @@ class AtelierCollection extends BaseStringPrimaryCollection
         $this->registerItem(new AdshieldAtelierStore($this));
         $this->registerItem(new AlvarixCustomStore($this));
         $this->registerItem(new AtelierForFlashPosers($this));
+        $this->registerItem(new BreezysAccessoryAlcoveAtelier($this));
         $this->registerItem(new BreezysClothingEmporiumAtelier($this));
         $this->registerItem(new ComplecteddNecklaceAtelier($this));
         $this->registerItem(new CubAtelierStore($this));

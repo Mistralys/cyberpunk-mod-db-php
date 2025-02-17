@@ -25,6 +25,7 @@ class KmkcsVirtualAtelier extends BaseAtelier
     
     public const MOD_IDS = array(
         'clothing.negan-jacket',
+        'clothing.neon-razor-outfit',
     );
     
     public function getID(): string

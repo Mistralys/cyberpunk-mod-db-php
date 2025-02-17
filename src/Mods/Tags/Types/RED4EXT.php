@@ -45,12 +45,12 @@ class Red4Ext extends BaseTagInfo
 
     public function getDescription(): string
     {
-        return 'Modder resource';
+        return 'A script extender for REDengine 4.';
     }
     
     public function getCategory(): string
     {
-        return 'Mods';
+        return 'Mods - Modder Resource';
     }
     
     protected function _getLinks() : array

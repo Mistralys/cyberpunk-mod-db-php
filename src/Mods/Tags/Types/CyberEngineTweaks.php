@@ -45,12 +45,12 @@ class CyberEngineTweaks extends BaseTagInfo
 
     public function getDescription(): string
     {
-        return 'Modder resource';
+        return 'Scripting framework for modders and quality of life fixes.';
     }
     
     public function getCategory(): string
     {
-        return 'Mods';
+        return 'Mods - Tools';
     }
     
     protected function _getLinks() : array

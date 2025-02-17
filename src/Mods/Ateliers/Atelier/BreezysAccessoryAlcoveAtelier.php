@@ -11,21 +11,20 @@ namespace CPMDB\Mods\Ateliers\Atelier;
 use CPMD\Mods\Ateliers\BaseAtelier;
 
 /**
- * Atelier mod: The Bean Cup Atelier
+ * Atelier mod: Breezy's Accessory Alcove
  * 
  * @package CPMDB
  * @subpackage Ateliers 
  * @auto-generated See {@see generateAtelierClasses()}
  */
-class TheBeanCupAtelier extends BaseAtelier
+class BreezysAccessoryAlcoveAtelier extends BaseAtelier
 {
-    public const ATELIER_ID = 'the-bean-cup-atelier';
-    public const ATELIER_URL = 'https://www.nexusmods.com/cyberpunk2077/mods/12223';
-    public const ATELIER_NAME = 'The Bean Cup Atelier';
+    public const ATELIER_ID = 'breezys-accessory-alcove';
+    public const ATELIER_URL = 'https://www.nexusmods.com/cyberpunk2077/mods/17749';
+    public const ATELIER_NAME = 'Breezy\'s Accessory Alcove';
     
     public const MOD_IDS = array(
-        'clothing.casino-aviators',
-        'clothing.manta-ray-glasses',
+        'clothing.keffiyeh',
     );
     
     public function getID(): string
@@ -45,6 +44,6 @@ class TheBeanCupAtelier extends BaseAtelier
     
     public function getAuthors() : array
     {
-        return array('beaniebby');
+        return array('Breezypunk');
     }
 }

@@ -28,8 +28,8 @@ class BodyHystAngel extends BaseTagInfo
     
     public const RELATED_TAGS = array(
         TagNames::BODY_HYST_EBB,
-        TagNames::BODY_HYST_RB,
-        TagNames::BODY_HYST_EBBP
+        TagNames::BODY_HYST_EBBP,
+        TagNames::BODY_HYST_RB
     );
    
     protected function _getName(): string

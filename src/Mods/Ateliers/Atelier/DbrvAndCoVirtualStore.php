@@ -26,6 +26,7 @@ class DbrvAndCoVirtualStore extends BaseAtelier
     public const MOD_IDS = array(
         'clothing.rockergirl-pants-laces',
         'clothing.techtopia-gloves',
+        'clothing.xtx-sneakers',
         'clothing.yaahl-tech-tank-top',
     );
     
