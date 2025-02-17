@@ -1,3 +1,17 @@
+## v1.7.0 - Tag improvements (Breaking-S)
+- Tags: Added `getFullName()`.
+- Tags: Added `getRelatedTags()`.
+- Tags: Added `getLinks()`.
+- Tags: Fixed some constant names like `BODY_VTKBIG` => `BODY_VTK_BIG`.
+- Filtering: Now leveraging the `searchTweaks` key in the database to help finding mods by search terms.
+- Database: Big update with a lot more mods and tagging changes.
+- Dependencies: Updated to Mod DB [v2.2.0](https://github.com/Mistralys/cyberpunk-mod-db/releases/tag/2.2.0).
+
+### Breaking changes
+
+- `TagInfoInterface::getLabel()` renamed to `getDescription()`.
+- Some tag constants in the `TagNames` class have been renamed.
+
 ## v1.6.2 - Minor tweaks
 - Collections: Fixed the return type docs for the mod collection classes.
 - Code: PHPStan checks clean up to level 9.
