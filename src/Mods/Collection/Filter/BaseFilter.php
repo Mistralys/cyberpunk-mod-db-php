@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace CPMDB\Mods\Collection\Filter;
 
-use CPMDB\Mods\Collection\Indexer\IndexInterface;
+use AppUtils\PaginationHelper;
 use CPMDB\Mods\Collection\Indexer\ModIndex;
 use CPMDB\Mods\Collection\ModCollection;
 use Loupe\Loupe\SearchParameters;
@@ -24,6 +24,8 @@ abstract class BaseFilter implements FilterInterface
 {
     private const LIST_MODE_AND = 'AND';
     private const LIST_MODE_OR = 'OR';
+    const LOUPE_KEY_TOTAL_HITS = 'totalHits';
+    const LOUPE_KEY_HITS = 'hits';
 
     protected ModCollection $collection;
 
@@ -49,10 +51,33 @@ abstract class BaseFilter implements FilterInterface
 
     private string $tagsMode = self::LIST_MODE_AND;
     private string $authorsMode = self::LIST_MODE_AND;
+    private ?PaginationHelper $paginationHelper = null;
+    private ?int $resultsPerPage = null;
+    private ?int $page = null;
 
     public function __construct(ModCollection $collection)
     {
         $this->collection = $collection;
+    }
+
+    public function setResultsPerPage(?int $amount) : self
+    {
+        $this->resultsPerPage = $amount;
+        return $this;
+    }
+
+    public function getPagination() : FilterPagination
+    {
+        if(!isset($this->paginationHelper)) {
+            $this->paginationHelper = (new FilterPagination(
+                $this,
+                $this->countResults(),
+                $this->resultsPerPage ?? $this->getDefaultResultsPerPage()
+            ))
+                ->setCurrentPage($this->page);
+        }
+
+        return $this->paginationHelper;
     }
 
     public function hasFilters() : bool
@@ -109,6 +134,27 @@ abstract class BaseFilter implements FilterInterface
         $this->results = null;
     }
 
+    public function countResults() : int
+    {
+        $result = $this->getLoupeResult(true);
+
+        if(isset($result[self::LOUPE_KEY_TOTAL_HITS])) {
+            return (int)$result[self::LOUPE_KEY_TOTAL_HITS];
+        }
+
+        throw new FilterException(
+            'The search result does not contain a total hit count.',
+            sprintf(
+                'The result array is missing the key [%s]. '.PHP_EOL.
+                'The result array has the following keys: '.PHP_EOL.
+                '- %s',
+                self::LOUPE_KEY_TOTAL_HITS,
+                implode(PHP_EOL.'- ', array_keys($result))
+            ),
+            FilterException::ERROR_MISSING_TOTAL_HITS
+        );
+    }
+
     /**
      * @return array<int,array<string,mixed>>
      */
@@ -118,23 +164,56 @@ abstract class BaseFilter implements FilterInterface
             return $this->results;
         }
 
-        $results = $this
-            ->getSearchIndex()
-            ->getSearchInstance()
-            ->search($this->resolveSearchParams())
-            ->toArray();
+        $results = $this->getLoupeResult();
 
-        $this->results = $results['hits'];
+        $this->results = $results[self::LOUPE_KEY_HITS];
 
         return $this->results;
     }
 
-    protected function resolveSearchParams() : SearchParameters
+    public function selectResultPage(?int $page) : self
     {
-        return $this->applyFilters();
+        $this->page = $page;
+        if(isset($this->paginationHelper)) {
+            $this->paginationHelper->setCurrentPage($page);
+        }
+
+        return $this;
     }
 
-    abstract public function getSearchIndex() : IndexInterface;
+    /**
+     * Gets the search result array directly from the Loupe search engine
+     * for the selected filter criteria.
+     *
+     * @param bool $count Is this a count request to fetch the total number of filtered items?
+     * @return array<string,mixed>
+     */
+    public function getLoupeResult(bool $count=false) : array
+    {
+        return $this
+            ->getSearchIndex()
+            ->getSearchInstance()
+            ->search($this->resolveSearchParams($count))
+            ->toArray();
+    }
+
+    protected function resolveSearchParams(bool $count=false) : SearchParameters
+    {
+        $params = $this->applyFilters();
+
+        // Do not configure the pagination when counting results,
+        // as this would lead to an endless loop (the paginated
+        // results need the count without pagination).
+        if($count) {
+            return $params;
+        }
+
+        $pagination = $this->getPagination();
+
+        return $params
+            ->withPage($pagination->getCurrentPage())
+            ->withHitsPerPage($pagination->getItemsPerPage());
+    }
 
     private function applyFilters() : SearchParameters
     {
