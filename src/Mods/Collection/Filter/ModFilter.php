@@ -33,6 +33,8 @@ use Loupe\Loupe\SearchParameters;
  */
 class ModFilter extends BaseFilter
 {
+    public const DEFAULT_MODS_PER_PAGE = 20;
+
     public const SEARCHABLE_ATTRIBUTES = array(
         ModIndex::KEY_MOD_NAME,
         ModIndex::KEY_MOD_CATEGORY,
@@ -85,10 +87,9 @@ class ModFilter extends BaseFilter
         return $this->getPrimaryIDs();
     }
 
-    protected function resolveSearchParams(): SearchParameters
+    public function getDefaultResultsPerPage() : int
     {
-        return parent::resolveSearchParams()
-            ->withHitsPerPage(500);
+        return self::DEFAULT_MODS_PER_PAGE;
     }
 
     protected function appendFilters(array &$filters) : void
