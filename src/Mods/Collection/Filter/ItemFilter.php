@@ -34,6 +34,8 @@ use CPMDB\Mods\Items\ManualItemCollection;
  */
 class ItemFilter extends BaseFilter
 {
+    public const DEFAULT_ITEMS_PER_PAGE = 40;
+
     public const SEARCHABLE_ATTRIBUTES = array(
         ItemIndex::KEY_ITEM_NAME,
         ItemIndex::KEY_ITEM_CATEGORY,
@@ -70,6 +72,11 @@ class ItemFilter extends BaseFilter
     protected function appendFilters(array &$filters): void
     {
 
+    }
+
+    public function getDefaultResultsPerPage(): int
+    {
+        return self::DEFAULT_ITEMS_PER_PAGE;
     }
 
     /**
