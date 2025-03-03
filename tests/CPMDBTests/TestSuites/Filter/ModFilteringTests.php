@@ -72,4 +72,33 @@ final class ModFilteringTests extends CPMDBTestCase implements FilterAssertionsI
 
         $this->assertResultsContainPrimaryID('clothing.xrx-leather-jacket', $filters);
     }
+
+    public function test_filterPagination() : void
+    {
+        $filters = $this->createCollection()->createFilter();
+
+        $filters->setResultsPerPage(6);
+
+        $result = $filters->getLoupeResult();
+
+        $this->assertArrayHasKey('hits', $result);
+        $this->assertCount(6, $result['hits']);
+        $this->assertTrue($result['totalPages'] > 1);
+    }
+
+    public function test_filterPaginationSelectPage() : void
+    {
+        $filters = $this->createCollection()->createFilter();
+
+        $filters->setResultsPerPage(6);
+        $filters->selectResultPage(2);
+
+        $result = $filters->getLoupeResult();
+
+        $this->assertArrayHasKey('hits', $result);
+        $this->assertArrayHasKey('page', $result);
+        $this->assertCount(6, $result['hits']);
+        $this->assertSame(2, $result['page']);
+        $this->assertTrue($result['totalPages'] > 1);
+    }
 }
