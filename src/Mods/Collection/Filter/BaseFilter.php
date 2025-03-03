@@ -69,12 +69,15 @@ abstract class BaseFilter implements FilterInterface
     public function getPagination() : FilterPagination
     {
         if(!isset($this->paginationHelper)) {
-            $this->paginationHelper = (new FilterPagination(
+            $this->paginationHelper = new FilterPagination(
                 $this,
                 $this->countResults(),
                 $this->resultsPerPage ?? $this->getDefaultResultsPerPage()
-            ))
-                ->setCurrentPage($this->page);
+            );
+
+            if(isset($this->page)) {
+                $this->paginationHelper->setCurrentPage($this->page);
+            }
         }
 
         return $this->paginationHelper;
