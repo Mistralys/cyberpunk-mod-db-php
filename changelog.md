@@ -1,3 +1,7 @@
+## v1.7.1 - Implemented pagination
+- Filtering: Added pagination support to the filtering.
+- Filtering: All results are now paginated.
+
 ## v1.7.0 - Tag improvements (Breaking-S)
 - Tags: Added `getFullName()`.
 - Tags: Added `getRelatedTags()`.
