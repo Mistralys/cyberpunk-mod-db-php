@@ -157,6 +157,47 @@ $mods = $collection->createItemFilter()
 > mod can have items that belong to different tags, searching for
 > a specific tag may return unrelated items.
 
+## Handle result pagination
+
+All results from the mod or item filters are paginated. Without specifying
+any options, the filters will return the first page of results, with 
+20 results per page.
+
+A pagination helper object can be used to get information on the pagination.
+
+```php
+use CPMDB\Mods\Collection\ModCollection;
+use CPMDB\Mods\Tags\Types\Jewelry;
+
+// Create a collection instance
+$collection = ModCollection::create(
+    __DIR__.'/vendor', // Absolute path to the composer vendor directory
+    __DIR__.'/cache', // Path to a writable directory to store cache files
+    'http://127.0.0.1/your-app/vendor' // Absolute URL to the composer vendor directory
+);
+
+// Search for the Jewelry tag to get all jewelry mod items
+$filter = $collection->createItemFilter()
+    ->setResultsPerPage(60)
+    ->selectResultPage(2)
+    ->selectTag(Jewelry::TAG_NAME);
+
+// The pagination must be handled after all filter criteria have been selected.
+$pagination = $filter->getPagination();
+
+// Check if there is a next page
+if($pagination->hasNextPage()) {
+    $nextNumber = $pagination->getNextPage();
+}
+
+// Check if there is a previous page
+if($pagination->hasPreviousPage()) {
+    $previousNumber = $pagination->getPreviousPage();
+}
+
+$items = $filter->getItemsAsCollection();
+```
+
 ## Accessing tags
 
 Tags are used to categorize mods, using simple strings defined in the mod files
