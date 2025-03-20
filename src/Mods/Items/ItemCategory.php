@@ -8,10 +8,12 @@ declare(strict_types=1);
 
 namespace CPMDB\Mods\Items;
 
+use AppUtils\FileHelper\FileInfo;
 use AppUtils\Interfaces\StringableInterface;
 use CPMDB\Mods\Mod\ModInfoInterface;
 use CPMDB\Mods\Mod\ModItemCollectionInterface;
 use CPMDB\Mods\Tags\TagCollection;
+use const CPMDB\Assets\KEY_CAT_ID;
 
 /**
  * Categories are used to group items together thematically
@@ -43,16 +45,22 @@ class ItemCategory extends BaseItemCollection implements StringableInterface
      * @var array<int,array<string,mixed>>
      */
     private array $itemData;
+    private string $iconName;
+    private string $id;
 
     /**
      * @param ModInfoInterface $mod
+     * @param string $id
      * @param string $category
+     * @param string $iconName Name of the icon file (without extension), if any. Empty string otherwise.
      * @param string[] $tags
      * @param array<int,array<string,mixed>> $itemData
      */
-    public function __construct(ModInfoInterface $mod, string $category, array $tags, array $itemData)
+    public function __construct(ModInfoInterface $mod, string $id, string $category, string $iconName, array $tags, array $itemData)
     {
         $this->mod = $mod;
+        $this->id = $id;
+        $this->iconName = $iconName;
         $this->category = $category;
         $this->ownTags = $tags;
         $this->itemData = $itemData;
@@ -63,6 +71,72 @@ class ItemCategory extends BaseItemCollection implements StringableInterface
     public function getLabel() : string
     {
         return $this->category;
+    }
+
+    /**
+     * The ID of the category, unique within the mod.
+     *
+     * Source: The {@see KEY_CAT_ID} key in the JSON data.
+     *
+     * @return string
+     */
+    public function getID() : string
+    {
+        return $this->id;
+    }
+
+    public function hasIcon() : bool
+    {
+        return !empty($this->iconName);
+    }
+
+    /**
+     * The name of the icon file (without extension), if any.
+     * @return string Icon name, or an empty string if no icon is available.
+     */
+    public function getIconName() : string
+    {
+        return $this->iconName;
+    }
+
+    public function getIconFile() : ?FileInfo
+    {
+        $extensions = array(
+            'png',
+            'jpg'
+        );
+
+        foreach($extensions as $extension) {
+            $path = sprintf(
+                '%s/%s-item-%s.%s',
+                $this->mod->getCategory()->getScreensFolder(),
+                $this->mod->getModID(),
+                $this->getIconName(),
+                $extension
+            );
+
+            if(file_exists($path)) {
+                return FileInfo::factory($path);
+            }
+        }
+
+        return null;
+    }
+
+    public function getIconURL() : string
+    {
+        $file = $this->getIconFile();
+        if($file === null) {
+            return '';
+        }
+
+        return sprintf(
+            '%s/%s-item-%s.%s',
+            $this->mod->getCategory()->getScreensURL(),
+            $this->mod->getModID(),
+            $this->getIconName(),
+            $file->getExtension()
+        );
     }
 
     public function getMod(): ModInfoInterface
@@ -87,7 +161,7 @@ class ItemCategory extends BaseItemCollection implements StringableInterface
      * calling {@see ModInfoInterface::getTags()}, which
      * includes all tags from all categories and items.
      *
-     * NOTE: The tags are sorted alphabetically.
+     * > NOTE: The tags are sorted alphabetically.
      *
      * @return string[]
      */
