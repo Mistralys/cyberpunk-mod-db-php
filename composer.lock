@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d14a858c34edf21842e91152771de354",
+    "content-hash": "ccafb7089865e1bbf8694144438a8744",
     "packages": [
         {
             "name": "brick/event",
@@ -387,17 +387,77 @@
             "time": "2025-02-05T08:23:51+00:00"
         },
         {
-            "name": "mistralys/application-utils",
-            "version": "3.1.1",
+            "name": "mistralys/application-localization",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Mistralys/application-utils.git",
-                "reference": "1e3855f655925f2c7393438dd1a36e7c0b90f04b"
+                "url": "https://github.com/Mistralys/application-localization.git",
+                "reference": "2600cb9a1fef79294e47f830532ae0a87e923308"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Mistralys/application-utils/zipball/1e3855f655925f2c7393438dd1a36e7c0b90f04b",
-                "reference": "1e3855f655925f2c7393438dd1a36e7c0b90f04b",
+                "url": "https://api.github.com/repos/Mistralys/application-localization/zipball/2600cb9a1fef79294e47f830532ae0a87e923308",
+                "reference": "2600cb9a1fef79294e47f830532ae0a87e923308",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "mistralys/application-utils": ">=3.0.5",
+                "mistralys/application-utils-collections": ">=1.1.2",
+                "mistralys/application-utils-core": ">=2.3.1",
+                "mistralys/changelog-parser": ">=1.0.2",
+                "mistralys/html_quickform2": ">=2.3.5",
+                "mistralys/jtokenizer": ">=1.0.1",
+                "mistralys/php-sprintf-parser": "^1.0",
+                "php": ">=7.4"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^0.12",
+                "phpunit/phpunit": "8.2.5"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/functions.php"
+                ],
+                "psr-4": {
+                    "AppLocalize\\": "src/"
+                },
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Mordziol",
+                    "email": "s.mordziol@mistralys.eu",
+                    "role": "Lead"
+                }
+            ],
+            "description": "PHP and Javascript localization library.",
+            "support": {
+                "issues": "https://github.com/Mistralys/application-localization/issues",
+                "source": "https://github.com/Mistralys/application-localization/tree/1.5.0"
+            },
+            "time": "2024-10-22T14:05:08+00:00"
+        },
+        {
+            "name": "mistralys/application-utils",
+            "version": "3.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Mistralys/application-utils.git",
+                "reference": "a86f40b1539249f788e1b0eef79106b37db953d2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Mistralys/application-utils/zipball/a86f40b1539249f788e1b0eef79106b37db953d2",
+                "reference": "a86f40b1539249f788e1b0eef79106b37db953d2",
                 "shasum": ""
             },
             "require": {
@@ -445,9 +505,9 @@
             "description": "Drop-in utilities for PHP applications.",
             "support": {
                 "issues": "https://github.com/Mistralys/application-utils/issues",
-                "source": "https://github.com/Mistralys/application-utils/tree/3.1.1"
+                "source": "https://github.com/Mistralys/application-utils/tree/3.1.4"
             },
-            "time": "2025-01-13T18:19:40+00:00"
+            "time": "2025-03-04T17:40:06+00:00"
         },
         {
             "name": "mistralys/application-utils-collections",
@@ -498,16 +558,16 @@
         },
         {
             "name": "mistralys/application-utils-core",
-            "version": "2.3.5",
+            "version": "2.3.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Mistralys/application-utils-core.git",
-                "reference": "8aac3bb1e02efe213d91a33a062c0ed7c7f91180"
+                "reference": "807457dddd3549097deb946dc06274adc745d937"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Mistralys/application-utils-core/zipball/8aac3bb1e02efe213d91a33a062c0ed7c7f91180",
-                "reference": "8aac3bb1e02efe213d91a33a062c0ed7c7f91180",
+                "url": "https://api.github.com/repos/Mistralys/application-utils-core/zipball/807457dddd3549097deb946dc06274adc745d937",
+                "reference": "807457dddd3549097deb946dc06274adc745d937",
                 "shasum": ""
             },
             "require": {
@@ -554,9 +614,9 @@
             "description": "Drop-in utilities for PHP applications.",
             "support": {
                 "issues": "https://github.com/Mistralys/application-utils-core/issues",
-                "source": "https://github.com/Mistralys/application-utils-core/tree/2.3.5"
+                "source": "https://github.com/Mistralys/application-utils-core/tree/2.3.7"
             },
-            "time": "2025-02-05T16:16:59+00:00"
+            "time": "2025-03-07T14:16:34+00:00"
         },
         {
             "name": "mistralys/application-utils-image",
@@ -713,22 +773,25 @@
         },
         {
             "name": "mistralys/cyberpunk-mod-db",
-            "version": "2.2.0",
+            "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Mistralys/cyberpunk-mod-db.git",
-                "reference": "6846044557193b08d8f7d8e15f769fad9cb4f1fb"
+                "reference": "47cf2beb880a0af4437d23e943a6cc8897c1b03d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Mistralys/cyberpunk-mod-db/zipball/6846044557193b08d8f7d8e15f769fad9cb4f1fb",
-                "reference": "6846044557193b08d8f7d8e15f769fad9cb4f1fb",
+                "url": "https://api.github.com/repos/Mistralys/cyberpunk-mod-db/zipball/47cf2beb880a0af4437d23e943a6cc8897c1b03d",
+                "reference": "47cf2beb880a0af4437d23e943a6cc8897c1b03d",
                 "shasum": ""
             },
             "require": {
+                "mistralys/application-localization": ">=1.5.0",
                 "mistralys/application-utils": ">=3.0.5",
-                "mistralys/application-utils-core": ">=2.3.0"
+                "mistralys/application-utils-core": ">=2.3.0",
+                "mistralys/application-utils-image": ">=1.2.0"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "files": [
@@ -742,8 +805,10 @@
                     "bin/assets/generate-ateliers-reference.php",
                     "bin/assets/generate-mods-list.php",
                     "bin/assets/generate-tags-reference.php",
+                    "bin/assets/generate-pose-packs.php",
                     "bin/assets/key-defs.php",
                     "bin/assets/normalize.php",
+                    "bin/assets/pose-packs.php",
                     "bin/assets/search-terms.php"
                 ]
             },
@@ -760,9 +825,178 @@
             "description": "JSON database of Cyberpunk 2077 Clothing Mods",
             "support": {
                 "issues": "https://github.com/Mistralys/cyberpunk-mod-db/issues",
-                "source": "https://github.com/Mistralys/cyberpunk-mod-db/tree/2.2.0"
+                "source": "https://github.com/Mistralys/cyberpunk-mod-db/tree/main"
             },
-            "time": "2025-02-17T17:19:37+00:00"
+            "time": "2025-03-20T20:38:13+00:00"
+        },
+        {
+            "name": "mistralys/html_quickform2",
+            "version": "2.3.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Mistralys/HTML_QuickForm2.git",
+                "reference": "773d5cc82826ead05f6b5ec8189620c6976e0a75"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Mistralys/HTML_QuickForm2/zipball/773d5cc82826ead05f6b5ec8189620c6976e0a75",
+                "reference": "773d5cc82826ead05f6b5ec8189620c6976e0a75",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4",
+                "symfony/polyfill-php80": ">=v1.27.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": ">=1.10",
+                "phpunit/phpunit": ">=9.6"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "HTML"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Alexey Borzov",
+                    "email": "avb@php.net",
+                    "role": "Lead"
+                },
+                {
+                    "name": "Bertrand Mansion",
+                    "email": "golgote@mamasam.com",
+                    "role": "Lead"
+                },
+                {
+                    "name": "Sebastian Mordziol",
+                    "email": "s.mordziol@mistralys.eu",
+                    "role": "Lead"
+                }
+            ],
+            "description": "Provides methods to create, validate and render HTML forms in PHP.",
+            "homepage": "https://github.com/Mistralys/HTML_QuickForm2",
+            "keywords": [
+                "Forms",
+                "javascript",
+                "quickform",
+                "validation",
+                "wizard"
+            ],
+            "support": {
+                "docs": "https://pear.php.net/manual/en/package.html.html-quickform2.php",
+                "issues": "https://github.com/Mistralys/HTML_QuickForm2/issues",
+                "source": "https://github.com/Mistralys/HTML_QuickForm2"
+            },
+            "time": "2024-02-12T10:06:20+00:00"
+        },
+        {
+            "name": "mistralys/jtokenizer",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Mistralys/jtokenizer.git",
+                "reference": "e1cda4df1f56df5693290e9d71237c0d08e96f40"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Mistralys/jtokenizer/zipball/e1cda4df1f56df5693290e9d71237c0d08e96f40",
+                "reference": "e1cda4df1f56df5693290e9d71237c0d08e96f40",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "phpstan/phpstan": ">=0.12",
+                "phpunit/phpunit": ">=8.2.5"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/Constants.php"
+                ],
+                "classmap": [
+                    "src"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tim Whitlock",
+                    "homepage": "https://timwhitlock.info",
+                    "role": "Lead developer"
+                },
+                {
+                    "name": "Sebastian Mordziol",
+                    "email": "s.mordziol@mistralys.eu",
+                    "homepage": "https://mistralys.eu",
+                    "role": "Contributor"
+                }
+            ],
+            "description": "Modernized, composer compatible version of Tim Whitlock's JTokenizer PHP Javascript parser and tokenizer library.",
+            "homepage": "https://github.com/Mistralys/jtokenizer",
+            "support": {
+                "issues": "https://github.com/Mistralys/jtokenizer/issues",
+                "source": "https://github.com/Mistralys/jtokenizer/tree/1.0.1"
+            },
+            "time": "2021-03-12T08:55:11+00:00"
+        },
+        {
+            "name": "mistralys/php-sprintf-parser",
+            "version": "1.0.0-beta.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Mistralys/php-sprintf-parser.git",
+                "reference": "5549c6764816bc1ed9741029c537f1f77c5c21b7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Mistralys/php-sprintf-parser/zipball/5549c6764816bc1ed9741029c537f1f77c5c21b7",
+                "reference": "5549c6764816bc1ed9741029c537f1f77c5c21b7",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=7.4"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^0.12",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/functions.php"
+                ],
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Mordziol",
+                    "email": "s.mordziol@mistralys.eu",
+                    "role": "Lead"
+                }
+            ],
+            "description": "Parser to find all sprintf format placeholders in a string, and get information on them.",
+            "support": {
+                "issues": "https://github.com/Mistralys/php-sprintf-parser/issues",
+                "source": "https://github.com/Mistralys/php-sprintf-parser/tree/1.0.0-beta.1"
+            },
+            "time": "2021-11-01T16:11:44+00:00"
         },
         {
             "name": "mistralys/version-parser",
@@ -4566,6 +4800,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "mistralys/cyberpunk-mod-db": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": true,
