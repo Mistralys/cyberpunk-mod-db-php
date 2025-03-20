@@ -33,7 +33,7 @@ function createTestCollection(bool $newInstance=false) : ModCollection
     $collection = ModCollection::create(
         FolderInfo::factory(__DIR__.'/../vendor'),
         FolderInfo::factory(__DIR__.'/../tests/cache'),
-        'http://127.0.0.1/cpmdb'
+        getTestInstallURL().'/vendor'
     );
 
     if(!$newInstance) {
@@ -42,6 +42,30 @@ function createTestCollection(bool $newInstance=false) : ModCollection
 
     return $collection;
 }
+
+function getTestInstallURL() : string
+{
+    loadConfig();
+
+    return \CPMDB_INSTALL_URL;
+}
+
+function loadConfig() : void
+{
+    $key = '__test_cpmdb_config_loaded';
+    if(isset($GLOBALS[$key])) {
+        return;
+    }
+
+    $GLOBALS[$key] = true;
+
+    if(file_exists(__DIR__.'/../config.php')) {
+        require_once __DIR__.'/../config.php';
+    } else {
+        define('CPMDB_INSTALL_URL', 'http://127.0.0.1/cpmdb');
+    }
+}
+
 
 function getToolArg() : ?string
 {
