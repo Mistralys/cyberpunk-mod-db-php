@@ -8,6 +8,11 @@ use AppUtils\ArrayDataCollection;
 use CPMDB\Mods\Items\BaseItemCollection;
 use CPMDB\Mods\Items\ItemCategory;
 use CPMDB\Mods\Items\ItemInfoInterface;
+use const CPMDB\Assets\KEY_CAT_ICON;
+use const CPMDB\Assets\KEY_CAT_ID;
+use const CPMDB\Assets\KEY_CAT_ITEMS;
+use const CPMDB\Assets\KEY_CAT_LABEL;
+use const CPMDB\Assets\KEY_CAT_TAGS;
 
 /**
  * @method ItemInfoInterface[] getAll()
@@ -73,9 +78,11 @@ abstract class BaseModItemsCollection extends BaseItemCollection implements ModI
 
         $category = new ItemCategory(
             $this->modInfo,
-            $data->getString('label'),
-            $this->filterTags($data->getArray('tags')),
-            $this->filterItems($data->getArray('items'))
+            $data->getString(KEY_CAT_ID),
+            $data->getString(KEY_CAT_LABEL),
+            $data->getString(KEY_CAT_ICON),
+            $this->filterTags($data->getArray(KEY_CAT_TAGS)),
+            $this->filterItems($data->getArray(KEY_CAT_ITEMS))
         );
 
         $this->categories[] = $category;
@@ -133,5 +140,48 @@ abstract class BaseModItemsCollection extends BaseItemCollection implements ModI
         $this->initItems();
 
         return $this->categories;
+    }
+
+    public function getCategoryIDs(): array
+    {
+        $ids = array();
+        foreach($this->getCategories() as $category) {
+            $ids[] = $category->getID();
+        }
+
+        sort($ids);
+
+        return $ids;
+    }
+
+    public function categoryExists(string $id): bool
+    {
+        return in_array($id, $this->getCategoryIDs());
+    }
+
+    /**
+     * @inheritDoc
+     * @throws ModException {@see ModException::ERROR_CATEGORY_NOT_FOUND}
+     */
+    public function getCategoryByID(string $id): ItemCategory
+    {
+        foreach($this->getCategories() as $category) {
+            if($category->getID() === $id) {
+                return $category;
+            }
+        }
+
+        throw new ModException(
+            'Mod item category not found.',
+            sprintf(
+                'The category with ID [%s] was not found in the mod [%s]. '.PHP_EOL.
+                'Available categories are: '.PHP_EOL.
+                '- %s',
+                $id,
+                $this->modInfo->getID(),
+                implode(PHP_EOL.'- ', $this->getCategoryIDs())
+            ),
+            ModException::ERROR_CATEGORY_NOT_FOUND
+        );
     }
 }
