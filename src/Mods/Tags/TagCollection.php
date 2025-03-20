@@ -62,7 +62,7 @@ class TagCollection extends BaseStringPrimaryCollection
     /**
      * Merges multiple tag lists into one unique list.
      *
-     * @param array<string[]> ...$tagLists
+     * @param array<string> ...$tagLists
      * @return string[]
      */
     public static function mergeTags(...$tagLists) : array
