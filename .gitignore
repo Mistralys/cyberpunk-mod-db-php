@@ -8,3 +8,4 @@ tests/cache/mod-index/
 tests/cache/mods.ser
 tests/cache/index/index.version
 tests/cache/mods.version
+config.php
