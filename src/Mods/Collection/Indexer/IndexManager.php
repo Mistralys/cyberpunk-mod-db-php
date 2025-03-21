@@ -12,13 +12,13 @@ use CPMDB\Mods\Collection\ModCollection;
 
 /**
  * Manages the search index for mods: Checks if the
- * database exists and is up-to-date, and creates it
+ * database exists and is up to date, and creates it
  * as necessary.
  *
  * ## Usage
  *
- * Everything is automated. Once instantiated, simply
- * call {@see self::getModIndex()} or {@see self::getItemIndex()}
+ * Everything is automated. Once instantiated, call
+ * {@see self::getModIndex()} or {@see self::getItemIndex()}
  * to start working with the available indexes.
  *
  * @package CPMDB
@@ -26,7 +26,7 @@ use CPMDB\Mods\Collection\ModCollection;
  */
 class IndexManager
 {
-    public const INDEX_SYSTEM_VERSION = '3';
+    public const INDEX_SYSTEM_VERSION = '4';
 
     private ModIndex $modIndex;
     private ItemIndex $itemIndex;
