@@ -1,4 +1,4 @@
-## v1.7.1 - Pagination and indexing update
+## v1.8.0 - Pagination and indexing update
 - Filtering: Added pagination support to the filtering.
 - Filtering: All results are now paginated.
 - Database: Added item categories (label and ID) to the full text search index.
