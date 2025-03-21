@@ -26,6 +26,7 @@ class ItemIndex extends BaseIndex
     public const INDEX_TYPE = 'item';
 
     public const KEY_ITEM_CATEGORY = 'item_category';
+    public const KEY_ITEM_CATEGORY_UUID = 'item_category_uuid';
     public const KEY_ITEM_CODE = 'item_code';
     public const KEY_ITEM_UUID = 'item_uuid';
     public const KEY_ITEM_NAME = 'item_name';
@@ -74,12 +75,15 @@ class ItemIndex extends BaseIndex
     private function collectItem(ItemInfoInterface $item) : array
     {
         $mod = $item->getMod();
+        $category = $item->getCategory();
 
         return [
             self::KEY_ITEM_UUID => $item->getID(),
             self::KEY_ITEM_NAME => $item->getName(),
             self::KEY_ITEM_CODE => $item->getItemCode(),
             self::KEY_ITEM_TAGS => $item->getTags(),
+            self::KEY_ITEM_CATEGORY => $category->getLabel(),
+            self::KEY_ITEM_CATEGORY_UUID => $category->getID(),
             ModIndex::KEY_MOD_UUID => $item->getModID(),
             ModIndex::KEY_MOD_NAME => $mod->getName(),
             ModIndex::KEY_MOD_AUTHORS => $mod->getAuthors(),
