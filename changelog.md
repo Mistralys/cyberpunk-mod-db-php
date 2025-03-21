@@ -1,6 +1,8 @@
-## v1.7.1 - Implemented pagination
+## v1.7.1 - Pagination and indexing update
 - Filtering: Added pagination support to the filtering.
 - Filtering: All results are now paginated.
+- Database: Added item categories (label and ID) to the full text search index.
+- Dependencies: Updated to Mod DB [v]().
 
 ## v1.7.0 - Tag improvements (Breaking-S)
 - Tags: Added `getFullName()`.
