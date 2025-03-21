@@ -33,4 +33,13 @@ final class ItemFilteringTests extends CPMDBTestCase implements FilterAssertions
             $this->assertContains('PeachuHime', $item->getAuthors());
         }
     }
+
+    public function test_filterByCategoryLabel() : void
+    {
+        $filters = $this->createCollection()
+            ->createItemFilter()
+            ->selectSearchTerm('Bicep Monitors');
+
+        $this->assertResultsContainPrimaryID('clothing.bicep-biomonitor.caibro_monitor_default', $filters);
+    }
 }
