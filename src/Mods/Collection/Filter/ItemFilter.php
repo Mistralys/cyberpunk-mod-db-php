@@ -39,6 +39,7 @@ class ItemFilter extends BaseFilter
     public const SEARCHABLE_ATTRIBUTES = array(
         ItemIndex::KEY_ITEM_NAME,
         ItemIndex::KEY_ITEM_CATEGORY,
+        ItemIndex::KEY_ITEM_CATEGORY_UUID,
         ItemIndex::KEY_ITEM_CODE,
         ItemIndex::KEY_ITEM_TAGS,
         ModIndex::KEY_MOD_NAME,
@@ -54,6 +55,7 @@ class ItemFilter extends BaseFilter
     public const SORTABLE_ATTRIBUTES = array(
         ItemIndex::KEY_ITEM_NAME,
         ItemIndex::KEY_ITEM_CATEGORY,
+        ItemIndex::KEY_ITEM_CATEGORY_UUID,
         ItemIndex::KEY_ITEM_CODE
     );
 
