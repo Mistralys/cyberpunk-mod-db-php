@@ -1,6 +1,8 @@
 ## v1.8.0 - Pagination and indexing update
 - Filtering: Added pagination support to the filtering.
 - Filtering: All results are now paginated.
+- Filtering: Added `selectModUUID()` and `selectModID()` to the mod filters.
+- Item Categories: Icons are now available for some mods via `getIconURL()`.
 - Database: Added item categories (label and ID) to the full text search index.
 - Dependencies: Updated to Mod DB [v]().
 
