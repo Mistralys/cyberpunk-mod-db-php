@@ -267,7 +267,7 @@ abstract class BaseFilter implements FilterInterface
      * @param string[] $items
      * @return string
      */
-    private function renderListMode(string $keyName, string $mode, array $items) : string
+    protected function renderListMode(string $keyName, string $mode, array $items) : string
     {
         if($mode === self::LIST_MODE_OR) {
             return $this->renderListOR($keyName, $items);
@@ -281,7 +281,7 @@ abstract class BaseFilter implements FilterInterface
      * @param string[] $items
      * @return string
      */
-    private function renderListOR(string $keyName, array $items) : string
+    protected function renderListOR(string $keyName, array $items) : string
     {
         return sprintf(
             "%s IN('%s')",
@@ -295,7 +295,7 @@ abstract class BaseFilter implements FilterInterface
      * @param string[] $items
      * @return string
      */
-    private function renderListAND(string $keyName, array $items) : string
+    protected function renderListAND(string $keyName, array $items) : string
     {
         $list = array();
         foreach($items as $item) {
