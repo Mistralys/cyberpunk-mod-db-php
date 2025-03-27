@@ -25,6 +25,28 @@ final class ModFilteringTests extends CPMDBTestCase implements FilterAssertionsI
         $this->assertResultsContainPrimaryID('clothing.moon-and-star-earrings', $filters);
     }
 
+    public function test_filterByModUUIDs() : void
+    {
+        $matches = $this->createCollection()
+            ->createFilter()
+            ->selectModUUID('clothing.moon-and-star-earrings')
+            ->getMods();
+
+        $this->assertCount(1, $matches);
+        $this->assertSame('clothing.moon-and-star-earrings', $matches[0]->getUUID());
+    }
+
+    public function test_filterByModIDs() : void
+    {
+        $matches = $this->createCollection()
+            ->createFilter()
+            ->selectModID('moon-and-star-earrings')
+            ->getMods();
+
+        $this->assertCount(1, $matches);
+        $this->assertSame('clothing.moon-and-star-earrings', $matches[0]->getUUID());
+    }
+
     public function test_filterByMultipleTags() : void
     {
         $filters = $this->createCollection()
