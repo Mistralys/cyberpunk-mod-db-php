@@ -22,7 +22,7 @@ use CPMDB\Mods\Clothing\ClothingModInfo;
  */
 class ClothingCategory extends BaseCategory
 {
-    public const FOLDER_NAME = 'clothing';
+    public const CATEGORY_ID = 'clothing';
 
     public function getLabel(): string
     {
@@ -31,7 +31,7 @@ class ClothingCategory extends BaseCategory
 
     public function getFolderName(): string
     {
-        return self::FOLDER_NAME;
+        return self::CATEGORY_ID;
     }
 
     public function getModClass(): string
