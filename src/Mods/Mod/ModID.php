@@ -35,6 +35,47 @@ class ModID implements StringableInterface
     }
 
     /**
+     * Converts a list of mod ID, mod UUID or ModID
+     * instances to a list of UUID strings.
+     *
+     * @param array<int|string,string|ModID> $list
+     * @return string[] List of unique mod UUIDs, sorted alphabetically.
+     */
+    public static function list2UUIDStrings(array $list) : array
+    {
+        $result = array();
+        foreach($list as $mod) {
+            $result[] = self::create($mod)->getModUUID();
+        }
+
+        $result = array_unique($result);
+
+        sort($result);
+
+        return $result;
+    }
+
+    /**
+     * Converts a list of mod ID, mod UUID or ModID
+     * instances to a list of ModID instances.
+     *
+     * @param array<int|string,string|ModID> $list
+     * @return ModID[] List of unique mod IDs, sorted alphabetically by UUID.
+     */
+    public static function list2UUIDs(array $list) : array
+    {
+        $result = array();
+        foreach($list as $mod) {
+            $id = self::create($mod);
+            $result[$id->getModUUID()] = $id;
+        }
+
+        ksort($result);
+
+        return array_values($result);
+    }
+
+    /**
      * @param string $id
      * @return array{category: string, id: string}
      * @throws ModException {@see ModException::ERROR_UNRECOGNIZED_ID_FORMAT}
