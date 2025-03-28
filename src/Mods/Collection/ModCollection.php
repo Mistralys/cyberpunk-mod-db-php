@@ -28,6 +28,7 @@ use CPMDB\Mods\Collection\Filter\ItemFilter;
 use CPMDB\Mods\Collection\Filter\ModFilter;
 use CPMDB\Mods\Collection\Indexer\IndexManager;
 use CPMDB\Mods\Items\GlobalItemCollection;
+use CPMDB\Mods\Mod\ModID;
 use CPMDB\Mods\Mod\ModInfoInterface;
 use Mistralys\ChangelogParser\ChangelogParser;
 use Throwable;
@@ -40,7 +41,6 @@ use Throwable;
  *
  * @method ModInfoInterface[] getAll()
  * @method ModInfoInterface getDefault()
- * @method ModInfoInterface getByID(string $id)
  */
 class ModCollection extends BaseStringPrimaryCollection implements ModCollectionInterface
 {
@@ -321,5 +321,19 @@ class ModCollection extends BaseStringPrimaryCollection implements ModCollection
         }
 
         return $this->itemCollection;
+    }
+
+    /**
+     * @param string $id
+     * @return ModInfoInterface
+     */
+    public function getByID(string $id): StringPrimaryRecordInterface
+    {
+        return parent::getByID(ModID::create($id)->getModUUID());
+    }
+
+    public function idExists(string $id): bool
+    {
+        return parent::idExists(ModID::create($id)->getModUUID());
     }
 }
