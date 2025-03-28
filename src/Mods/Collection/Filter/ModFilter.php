@@ -13,6 +13,7 @@ use CPMDB\Mods\Clothing\ClothingModInfo;
 use CPMDB\Mods\Collection\ClothingCategory;
 use CPMDB\Mods\Collection\Indexer\IndexInterface;
 use CPMDB\Mods\Collection\Indexer\ModIndex;
+use CPMDB\Mods\Mod\ModID;
 use CPMDB\Mods\Mod\ModInfoInterface;
 use Loupe\Loupe\SearchParameters;
 
@@ -100,18 +101,24 @@ class ModFilter extends BaseFilter
     /**
      * Selects a mod by its UUID (e.g. `clothing.catsuit`).
      *
-     * @param string $modUUID
+     * @param string|ModID $modUUID
      * @return $this
      */
-    public function selectModUUID(string $modUUID) : self
+    public function selectModUUID(string|ModID $modUUID) : self
     {
-        if(!in_array($modUUID, $this->filteredMods)) {
-            $this->filteredMods[] = $modUUID;
+        $id = (string)ModID::create($modUUID);
+
+        if(!in_array($id, $this->filteredMods)) {
+            $this->filteredMods[] = $id;
         }
 
         return $this;
     }
 
+    /**
+     * @param array<int,string|ModID> $modUUIDs
+     * @return $this
+     */
     public function selectModUUIDs(array $modUUIDs) : self
     {
         foreach($modUUIDs as $modUUID) {
@@ -126,23 +133,22 @@ class ModFilter extends BaseFilter
      * Automatically adds the default or specified category to the ID
      * to generate the UUID.
      *
-     * @param string $modID
-     * @param string $modCategory
+     * @param string|ModID $modID
      * @return $this
      */
-    public function selectModID(string $modID, string $modCategory=ClothingCategory::CATEGORY_ID) : self
+    public function selectModID(string|ModID $modID) : self
     {
-        if(!str_contains($modID, '.')) {
-            $modID = $modCategory . '.' . $modID;
-        }
-
         return $this->selectModUUID($modID);
     }
 
-    public function selectModIDs(array $modIDs, string $modCategory=ClothingCategory::CATEGORY_ID) : self
+    /**
+     * @param array<int,string|ModID> $modIDs
+     * @return $this
+     */
+    public function selectModIDs(array $modIDs) : self
     {
         foreach($modIDs as $modID) {
-            $this->selectModID($modID, $modCategory);
+            $this->selectModID($modID);
         }
 
         return $this;
