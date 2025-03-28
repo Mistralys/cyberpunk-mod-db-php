@@ -3,6 +3,7 @@
 - Filtering: All results are now paginated.
 - Filtering: Added `selectModUUID()` and `selectModID()` to the mod filters.
 - Item Categories: Icons are now available for some mods via `getIconURL()`.
+- Mods: Added the `ModID` utility made to help working with UUIDs and IDs.
 - Database: Added item categories (label and ID) to the full text search index.
 - Dependencies: Updated to Mod DB [v]().
 
