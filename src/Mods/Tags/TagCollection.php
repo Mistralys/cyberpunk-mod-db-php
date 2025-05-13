@@ -101,4 +101,26 @@ class TagCollection extends BaseStringPrimaryCollection
             ));
         }
     }
+
+    /**
+     * Returns a list of all tags, grouped by their category.
+     *
+     * @return array<string, TagInfoInterface[]>
+     */
+    public function getCategorized() : array
+    {
+        $categories = array();
+        foreach($this->getAll() as $tag) {
+            $category = $tag->getCategory();
+            if(!isset($categories[$category])) {
+                $categories[$category] = array();
+            }
+
+            $categories[$category][] = $tag;
+        }
+
+        uksort($categories, 'strnatcasecmp');
+
+        return $categories;
+    }
 }
