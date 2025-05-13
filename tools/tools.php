@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace CPMDB\Tools;
 
+use function CPMDB\Assets\getCLICommands;
 use function CPMDB\Assets\logError;
+use function CPMDB\Mods\Tools\buildRelease;
 use function CPMDB\Mods\Tools\generateAtelierClasses;
 use function CPMDB\Mods\Tools\generateAtelierCollectionClass;
 use function CPMDB\Mods\Tools\generateAteliersEnumClass;
@@ -26,6 +28,10 @@ switch(getToolArg())
 
     case 'generate-tag-names':
         generateTagsEnumClass();
+        break;
+
+    case 'build':
+        buildRelease();
         break;
 
     default:

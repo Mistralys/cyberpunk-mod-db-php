@@ -73,6 +73,7 @@ function getToolArg() : ?string
         'detect-missing-tags',
         'generate-atelier-classes',
         'generate-tag-names',
+        'build'
     );
 
     foreach(getCLICommands() as $command => $value) {
