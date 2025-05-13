@@ -24,7 +24,6 @@ class AlvarixCustomStore extends BaseAtelier
     public const ATELIER_NAME = 'Alvarix Custom Store';
     
     public const MOD_IDS = array(
-        'clothing.bad-cop-outfit',
         'clothing.blood-rayne',
         'clothing.deus-ex-outfit',
         'clothing.evangelion-plugsuits',

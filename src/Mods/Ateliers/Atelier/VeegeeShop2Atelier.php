@@ -26,13 +26,17 @@ class VeegeeShop2Atelier extends BaseAtelier
     public const MOD_IDS = array(
         'clothing.assassin-outfit',
         'clothing.assassin-outfit-part-2',
+        'clothing.boudoir-part-19',
         'clothing.casual-style-outfit-part-2',
         'clothing.casual-style-outfit-part-4',
         'clothing.casual-style-outfit-part-8',
         'clothing.casual-style-outfit-part-10',
         'clothing.casual-style-outfit-part-14',
         'clothing.casual-style-outfit-part-15',
+        'clothing.chic-and-elegant-style-outfit-part-2',
+        'clothing.daily-style-wear-part-3',
         'clothing.oversized-blazer',
+        'clothing.tactical-style-outfit',
     );
     
     public function getID(): string

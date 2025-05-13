@@ -11,21 +11,20 @@ namespace CPMDB\Mods\Ateliers\Atelier;
 use CPMD\Mods\Ateliers\BaseAtelier;
 
 /**
- * Atelier mod: Veegee Jewelry Shop
+ * Atelier mod: Corpo Clothing
  * 
  * @package CPMDB
  * @subpackage Ateliers 
  * @auto-generated See {@see generateAtelierClasses()}
  */
-class VeegeeJewelryShopAtelier extends BaseAtelier
+class CorpoClothingAtelier extends BaseAtelier
 {
-    public const ATELIER_ID = 'veegee-jewelry-shop';
-    public const ATELIER_URL = 'https://www.nexusmods.com/cyberpunk2077/mods/8688';
-    public const ATELIER_NAME = 'Veegee Jewelry Shop';
+    public const ATELIER_ID = 'corpo-clothing';
+    public const ATELIER_URL = 'https://www.nexusmods.com/cyberpunk2077/mods/18044';
+    public const ATELIER_NAME = 'Corpo Clothing';
     
     public const MOD_IDS = array(
-        'clothing.fox-ears',
-        'clothing.glasses-pack',
+        'clothing.pozer-jacket-and-cyberdeck',
     );
     
     public function getID(): string
@@ -45,6 +44,6 @@ class VeegeeJewelryShopAtelier extends BaseAtelier
     
     public function getAuthors() : array
     {
-        return array('Veegee', 'VeegeeAlvarez');
+        return array('Sumi', 'SumiTerra');
     }
 }

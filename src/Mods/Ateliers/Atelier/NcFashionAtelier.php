@@ -24,6 +24,7 @@ class NcFashionAtelier extends BaseAtelier
     public const ATELIER_NAME = 'NC Fashion';
     
     public const MOD_IDS = array(
+        'clothing.ada-wong-outfit-reworked',
         'clothing.arasaka-corpo-shirt',
         'clothing.arasaka-jacket',
         'clothing.arasaka-sports-wear-v2',
@@ -40,7 +41,7 @@ class NcFashionAtelier extends BaseAtelier
         'clothing.jin-kazam-outfit',
         'clothing.jinx-arcane-s2-top',
         'clothing.leather-boots',
-        'clothing.spandex-leggins',
+        'clothing.spandex-leggings',
         'clothing.xrx-low-waist-leggings',
         'clothing.lucy-edgerunners-jacket',
         'clothing.lucy-edgerunners-pants',
@@ -53,6 +54,7 @@ class NcFashionAtelier extends BaseAtelier
         'clothing.turtleneck-top-camo',
         'clothing.xrx-asymmetric-top',
         'clothing.xrx-dress',
+        'clothing.xrx-futuristic-top',
         'clothing.xrx-latex-gloves',
         'clothing.xrx-leather-jacket',
         'clothing.xrx-led-leotard',

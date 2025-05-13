@@ -26,6 +26,7 @@ class SubleaderVirtualAtelier extends BaseAtelier
     public const MOD_IDS = array(
         'clothing.hailey-outfit',
         'clothing.nanosuit',
+        'clothing.valby-outfit',
     );
     
     public function getID(): string

@@ -24,6 +24,7 @@ class RaemsAtelierStore extends BaseAtelier
     public const ATELIER_NAME = 'Raem\'s Atelier Store';
     
     public const MOD_IDS = array(
+        'clothing.bomber-jackets',
         'clothing.chain-jewelry-collection',
     );
     

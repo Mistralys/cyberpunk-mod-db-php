@@ -24,6 +24,7 @@ class HystAtelierStore extends BaseAtelier
     public const ATELIER_NAME = 'Hyst Atelier Store';
     
     public const MOD_IDS = array(
+        'clothing.elegant-dress',
         'clothing.evelyn-dress',
         'clothing.short-tank',
     );

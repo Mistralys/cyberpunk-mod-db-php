@@ -25,6 +25,7 @@ class TheRaccoonDumpster2Atelier extends BaseAtelier
     
     public const MOD_IDS = array(
         'clothing.spy-long-coat',
+        'clothing.stinky-crop-top',
     );
     
     public function getID(): string

@@ -25,7 +25,10 @@ class VoidwearVirtualAtelier extends BaseAtelier
     
     public const MOD_IDS = array(
         'clothing.casual-tshirt-pockets-and-decals',
+        'clothing.knife-holster-torso',
+        'clothing.round-glasses',
         'clothing.shroud',
+        'clothing.turtleneck-tshirt',
     );
     
     public function getID(): string

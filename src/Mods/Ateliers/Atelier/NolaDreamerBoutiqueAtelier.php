@@ -27,6 +27,7 @@ class NolaDreamerBoutiqueAtelier extends BaseAtelier
         'clothing.alt-jacket-and-pants',
         'clothing.evelyn-coat-and-fur',
         'clothing.judy-platform-shoes',
+        'clothing.kitty-over-knee-socks',
         'clothing.michiko-dress-with-fur',
         'clothing.one-shoulder-shirt',
     );

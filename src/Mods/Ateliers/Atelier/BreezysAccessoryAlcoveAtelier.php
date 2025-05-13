@@ -24,7 +24,9 @@ class BreezysAccessoryAlcoveAtelier extends BaseAtelier
     public const ATELIER_NAME = 'Breezy\'s Accessory Alcove';
     
     public const MOD_IDS = array(
+        'clothing.caged-bracelet',
         'clothing.keffiyeh',
+        'clothing.knuckle-spikes',
     );
     
     public function getID(): string
