@@ -2,10 +2,12 @@
 - Filtering: Added pagination support to the filtering.
 - Filtering: All results are now paginated.
 - Filtering: Added `selectModUUID()` and `selectModID()` to the mod filters.
-- Item Categories: Icons are now available for some mods via `getIconURL()`.
+- Items: Category icons are now available for some mods via `getIconURL()`.
+- Items: Added `getCategorized()` in the collection.
 - Mods: Added the `ModID` utility made to help working with UUIDs and IDs.
 - Database: Added item categories (label and ID) to the full text search index.
-- Dependencies: Updated to Mod DB [v]().
+- Tools: Added the `build` command.
+- Dependencies: Updated to Mod DB [v2.3.0](https://github.com/Mistralys/cyberpunk-mod-db/releases/tag/2.3.0).
 
 ## v1.7.0 - Tag improvements (Breaking-S)
 - Tags: Added `getFullName()`.
